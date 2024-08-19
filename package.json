@@ -1,32 +1,23 @@
 {
-  "name": "pilates-project-back",
+  "name": "api",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
-  "module": "module",
   "scripts": {
-    "babel-node": "babel-node --presets=@babel/preset-env src/index.js",
-    "dev": "nodemon --exec npm run babel-node src/index.js"
+    "start": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LeanCG/pilates-project-back.git"
-  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/LeanCG/pilates-project-back/issues"
-  },
-  "homepage": "https://github.com/LeanCG/pilates-project-back#readme",
+  "description": "",
+  "type": "module",
   "dependencies": {
-    "@babel/cli": "^7.24.8",
-    "@babel/core": "^7.24.9",
-    "@babel/node": "^7.25.0",
-    "@babel/preset-env": "^7.25.0",
-    "dotenv": "^16.4.5",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
-    "morgan": "^1.10.0",
-    "nodemon": "^3.1.4",
-    "promise-mysql": "^5.2.0"
+    "express-validator": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.1.4"
   }
 }
