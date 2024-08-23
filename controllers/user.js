@@ -1,5 +1,7 @@
 import { db } from "../connect.js"
 import util from 'util'
+import bcrypt from "bcryptjs"
+import { validateRegister } from "../middlewares/validate.js"
 
 const query = util.promisify(db.query).bind(db)
 
@@ -19,7 +21,7 @@ export const deleteUser = async (req, res) => {
     }
 }
 
-export const createUser = async (req,res) => {
+export const createUser = [validateRegister, async (req,res) => {
     try {
         const q = "SELECT dni FROM persona WHERE dni = ?"
     
@@ -31,11 +33,16 @@ export const createUser = async (req,res) => {
 
         const values_persona = [req.body.apellido, req.body.nombre, req.body.dni, req.body.cuil, req.body.direccion_id, req.body.tipo_persona_id]
 
-        await query('INSERT INTO persona (`apellido`, `nombre`, `dni`, `cuil`, `direccion_id`, `tipo_persona_id`) VALUES (?)', [values_persona])
+        const resultados = await query('INSERT INTO persona (`apellido`, `nombre`, `dni`, `cuil`, `direccion_id`, `tipo_persona_id`) VALUES (?)', [values_persona])
 
-        // const values_user = [req.body.username, encrypt_password, req.body.created_at, req.body.updated_at, id, estado, rol_id, tipo_estado_id]
+        const idNuevaPersona = resultados.insertId
 
-        // await query('INSERT INTO user (`username`, ``password`, `created_at`, `updated_at`, `persona_id`, `estado`, `rol_id`, `tipo_estado_id`', [values_user])
+        const salt = bcrypt.genSaltSync(10)
+        const encrypt_password = bcrypt.hashSync(req.body.password, salt)
+
+        const values_user = [req.body.username, encrypt_password, req.body.created_at, req.body.updated_at, idNuevaPersona, req.body.rol_id, req.body.tipo_estado_id]
+
+        await query('INSERT INTO user (`username`, `password`, `created_at`, `updated_at`, `persona_id`, `rol_id`, `tipo_estado_id`) VALUES (?) ', [values_user])
 
         res.status(200).json("Usuario creado")
     } 
@@ -44,4 +51,4 @@ export const createUser = async (req,res) => {
     }
 }
 
-
+]

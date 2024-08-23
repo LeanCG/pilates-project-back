@@ -9,46 +9,35 @@ import jwt from "jsonwebtoken"
 const query = util.promisify(db.query).bind(db)
 
 // Middleware de validación
-const validateRegister = [
-    body('username').isLength({ min: 4 }).withMessage('El nombre de usuario debe tener al menos 4 caracteres.'),
-    body('email').isEmail().withMessage('Email no válido.'),
-    body('password').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres.'),
-    (req, res, next) => {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() })
-        }
-        next()
-    }
-]
 
-export const register = [
-    validateRegister,
-    async (req, res) => {
-        try {
-            // Verificar si el usuario ya existe
-            const q = "SELECT * FROM user WHERE username = ?"
-            const data = await query(q, [req.body.username])
 
-            if (data.length) {
-                return res.status(409).json("Usuario existente")
-            }
+// export const register = [
+//     validateRegister,
+//     async (req, res) => {
+//         try {
+//             // Verificar si el usuario ya existe
+//             const q = "SELECT * FROM user WHERE username = ?"
+//             const data = await query(q, [req.body.username])
 
-            // Encriptar la contraseña
-            const salt = bcrypt.genSaltSync(10)
-            const encrypt = bcrypt.hashSync(req.body.password, salt)
+//             if (data.length) {
+//                 return res.status(409).json("Usuario existente")
+//             }
 
-            // Insertar el nuevo usuario
-            const q2 = "INSERT INTO user (`name`, `email`, `password`, `username`) VALUES (?)"
-            const values = [req.body.name, req.body.email, encrypt, req.body.username]
-            await query(q2, [values])
+//             // Encriptar la contraseña
+//             const salt = bcrypt.genSaltSync(10)
+//             const encrypt = bcrypt.hashSync(req.body.password, salt)
 
-            res.status(200).json("Usuario creado")
-        } catch (err) {
-            res.status(500).json(err)
-        }
-    }
-]
+//             // Insertar el nuevo usuario
+//             const q2 = "INSERT INTO user (`name`, `email`, `password`, `username`) VALUES (?)"
+//             const values = [req.body.name, req.body.email, encrypt, req.body.username]
+//             await query(q2, [values])
+
+//             res.status(200).json("Usuario creado")
+//         } catch (err) {
+//             res.status(500).json(err)
+//         }
+//     }
+// ]
 
 
 export const login = async (req, res) => {

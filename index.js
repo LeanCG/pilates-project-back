@@ -1,36 +1,40 @@
-import express from "express"
+import express from 'express';
+import userRoutes from './routes/userRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
-const app = express()
+// Crear una instancia de Express
+const app = express();
 
-import userRoutes from "./routes/users.js"
-import postRoutes from "./routes/posts.js"
-import commentRoutes from "./routes/comments.js"
-import likeRoutes from "./routes/likes.js"
-import authRoutes from "./routes/auth.js"
+// Obtener el directorio actual
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-import cors from "cors"
-import cookieParser from "cookie-parser"
-
-//middlewares
-app.use((req,res, next) =>{
-    res.header("Access-Control-Allow-Credentials", true)
-    next()
-})
-app.use(express.json())
+// Middleware
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos desde 'public'
 app.use(cors({
-    origin: "http://localhost:3000",
-}))
-app.use(cookieParser())
+    origin: '*', // Permitir cualquier origen. Cambiar según sea necesario.
+}));
+app.use(cookieParser());
 
+// Rutas de la API
+app.use('/api/users', userRoutes);
+// app.use('/api/posts', postRoutes);
+// app.use('/api/likes', likeRoutes);
+// app.use('/api/comments', commentRoutes);
+// app.use('/api/auth', authRoutes);
 
-app.use("/api/users", userRoutes)
-app.use("/api/posts", postRoutes)
-app.use("/api/likes", likeRoutes)
-app.use("/api/comments", commentRoutes)
-app.use("/api/auth", authRoutes)
+// Servir HTML
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
 
-
-app.listen(3001, () =>{
-    console.log("Api working")
-})
-
+// Iniciar servidor
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
