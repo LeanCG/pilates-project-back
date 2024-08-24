@@ -1,44 +1,11 @@
 import { db } from "../connect.js"
 import bcrypt from "bcryptjs"
-import { body, validationResult } from 'express-validator'
 import util from 'util'
 
 import jwt from "jsonwebtoken"
 
 // Convertir db.query a una función que devuelve una Promesa
 const query = util.promisify(db.query).bind(db)
-
-// Middleware de validación
-
-
-// export const register = [
-//     validateRegister,
-//     async (req, res) => {
-//         try {
-//             // Verificar si el usuario ya existe
-//             const q = "SELECT * FROM user WHERE username = ?"
-//             const data = await query(q, [req.body.username])
-
-//             if (data.length) {
-//                 return res.status(409).json("Usuario existente")
-//             }
-
-//             // Encriptar la contraseña
-//             const salt = bcrypt.genSaltSync(10)
-//             const encrypt = bcrypt.hashSync(req.body.password, salt)
-
-//             // Insertar el nuevo usuario
-//             const q2 = "INSERT INTO user (`name`, `email`, `password`, `username`) VALUES (?)"
-//             const values = [req.body.name, req.body.email, encrypt, req.body.username]
-//             await query(q2, [values])
-
-//             res.status(200).json("Usuario creado")
-//         } catch (err) {
-//             res.status(500).json(err)
-//         }
-//     }
-// ]
-
 
 export const login = async (req, res) => {
         try {
@@ -49,6 +16,9 @@ export const login = async (req, res) => {
             if (data.length === 0) {
                 return res.status(409).json("Usuario no existente")
             }
+
+            console.log(data)
+            console.log(data[0].username)
 
             const checkPassword = bcrypt.compareSync(req.body.password, data[0].password)
 

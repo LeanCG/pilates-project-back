@@ -12,12 +12,12 @@ export const getUser = (req, res) => {
 export const deleteUser = async (req, res) => {
     try {
         const {iduser} = req.params
-        await query('DELETE FROM user WHERE iduser = ?', [iduser])
+        await query('DELETE FROM user WHERE id = ?', [iduser])
         // res.redirect('/list')
         res.status(200).json("Usuario borrado")
     }
     catch (error) {
-        res.status(500).json({message:err.message})    
+        res.status(500).json({message:error.message})    
     }
 }
 
@@ -38,6 +38,7 @@ export const createUser = [validateRegister, async (req,res) => {
         const idNuevaPersona = resultados.insertId
 
         const salt = bcrypt.genSaltSync(10)
+
         const encrypt_password = bcrypt.hashSync(req.body.password, salt)
 
         const values_user = [req.body.username, encrypt_password, req.body.created_at, req.body.updated_at, idNuevaPersona, req.body.rol_id, req.body.tipo_estado_id]
@@ -46,9 +47,11 @@ export const createUser = [validateRegister, async (req,res) => {
 
         res.status(200).json("Usuario creado")
     } 
-    catch (error){
-        res.status(500).json({message:error.message})
+    catch (err){
+        res.status(500).json({message:err.message})
     }
 }
 
 ]
+
+
