@@ -14,6 +14,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
+app.use((req,res, next) =>{
+    res.header("Access-Control-Allow-Credentials", true)
+    next()
+})
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos desde 'public'
 app.use(cors({
@@ -26,7 +30,7 @@ app.use('/api/users', userRoutes);
 // app.use('/api/posts', postRoutes);
 // app.use('/api/likes', likeRoutes);
 // app.use('/api/comments', commentRoutes);
-// app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 
 // Servir HTML
 app.get('/', (req, res) => {
