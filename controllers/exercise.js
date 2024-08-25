@@ -30,3 +30,24 @@ export const createExcercise = async (req,res) => {
     }
 }
 
+// Eliminar un ejercicio
+export const deleteExcercise = async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ error: "El ID del ejercicio es requerido" });
+    }
+
+    try {
+        const sql = 'DELETE FROM ejercicio WHERE id = ?';
+        const result = await query(sql, [id]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: "Ejercicio no encontrado" });
+        }
+
+        res.status(200).json({ message: "Ejercicio eliminado correctamente" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
