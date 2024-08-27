@@ -51,3 +51,31 @@ export const deleteExcercise = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 }
+
+// Modificar Ejercicio
+
+export const updateExcercise = async (req, res) => {
+    const { id } = req.params;
+    const { descripcion, observacion, grupo_muscular, url_video, calorias_promedio, nivel_dificultad } = req.body;
+
+    if (!id) { 
+        return res.status(400).json({ error: "El id del ejercicio es requerido" });
+    }
+
+    try {
+        const sql = `
+            UPDATE ejercicio
+            SET descripcion = ?, observacion = ?, grupo_muscular = ?, url_video = ?, calorias_promedio = ?, nivel_dificultad = ?
+            WHERE id = ?
+        `;
+        const result = await query(sql, [descripcion, observacion, grupo_muscular, url_video, calorias_promedio, nivel_dificultad, id]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: "Ejercicio no encontrado" });
+        }
+
+        res.status(200).json({ message: "Ejercicio modificado correctamente" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
