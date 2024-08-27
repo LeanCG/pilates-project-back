@@ -1,0 +1,60 @@
+.container-fluid {
+    background: linear-gradient(180deg, #6404b3d5 0%, #4ba37cd7 100%);
+    padding: 15px;
+}
+
+.custom-card {
+    width: 60%;
+    display: flex;
+    min-height: 600px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: none;
+}
+
+.left {
+    flex: 1;
+    background: linear-gradient(rgba(133, 71, 158, 0.507), rgba(102, 102, 102, 0.397)), url('/public/images/pilates_image.webp') center;
+    background-size: cover;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.left h1 {
+    font-family: Calibri;
+    font-size: 80px;
+}
+
+.left h3 {
+    font-size: 40px;
+}
+
+.left p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+}
+
+.right {
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.right h1 {
+    font-family: Calibri;
+    font-size: 50px;
+}
+.custom-card button {
+    background-color: rgb(128, 44, 128);
+    border: none;
+}
+.custom-card button:hover {
+    background-color: rgb(190, 85, 190);
+}
+.custom-span {
+    text-decoration: underline;
+    cursor: pointer;
+}

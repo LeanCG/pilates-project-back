@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="shortcut icon" href="/public/images/pilates_icon.png" type="image/x-icon">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- bs-stepper CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/home.css">
+
+</head>
+
+<body>
+    <div class="d-flex">
+        <!-- Botón para colapsar el menú -->
+        <button id="toggle-menu" class="btn btn-primary">
+            <img src="/public/images/menu_icon.png" alt="Toggle Menu">
+        </button>
+        <!--Barra lateral-->
+        <div id="sidebar" class="sidebar">
+            <!-- Profile Section -->
+            <div class="profile">
+                <img src="/public/images/pilates_icon.png" alt="Logo">
+                <span class="menu-text">Equilibrio</span>
+            </div>
+
+            <!-- Navigation Links -->
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html">
+                        <img src="/public/images/home.png" alt="Inicio" class="icon"> <span
+                            class="menu-text">Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#usuariosSubmenu">
+                        <img src="/public/images/users_icon.png" alt="Usuarios" class="icon"> <span
+                            class="menu-text">Usuarios</span>
+                        <img src="/public/images/down.png" class="icon small-icon">
+                    </a>
+                    <ul class="collapse" id="usuariosSubmenu">
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="#">
+                                <img src="/public/images/search_users.png" alt="Ver usuarios" class="icon"> <span
+                                    class="menu-text">Ver usuarios</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="#" id="register-user">
+                                <img src="/public/images/add_user.png" alt="Registrar nuevo usuario" class="icon"> <span
+                                    class="menu-text">Registrar nuevo usuario</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <img src="/public/images/calendar.png" alt="Turnos" class="icon"> <span
+                            class="menu-text">Turnos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#rutinasSubmenu">
+                        <img src="/public/images/pilates_icon2.png" alt="Rutinas" class="icon"> <span
+                            class="menu-text">Rutinas</span>
+                        <img src="/public/images/down.png" class="icon small-icon">
+                    </a>
+                    <ul class="collapse" id="rutinasSubmenu">
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="#">
+                                <img src="/public/images/planning.png" alt="Ver rutinas actuales" class="icon"> <span
+                                    class="menu-text">Ver rutinas actuales</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item" href="#">
+                                <img src="/public/images/add_rutine.png" alt="Añadir rutina" class="icon"> <span
+                                    class="menu-text">Añadir rutina</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!--Sección de logout-->
+                <li class="nav-item logout">
+                    <a class="nav-link" href="#">
+                        <img src="/public/images/logout.png" alt="Cerrar sesión" class="icon"> <span
+                            class="menu-text">Cerrar sesión</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- Main Content -->
+        <div id="main-content" class="flex-grow-1 d-flex flex-column">
+            <h1>Bienvenido a la página principal</h1>
+            <p>Este es el contenido principal de la página.</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- bs-stepper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+    <!--JavaScript-->
+    <script src="/public/js/home.js"></script>
+</body>
+
+</html>

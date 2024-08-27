@@ -1,0 +1,139 @@
+body {
+    background: linear-gradient(180deg, #6404b3d5 0%, #4ba37cd7 100%);
+    font-family: Calibri;
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px;
+}
+
+/* Ajuste del contenedor principal */
+.d-flex {
+    display: flex;
+    align-items: flex-start;
+}
+
+.sidebar {
+    height: 100vh;
+    width: 280px;
+    background-color: #787f86;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding-top: 20px;
+    transition: width 0.3s;
+}
+/* Estilo cuando se ocultan los nombres de las secciones */
+.sidebar.collapsed {
+    width: 70px;
+}
+
+/* Oculta el texto del menú cuando la barra lateral está colapsada */
+.sidebar.collapsed .menu-text {
+    display: none;
+}
+
+.sidebar .profile {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 2px solid #685f5f;
+    margin-bottom: 20px;
+    
+}
+
+.sidebar .profile img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.icon {
+    width: 20px; /* Ajusta según el tamaño de tus íconos */
+    height: 20px;
+    margin-right: 8px; /* Espacio entre el ícono y el texto */
+    vertical-align: middle; /* Alineación vertical con el texto */
+}
+
+.small-icon {
+    width: 10px; /* Tamaño reducido */
+    height: 10px;
+    margin-left: 4px; /* Espacio opcional entre el texto y el ícono */
+}
+
+.sidebar .nav-link {
+    color: #ffffff;
+}
+
+.sidebar .nav-link:hover {
+    color: #ffffff;
+    background-color: #6a7179;
+    min-width: 60px;
+}
+
+.sidebar .dropdown-menu {
+    background-color: #6a7179;
+}
+
+.sidebar .dropdown-item {
+    padding-left: 20px;
+    color: #ffffff;
+}
+
+.sidebar ul {
+    list-style-type: none; /* Sin bullets */
+    padding-left: 5px; /* Quita el padding por defecto */
+}
+
+.sidebar .dropdown-item:hover {
+    background-color: #6a7179;
+    color: #ffffff;
+}
+
+.logout {
+    margin-top: auto; /* Empuja el botón hacia el final */
+    padding: 10px 0;
+}
+
+/* Ajuste del contenido principal cuando la barra lateral está colapsada */
+#main-content {
+    height: 100vh;
+    transition: margin-left 0.3s;
+    margin-left: 310px;
+    padding: 20px;
+}
+
+#main-content.collapsed {
+    margin-left: 80px;
+}
+
+/* Asegurar que el botón de colapsar no se mueva */
+#toggle-menu {
+    margin-right: 10px;
+    height: 40px;
+    background-color: #ffffff; /* Cambia según tu preferencia */
+    border: none;
+    outline: none;
+    position: absolute;
+    left: 280px; /* Posicióna justo al lado de la barra lateral */
+    top: 5px; /* Ajusta según tu preferencia */
+    padding: 5px;
+    transition: left 0.3s; /* Transición suave */
+    max-width: 40px;
+    max-height: 40px;
+}
+
+#toggle-menu img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Ajuste para la barra lateral colapsada */
+.sidebar.collapsed + #toggle-menu {
+    left: 70px;
+}
+
