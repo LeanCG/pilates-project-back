@@ -33,7 +33,7 @@ export const createUser = [validateRegister, async (req,res) => {
 
         const values_persona = [req.body.apellido, req.body.nombre, req.body.dni, req.body.cuil, req.body.direccion_id, req.body.tipo_persona_id]
 
-        const resultados = await query('INSERT INTO persona (`apellido`, `nombre`, `dni`, `cuil`, `direccion_id`, `tipo_persona_id`) VALUES (?)', [values_persona])
+        let resultados = await query('INSERT INTO persona (`apellido`, `nombre`, `dni`, `cuil`, `direccion_id`, `tipo_persona_id`) VALUES (?)', [values_persona])
 
         const idNuevaPersona = resultados.insertId
 
@@ -43,7 +43,14 @@ export const createUser = [validateRegister, async (req,res) => {
 
         const values_user = [req.body.username, encrypt_password, req.body.created_at, req.body.updated_at, idNuevaPersona, req.body.rol_id, req.body.tipo_estado_id]
 
-        await query('INSERT INTO user (`username`, `password`, `created_at`, `updated_at`, `persona_id`, `rol_id`, `tipo_estado_id`) VALUES (?) ', [values_user])
+        resultados = await query('INSERT INTO user (`username`, `password`, `created_at`, `updated_at`, `persona_id`, `rol_id`, `tipo_estado_id`) VALUES (?) ', [values_user])
+
+        const idNuevoUser = resultados.insertId
+
+        const values_turn = [req.body.fecha_turno, req.body.hora, idNuevoUser, req.body.tipo_pilates_id, 1]
+
+        await query('INSERT INTO turnos_alta_usuario (`fecha_turno`, `hora`, `user_id`, `tipo_pilates_id`, `tipo_estado_id`) VALUES (?)', [values_turn])
+        // const values_payment = []
 
         res.status(200).json("Usuario creado")
     } 
