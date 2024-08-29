@@ -6,7 +6,7 @@
 .custom-card {
     width: 60%;
     display: flex;
-    min-height: 600px;
+    min-height: 500px;
     border-radius: 20px;
     overflow: hidden;
     border: none;
@@ -24,11 +24,11 @@
 
 .left h1 {
     font-family: Calibri;
-    font-size: 80px;
+    font-size: 60px;
 }
 
 .left h3 {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .left p {
@@ -47,6 +47,15 @@
     font-family: Calibri;
     font-size: 50px;
 }
+
+.mb-3 {
+    position: relative;
+}
+
+.alert-container {
+    min-height: 50px;
+}
+
 .custom-card button {
     background-color: rgb(128, 44, 128);
     border: none;
@@ -54,7 +63,15 @@
 .custom-card button:hover {
     background-color: rgb(190, 85, 190);
 }
-.custom-span {
+.card-link {
     text-decoration: underline;
+}
+
+.toggle-password {
+    top: 65%;
+    right: 10px;
     cursor: pointer;
+    transform: translateY(-30%);
+    color: #080808;
+    user-select: none;
 }
