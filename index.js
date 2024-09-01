@@ -1,5 +1,6 @@
 import express from 'express';
 import exerciseRoutes from './routes/exerciseRoutes.js'
+import routineRoutes from "./routes/routineRoutes.js"; 
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import path from 'path';
@@ -36,6 +37,7 @@ next();
 // Rutas de la API
 app.use('/api/users', userRoutes);
 app.use('/api/exercise',exerciseRoutes)
+app.use('/api', routineRoutes); 
 // app.use('/api/posts', postRoutes);
 // app.use('/api/likes', likeRoutes);
 // app.use('/api/comments', commentRoutes);
