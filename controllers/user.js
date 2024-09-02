@@ -5,14 +5,10 @@ import { validateRegister } from "../middlewares/validate.js"
 
 const query = util.promisify(db.query).bind(db)
 
-export const getUser = (req, res) => {
-    res.status(200).json("funciona")
-}
-
 export const deleteUser = async (req, res) => {
     try {
-        const {iduser} = req.params
-        await query('UPDATE user SET `tipo_estado_id` = ? WHERE persona_id = ?', [3, iduser]);
+        const {id} = req.params
+        await query('UPDATE user SET `tipo_estado_id` = ? WHERE persona_id = ?', [3, id]);
         // res.redirect('/list')
         res.status(200).json("Usuario borrado")
     }

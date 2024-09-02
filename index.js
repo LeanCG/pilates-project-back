@@ -27,9 +27,7 @@ app.use(cookieParser());
 
 // Rutas de la API
 app.use('/api/users', userRoutes);
-// app.use('/api/posts', postRoutes);
-// app.use('/api/likes', likeRoutes);
-// app.use('/api/comments', commentRoutes);
+
 app.use('/api/auth', authRoutes);
 
 // Servir HTML
