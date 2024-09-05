@@ -1,8 +1,9 @@
 import express from "express";
-import { getRoutines } from "../controllers/routine.js";
+import { getRoutines,createRoutine } from "../controllers/routine.js";
 
 const router = express.Router();
 
-router.get("/routines", getRoutines);
+router.get("/get", getRoutines);
+router.post("/create", createRoutine);
 
 export default router;
