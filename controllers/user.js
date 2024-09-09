@@ -27,9 +27,15 @@ export const createUser = [validateRegister, async (req,res) => {
             return res.status(409).json("Usuario existente")
         }
 
-        const values_persona = [req.body.apellido, req.body.nombre, req.body.dni, req.body.cuil, req.body.direccion_id, req.body.tipo_persona_id]
+        const values_direccion = [req.body.direccion, req.body.municipio_id]
 
-        let resultados = await query('INSERT INTO persona (`apellido`, `nombre`, `dni`, `cuil`, `direccion_id`, `tipo_persona_id`) VALUES (?)', [values_persona])
+        let resultados = await query('INSERT INTO direccion (`descripcion`, `municipio_id`) VALUES (?)', [values_direccion])
+
+        const idNuevaDireccion = resultados.insertId
+
+        const values_persona = [req.body.apellido, req.body.nombre, req.body.dni, req.body.cuil, idNuevaDireccion, req.body.tipo_persona_id]
+
+        resultados = await query('INSERT INTO persona (`apellido`, `nombre`, `dni`, `cuil`, `direccion_id`, `tipo_persona_id`) VALUES (?)', [values_persona])
 
         const idNuevaPersona = resultados.insertId
 
@@ -43,10 +49,21 @@ export const createUser = [validateRegister, async (req,res) => {
 
         const idNuevoUser = resultados.insertId
 
-        const values_turn = [req.body.fecha_turno, req.body.hora, idNuevoUser, req.body.tipo_pilates_id, 1]
+        const {fecha_turno} = req.body
 
-        await query('INSERT INTO turnos_alta_usuario (`fecha_turno`, `hora`, `user_id`, `tipo_pilates_id`, `tipo_estado_id`) VALUES (?)', [values_turn])
-        // const values_payment = []
+        const values_turn = [fecha_turno, req.body.hora, idNuevoUser, req.body.tipo_pilates_id, 1, req.body.dias_turno_id]
+
+        await query('INSERT INTO turnos_alta_usuario (`fecha_turno`, `hora`, `user_id`, `tipo_pilates_id`, `tipo_estado_id`, `dias_turno_id`) VALUES (?)', [values_turn])
+        
+        const values_factura = [fecha_turno, req.body.numero_factura, req.body.sub_total, req.body.descuento, idNuevaPersona]
+
+        resultados = await query('INSERT INTO cabecera_factura (`fecha_factura`, `numero_factura`, `sub_total`, `descuento`, `comprador_id`) VALUES (?)', [values_factura])
+
+        const idNuevaFactura = resultados.insertId
+
+        const values_detalle_factura = [req.body.cantidad, req.body.precio, idNuevaFactura]
+
+        await query('INSERT INTO detalle_factura (`cantidad`, `precio`, `cabecera_factura_id`) VALUES (?)', [values_detalle_factura])
 
         res.status(200).json("Usuario creado")
     } 
@@ -88,7 +105,6 @@ export const editUser = [validateRegister, async (req, res) => {
         res.status(500).json({message: err.message})
     }
 }]
-
 
 export const editUsuario = [validateRegister, async (req, res) => {
     try {
