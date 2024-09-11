@@ -1,4 +1,6 @@
 import express from 'express';
+import exerciseRoutes from './routes/exerciseRoutes.js'
+import routineRoutes from "./routes/routineRoutes.js"; 
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import path from 'path';
@@ -24,9 +26,18 @@ app.use(cors({
     origin: '*', // Permitir cualquier origen. Cambiar según sea necesario.
 }));
 app.use(cookieParser());
+app.use((req,res, next)=> {
+    const method = req.method;
+    const url = req.originalUrl;
+    res.on('finish',() =>{console.log(`${method}${url}/${res.statusCode}`);
+});
+next();
+});
 
 // Rutas de la API
 app.use('/api/users', userRoutes);
+app.use('/api/exercise',exerciseRoutes)
+app.use('/api/routine', routineRoutes); 
 // app.use('/api/posts', postRoutes);
 // app.use('/api/likes', likeRoutes);
 // app.use('/api/comments', commentRoutes);
