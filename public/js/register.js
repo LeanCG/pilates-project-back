@@ -115,10 +115,12 @@ document.getElementById('day').addEventListener('change', (event) => {
 function validatePersonalDetails() {
     const name = document.getElementById('name').value;
     const surname = document.getElementById('surname').value;
+    const dni = document.getElementById('dni').value;
+    const cuil = document.getElementById('cuil').value;
     const address = document.getElementById('address').value;
     const phone = document.getElementById('phone').value;
 
-    return name && surname && address && phone; // Verifica que los campos no estén vacíos
+    return name && surname && dni && cuil && address && phone; // Verifica que los campos no estén vacíos
 }
 
 function validateUserDetails() {
