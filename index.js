@@ -37,10 +37,8 @@ next();
 // Rutas de la API
 app.use('/api/users', userRoutes);
 app.use('/api/exercise',exerciseRoutes)
-app.use('/api/routine', routineRoutes); 
-// app.use('/api/posts', postRoutes);
-// app.use('/api/likes', likeRoutes);
-// app.use('/api/comments', commentRoutes);
+app.use('/api', routineRoutes); 
+
 app.use('/api/auth', authRoutes);
 
 // Servir HTML
