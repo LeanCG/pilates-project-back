@@ -11,7 +11,6 @@ router.get('/home', (req,res)=>{
 router.get('/users', (req,res)=>{
     res.render('table_users')
 });
-
 router.get('/registry', (req,res)=>{
     res.render('register')
 });

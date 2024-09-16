@@ -59,13 +59,53 @@ document.getElementById('prev-3').addEventListener('click', () => {
 });
 
 
-document.getElementById('finish').addEventListener('click', () => {
+document.getElementById('finish').addEventListener('click',async () => {
     if (validateAppointmentDetails()) {
         hideAllAlerts();
-        showAlert('alert-success', '¡Registro exitoso!', 'success');
-    } else {
-        showAlert('alert-3', 'Por favor, completa todos los campos requeridos.', 'warning');
-        showAlert('alert-danger', '¡Error al completar el registro!', 'danger');
+
+        if (validateAppointmentDetails()) {
+            hideAllAlerts();  // Oculta las alertas
+            // Recopila los datos del formulario
+            const userData = {
+                name: document.getElementById('name').value,
+                surname: document.getElementById('surname').value,
+                dni: document.getElementById('dni').value,
+                cuil: document.getElementById('cuil').value,
+                address: document.getElementById('address').value,
+                phone: document.getElementById('phone').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                concurrence: document.getElementById('concurrence').value,
+                day: selectedDays,
+                time: document.getElementById('time').value,
+                payment: document.getElementById('payment').value
+            };
+    
+            try {
+                // Enviar datos al servidor con fetch
+                const response = await fetch('/api/users/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData) // Convierte el objeto a JSON
+                });
+    
+                const result = await response.json();
+                console.log("response: ",result)
+    
+                if (response.ok) {
+                    showAlert('alert-success', '¡Registro exitoso!', 'success');
+                } else {
+                    showAlert('alert-danger', `¡Error: ${result.message}!`, 'danger');
+                }
+            } catch (error) {
+                showAlert('alert-danger', '¡Error en el servidor!', 'danger');
+            }
+        } else {
+            showAlert('alert-3', 'Por favor, completa todos los campos requeridos.', 'warning');
+        }
     }
 });
 

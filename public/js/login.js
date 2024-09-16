@@ -1,8 +1,9 @@
+import axios from "axios";
+
 // Para validar los detalles del usuaro
 function validateUserDetails() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-
     return email && password; // Verifica que los campos no estén vacíos
 }
 // Se muestran las alertas si ingresó mal o faltó datos
