@@ -153,14 +153,7 @@ export const listUsers = async (req, res) => {
             p.id AS id, 
             p.apellido, 
             p.nombre, 
-            p.dni, 
-            p.cuil,
-            u.id AS user_id, 
-            u.username, 
-            u.created_at, 
-            u.updated_at, 
-            u.rol_id, 
-            u.tipo_estado_id
+            p.dni
         FROM 
             persona p
         JOIN 
