@@ -1,7 +1,9 @@
+import { response } from "express";
 
 function fetchUsersData() {
     fetch('/api/users/list')
         .then(response => response.json()) // Aquí obtienes el JSON de la respuesta
+        // console.log(response.json())
         .then(data => {
             renderUsersTable(data); // Renderiza la tabla con los datos
         })
@@ -13,10 +15,11 @@ function renderUsersTable(data) {
     let rows = data.map(user => `
         <tr>
             <td>${user.nombre}</td>
+            <td>${user.apellido}</td>
             <td>${user.dni}</td>
             <td>${user.direccion}</td>
-            <td>${user.telefono}</td>
-            <td>${user.estado}</td>
+            <td>${user.tipo_estado}</td>
+            <td>${user.tipo_persona}</td>
             <td>
                 <div class="btn-group">
                     <a title="Ver detalles" href="#" class="btn btn-light" id="viewUserButton">
@@ -32,8 +35,6 @@ function renderUsersTable(data) {
             </td>
         </tr>
     `).join('');
-
-    console.log(rows)
 
     // Inserta las filas generadas en el cuerpo de la tabla
     document.querySelector('#table_users tbody').innerHTML = rows;

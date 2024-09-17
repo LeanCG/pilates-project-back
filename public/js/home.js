@@ -100,8 +100,8 @@ function renderUsersTable(data) {
             <td>${user.nombre}</td>
             <td>${user.dni}</td>
             <td>${user.direccion}</td>
-            <td>${user.telefono}</td>
-            <td>${user.estado}</td>
+            <td>${user.tipo_estado}</td>
+            <td>${user.tipo_persona}</td>
             <td>
                 <div class="btn-group">
                     <a title="Ver detalles" href="#" class="btn btn-light" id="viewUserButton">
@@ -118,7 +118,7 @@ function renderUsersTable(data) {
         </tr>
     `).join('');
 
-    console.log(rows)
+    // console.log(rows)
 
     // Inserta las filas generadas en el cuerpo de la tabla
     document.querySelector('#table_users tbody').innerHTML = rows;

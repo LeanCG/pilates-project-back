@@ -3,6 +3,7 @@ import util from 'util'
 import bcrypt from "bcryptjs"
 import { validateRegister } from "../middlewares/validate.js"
 import { calcularDescuento } from "../middlewares/descuento.js"
+import { json } from "express"
 
 const query = util.promisify(db.query).bind(db)
 
@@ -52,7 +53,7 @@ export const createUser = [validateRegister, async (req,res) => {
 
         const {fecha_turno} = req.body
 
-        const values_turn = [fecha_turno, req.body.hora, idNuevoUser, req.body.tipo_pilates_id, 1, req.body.dias_turno_id]
+        const values_turn = [fecha_turno, req.body.hora, idNuevoUser, req.body.tipo_pilates_id, req.body.tipo_estado_id, req.body.dias_turno_id]
 
         await query('INSERT INTO turnos_alta_usuario (`fecha_turno`, `hora`, `user_id`, `tipo_pilates_id`, `tipo_estado_id`, `dias_turno_id`) VALUES (?)', [values_turn])
         
@@ -149,22 +150,26 @@ export const editUsuario = [validateRegister, async (req, res) => {
 export const listUsers = async (req, res) => {
     try{
         const sql = `
-        SELECT 
-            p.id AS id, 
-            p.apellido, 
-            p.nombre, 
-            p.dni
-        FROM 
-            persona p
-        JOIN 
-            user u ON p.id = u.persona_id`
-        const consulta = `SELECT * SELECT p.id AS persona_id, p.apellido, p.nombre,
-                            p.dni, u.id AS user_id, u.username,
-                            u.created_at, t.id AS turno_id, t.fecha, t.hora FROM persona p
-                            JOIN user u ON p.id = u.persona_id JOIN turnos t ON u.id = t.user_id`
-
+    SELECT 
+        p.nombre,
+        p.apellido,
+        p.dni,
+        p.cuil,
+        d.descripcion AS direccion,
+        tp.descripcion AS tipo_persona,
+        te.descripcion AS tipo_estado
+    FROM 
+        persona p
+    JOIN 
+        user u ON p.id = u.persona_id
+    JOIN 
+        direccion d ON p.direccion_id = d.id
+    JOIN 
+        tipo_persona tp ON p.tipo_persona_id = tp.id
+    JOIN 
+        tipo_estado te ON u.tipo_estado_id = te.id;
+`
         const data = await query(sql)
-        
         res.status(200).json(data)
     }
     catch(err){
