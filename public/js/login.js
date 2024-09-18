@@ -23,7 +23,7 @@ document.querySelector('form').addEventListener('submit', (event) => {
     event.preventDefault(); // Evitar el envío del formulario
 
     if (validateUserDetails()) {
-        window.location.href = './home.html'; // Redirigir a la página de inicio
+        window.location.href = '/home'; // Redirigir a la página de inicio
     }
     else {
         showAlert('Por favor completa todos los campos.');

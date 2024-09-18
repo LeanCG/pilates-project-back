@@ -7,7 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-
+import loginRoutes from './routes/loginRoutes.js'
 // Crear una instancia de Express
 const app = express();
 
@@ -20,12 +20,17 @@ app.use((req,res, next) =>{
     res.header("Access-Control-Allow-Credentials", true)
     next()
 })
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); // Servir archivos estáticos desde 'public'
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 app.use(cors({
     origin: '*', // Permitir cualquier origen. Cambiar según sea necesario.
 }));
 app.use(cookieParser());
+
 app.use((req,res, next)=> {
     const method = req.method;
     const url = req.originalUrl;
@@ -34,17 +39,12 @@ app.use((req,res, next)=> {
 next();
 });
 
-// Rutas de la API
 app.use('/api/users', userRoutes);
 app.use('/api/exercise',exerciseRoutes)
-app.use('/api', routineRoutes); 
+app.use('/api/routine', routineRoutes); 
 
 app.use('/api/auth', authRoutes);
-
-// Servir HTML
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
-});
+app.use('/', loginRoutes);
 
 // Iniciar servidor
 const PORT = 3000;

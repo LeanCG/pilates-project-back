@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/public/css/register.css">
+    <link rel="stylesheet" href="/css/register.css">
 </head>
 
 <body>
@@ -46,12 +46,12 @@
                     Por favor, completa todos los campos requeridos.
                 </div>
                 <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" class="form-control" id="name" required>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" required>
                 </div>
                 <div class="form-group">
-                    <label for="surname">Apellido</label>
-                    <input type="text" class="form-control" id="surname" required>
+                    <label for="apellido">Apellido</label>
+                    <input type="text" class="form-control" id="apellido" required>
                 </div>
                 <div class="form-group">
                     <label for="dni">DNI</label>
@@ -62,16 +62,16 @@
                     <input type="text" class="form-control" id="cuil" required>
                 </div>
                 <div class="form-group">
-                    <label for="address">Dirección</label>
-                    <input type="text" class="form-control" id="address" required>
+                    <label for="municipio">Municipio</label>
+                    <input type="number" class="form-control" id="municipio" required>
                 </div>
                 <div class="form-group">
-                    <label for="phone">Teléfono</label>
-                    <input type="tel" class="form-control" id="phone" required>
+                    <label for="direccion">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" required>
                 </div>
                 <div class="form-group">
-                    <label for="conditions">Afecciones Físicas</label>
-                    <input type="text" class="form-control" id="conditions">
+                    <label for="tipo_persona">Tipo persona id</label>
+                    <input type="number" class="form-control" id="tipo_persona_id" required>
                 </div>
                 <button class="btn btn-primary" id="next-1">Siguiente</button>
             </div>
@@ -111,7 +111,7 @@
                 </div>
                 <h5>Selecciona tu turno. Elige días y horarios disponibles</h5>
                 <!-- Selector de concurrencia -->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="concurrence">Concurrencia por semana</label>
                     <select class="form-control" id="concurrence" required>
                         <option value="1">1 vez por semana</option>
@@ -120,9 +120,26 @@
                         <option value="4">4 veces por semana</option>
                         <option value="5">5 veces por semana</option>
                     </select>
+                </div> -->
+
+                <div class="form-group">
+                    <label for="date">Created at</label>
+                    <input type="date" class="form-control" id="created_at" required>
+                </div>
+                <div class="form-group">
+                    <label for="date_up">Updated at</label>
+                    <input type="date" class="form-control" id="updated_at" required>
+                </div>
+                <div class="form-group">
+                    <label for="rol_id">Rol id</label>
+                    <input type="number" class="form-control" id="rol_id" required>
+                </div>
+                <div class="form-group">
+                    <label for="estado">Estado id</label>
+                    <input type="number" class="form-control" id="tipo_estado_id" required>
                 </div>
                 <!--Selector de días-->
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="day">Día</label>
                     <select class="form-control" id="day">
                         <option value="monday">Lunes</option>
@@ -133,17 +150,37 @@
                         <option value="saturday">Sábado</option>
                     </select>
                 </div>
-                <div id="day-alert" class="alert alert-warning d-none" role="alert"></div>
+                <div id="day-alert" class="alert alert-warning d-none" role="alert"></div> -->
                 <!--Ingreso de horario-->
                 <div class="form-group">
                     <label for="time">Horario</label>
-                    <input type="time" class="form-control" id="time" required>
+                    <input type="time" class="form-control" id="hora" required>
+                </div>
+                <div class="form-group">
+                    <label for="tipo_pilates">Pilates id</label>
+                    <input type="number" class="form-control" id="tipo_pilates_id" required>
+                </div>
+                <div class="form-group">
+                    <label for="dias">Dias id</label>
+                    <input type="datetime" class="form-control" id="dias" required>
                 </div>
 
                 <!-- Campo para ingresar el monto -->
                 <div class="form-group">
-                    <label for="payment">Monto a pagar</label>
-                    <input type="number" class="form-control" id="payment" placeholder="Ingrese el monto" required>
+                    <label for="factura">Nro Factura</label>
+                    <input type="number" class="form-control" id="numero_factura" required>
+                </div>
+                <div class="form-group">
+                    <label for="sub-total">Sub-total</label>
+                    <input type="number" class="form-control" id="sub-total" required>
+                </div>
+                <div class="form-group">
+                    <label for="descuento">Descuento</label>
+                    <input type="number" class="form-control" id="descuento" required>
+                </div>
+                <div class="form-group">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="number" class="form-control" id="cantidad" placeholder="Cantidad" required>
                 </div>
                 <!-- Aquí puedes implementar un calendario o selector de turnos -->
                 <button class="btn btn-secondary" id="prev-3">Volver</button>
@@ -161,8 +198,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
 
     <!-- Custom JS -->
-    <script src="/public/js/register.js"></script>
-    <script src="/public/js/home.js"></script>
+    <script src="/js/register.js"></script>
+    <script src="/js/home.js"></script>
 </body>
 
 </html>

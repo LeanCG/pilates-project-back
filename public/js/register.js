@@ -59,13 +59,60 @@ document.getElementById('prev-3').addEventListener('click', () => {
 });
 
 
-document.getElementById('finish').addEventListener('click', () => {
+document.getElementById('finish').addEventListener('click',async () => {
     if (validateAppointmentDetails()) {
         hideAllAlerts();
-        showAlert('alert-success', '¡Registro exitoso!', 'success');
-    } else {
-        showAlert('alert-3', 'Por favor, completa todos los campos requeridos.', 'warning');
-        showAlert('alert-danger', '¡Error al completar el registro!', 'danger');
+
+        if (validateAppointmentDetails()) {
+            hideAllAlerts();  // Oculta las alertas
+            // Recopila los datos del formulario
+            const userData = {
+                nombre: document.getElementById('nombre').value,
+                apellido: document.getElementById('apellido').value,
+                dni: document.getElementById('dni').value,
+                cuil: document.getElementById('cuil').value,
+                direccion: document.getElementById('direccion').value,
+                municipio_id: document.getElementById('municipio').value,
+                tipo_persona_id: document.getElementById('tipo_persona_id').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                created_at: document.getElementById('created_at').value,
+                updated_at: document.getElementById('updated_at').value,
+                rol: document.getElementById('rol').value,
+                tipo_estado_id: document.getElementById('tipo_estado_id').value,
+                dias_turno_id: document.getElementById('dias').value,
+                hora: document.getElementById('time').value,
+                tipo_pilates_id: document.getElementById('tipo_pilates_id').value,
+                numero_factura: document.getElementById('numero_factura').value,
+                descuento: document.getElementById('descuento').value,
+                sub_total: document.getElementById('sub_total'),
+            };
+    
+            try {
+                // Enviar datos al servidor con fetch
+                const response = await fetch('/api/users/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData) // Convierte el objeto a JSON
+                });
+    
+                const result = await response.json();
+                console.log("response: ",result)
+    
+                if (response.ok) {
+                    showAlert('alert-success', '¡Registro exitoso!', 'success');
+                } else {
+                    showAlert('alert-danger', `¡Error: ${result.message}!`, 'danger');
+                }
+            } catch (error) {
+                showAlert('alert-danger', '¡Error en el servidor!', 'danger');
+            }
+        } else {
+            showAlert('alert-3', 'Por favor, completa todos los campos requeridos.', 'warning');
+        }
     }
 });
 
