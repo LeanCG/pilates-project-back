@@ -7,7 +7,7 @@ sidebarToggle.addEventListener('click', () => {
 
 // Para mostrar la tabla de usuarios cuando se hace clic en 'Usuarios':
 document.getElementById('users').addEventListener('click', function () {
-    fetch('table_users.html')
+    fetch('/users')
         .then(response => response.text())
         .then(data => {
             document.getElementById('main-content').innerHTML = data;
@@ -56,13 +56,13 @@ function initializeDataTable() {
         buttons: [
             {
                 extend: 'copy',
-                text: '<img src="/public/images/copy_icon.png" class="icon">',
+                text: '<img src="/images/copy_icon.png" class="icon">',
                 titleAttr: 'Copiar al portapapeles',
                 className: "btn btn-light"
             },
             {
                 extend: 'excel',
-                text: '<img src="/public/images/excel_icon.png" class="icon">',
+                text: '<img src="/images/excel_icon.png" class="icon">',
                 titleAttr: 'Exportar a Excel',
                 className: "btn btn-light",
                 excelStyles: {
@@ -71,13 +71,13 @@ function initializeDataTable() {
             },
             {
                 extend: 'pdf',
-                text: '<img src="/public/images/pdf_icon.png" class="icon">',
+                text: '<img src="/images/pdf_icon.png" class="icon">',
                 titleAttr: 'Exportar a PDF',
                 className: "btn btn-light"
             },
             {
                 extend: 'print',
-                text: '<img src="/public/images/print_icon.png" class="icon">',
+                text: '<img src="/images/print_icon.png" class="icon">',
                 titleAttr: 'Imprimir',
                 className: "btn btn-light"
             },

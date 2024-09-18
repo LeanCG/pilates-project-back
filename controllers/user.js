@@ -18,6 +18,7 @@ export const deleteUser = async (req, res) => {
 }
 
 export const createUser = [validateRegister, async (req,res) => {
+    console.log("Datos recibidos:",req.body);
     try {
         const q = "SELECT dni FROM persona WHERE dni = ?"
     

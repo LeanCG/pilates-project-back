@@ -14,7 +14,7 @@
 
 .left {
     flex: 1;
-    background: linear-gradient(rgba(133, 71, 158, 0.507), rgba(102, 102, 102, 0.397)), url('/public/images/pilates_image.webp') center;
+    background: linear-gradient(rgba(133, 71, 158, 0.507), rgba(102, 102, 102, 0.397)), url('/images/pilates_image.webp') center;
     background-size: cover;
     padding: 50px;
     display: flex;
