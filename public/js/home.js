@@ -16,6 +16,14 @@ document.getElementById('users').addEventListener('click', function () {
             setupRegisterUserEvent();
         })
         .catch(error => console.log(error));
+    
+        fetch('/api/users/list')
+        .then(response => response.json())
+        .then(data => {
+            // Renderizar los datos en la tabla
+            renderUsersTable(data);
+        })
+        .catch(error => console.log("Error al obtener los datos de usuarios:", error));
 });
 
 // Inicialización de DataTables y sus funcionalidades
@@ -83,4 +91,35 @@ function initializeDataTable() {
             },
         ]
     });
+}
+
+function renderUsersTable(data) {
+    // Genera las filas de la tabla con los datos obtenidos
+    let rows = data.map(user => `
+        <tr>
+            <td>${user.nombre}</td>
+            <td>${user.dni}</td>
+            <td>${user.direccion}</td>
+            <td>${user.tipo_estado}</td>
+            <td>${user.tipo_persona}</td>
+            <td>
+                <div class="btn-group">
+                    <a title="Ver detalles" href="#" class="btn btn-light" id="viewUserButton">
+                        <img src="/images/info_icon.png" class="icon">
+                    </a>
+                    <a title="Editar" href="#" class="btn btn-light" id="editUserButton">
+                        <img src="/images/edit_icon.png" class="icon">
+                    </a>
+                    <a title="Eliminar" href="#" class="btn btn-light" id="deleteUserButton">
+                        <img src="/images/delete_icon.png" class="icon">
+                    </a>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+
+    // console.log(rows)
+
+    // Inserta las filas generadas en el cuerpo de la tabla
+    document.querySelector('#table_users tbody').innerHTML = rows;
 }

@@ -67,19 +67,26 @@ document.getElementById('finish').addEventListener('click',async () => {
             hideAllAlerts();  // Oculta las alertas
             // Recopila los datos del formulario
             const userData = {
-                name: document.getElementById('name').value,
-                surname: document.getElementById('surname').value,
+                nombre: document.getElementById('nombre').value,
+                apellido: document.getElementById('apellido').value,
                 dni: document.getElementById('dni').value,
                 cuil: document.getElementById('cuil').value,
-                address: document.getElementById('address').value,
-                phone: document.getElementById('phone').value,
+                direccion: document.getElementById('direccion').value,
+                municipio_id: document.getElementById('municipio').value,
+                tipo_persona_id: document.getElementById('tipo_persona_id').value,
                 username: document.getElementById('username').value,
                 email: document.getElementById('email').value,
                 password: document.getElementById('password').value,
-                concurrence: document.getElementById('concurrence').value,
-                day: selectedDays,
-                time: document.getElementById('time').value,
-                payment: document.getElementById('payment').value
+                created_at: document.getElementById('created_at').value,
+                updated_at: document.getElementById('updated_at').value,
+                rol: document.getElementById('rol').value,
+                tipo_estado_id: document.getElementById('tipo_estado_id').value,
+                dias_turno_id: document.getElementById('dias').value,
+                hora: document.getElementById('time').value,
+                tipo_pilates_id: document.getElementById('tipo_pilates_id').value,
+                numero_factura: document.getElementById('numero_factura').value,
+                descuento: document.getElementById('descuento').value,
+                sub_total: document.getElementById('sub_total'),
             };
     
             try {
