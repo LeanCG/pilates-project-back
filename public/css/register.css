@@ -1,0 +1,70 @@
+
+
+/* Centrar el stepper */
+.bs-stepper {
+    border-radius: 10px;
+    background-color: white;
+    width: 100%; /* Asegura que el stepper ocupe todo el ancho */
+    max-width: 800px; /* Ancho máximo del stepper */
+    margin: auto; /* Centrando horizontalmente */
+}
+
+/* Estilo para los pasos activos y completados */
+.step.active .step-trigger {
+    border-radius: 8%;
+    width: 80%;
+    background-color: rgba(211, 208, 211, 0.842); /* Color de fondo del paso activo */
+    color: rgb(0, 0, 0);
+}
+
+.bs-stepper-circle {
+ background-color: rgb(128, 44, 128);
+}
+
+.step.active .bs-stepper-circle {
+    background-color: rgb(128, 44, 128);
+}
+
+.step.completed .step-trigger {
+    background-color: #28a745; /* Color de fondo para pasos completados */
+    color: white;
+}
+
+/* Asegura que el contenido sea visible */
+.content {
+    display: none; /* Ocultar por defecto */
+}
+
+.content.active {
+    display: block; /* Mostrar el contenido activo */
+}
+
+.bs-stepper-content {
+    padding-top: 10px;
+}
+
+.btn {
+    width: 100%; /* Botones ocupan todo el ancho */
+    margin-top: 15px;
+}
+/* Estilos adicionales */
+.btn-primary, .btn-success {
+    width: 100%; /* Botones ocupan todo el ancho */
+    margin-top: 15px;
+    background-color: rgb(128, 44, 128);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: rgb(190, 85, 190);
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: rgb(190, 85, 190);
+    border: none;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}

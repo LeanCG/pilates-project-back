@@ -64,3 +64,23 @@ export const deleteRoutine = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 }
+
+// Modificar rutina
+export const updateRoutine = async (req, res) => {
+    const { id } = req.params;
+    const { descripcion, ejercicios } = req.body;
+
+    if (!id) {
+        return res.status(400).json({ error: "El ID de la rutina es requerido" });
+    }
+    try {
+        const result = await query('UPDATE rutina SET descripcion = ?, tipo_estado_id = ? WHERE id = ?', 
+            [descripcion, 1, id]);
+
+        await Promise.all(inserts);
+
+        res.status(200).send({ message: 'Rutina actualizada con éxito' });
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};
