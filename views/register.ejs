@@ -18,137 +18,139 @@
 <body>
     <div class="bs-stepper" id="stepper">
         <div class="bs-stepper-header" role="tablist">
+            <!-- Paso 1: Datos Personales -->
             <div class="step" data-target="#personal-details">
                 <button type="button" class="step-trigger" role="tab" aria-controls="personal-details"
                     id="step-1-trigger">
                     <span class="bs-stepper-circle">1</span>
-                    <span class="bs-stepper-label">Datos del Cliente</span>
+                    <span class="bs-stepper-label">Datos Personales</span>
                 </button>
             </div>
+            <!-- Paso 2: Datos de Usuario -->
             <div class="step" data-target="#user-details">
                 <button type="button" class="step-trigger" role="tab" aria-controls="user-details" id="step-2-trigger">
                     <span class="bs-stepper-circle">2</span>
                     <span class="bs-stepper-label">Datos de Usuario</span>
                 </button>
             </div>
+            <!-- Paso 3: Turnos y Facturación -->
             <div class="step" data-target="#appointment">
                 <button type="button" class="step-trigger" role="tab" aria-controls="appointment" id="step-3-trigger">
                     <span class="bs-stepper-circle">3</span>
-                    <span class="bs-stepper-label">Elegir Turnos</span>
+                    <span class="bs-stepper-label">Turnos y Facturación</span>
                 </button>
             </div>
         </div>
+
         <div class="bs-stepper-content">
-            <!-- Sección 1: Datos del Cliente -->
-            <div id="personal-details" class="content" role="tabpanel" aria-labelledby="step-1-trigger">
-                <!-- Alerta para la sección 1 -->
-                <div id="alert-1" class="alert alert-warning d-none" role="alert">
-                    Por favor, completa todos los campos requeridos.
-                </div>
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" class="form-control" id="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="surname">Apellido</label>
-                    <input type="text" class="form-control" id="surname" required>
-                </div>
-                <div class="form-group">
-                    <label for="dni">DNI</label>
-                    <input type="text" class="form-control" id="dni" required>
-                </div>
-                <div class="form-group">
-                    <label for="cuil">CUIL</label>
-                    <input type="text" class="form-control" id="cuil" required>
-                </div>
-                <div class="form-group">
-                    <label for="address">Dirección</label>
-                    <input type="text" class="form-control" id="address" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Teléfono</label>
-                    <input type="tel" class="form-control" id="phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="conditions">Afecciones Físicas</label>
-                    <input type="text" class="form-control" id="conditions">
-                </div>
-                <button class="btn btn-primary" id="next-1">Siguiente</button>
-            </div>
-
-            <!-- Sección 2: Datos de Usuario -->
-            <div id="user-details" class="content" role="tabpanel" aria-labelledby="step-2-trigger">
-                <!--Alerta para la sección 2-->
-                <div id="alert-2" class="alert alert-warning d-none" role="alert">
-                    Por favor, completa todos los campos requeridos.
-                </div>
-                <div class="form-group">
-                    <label for="username">Nombre de Usuario</label>
-                    <input type="text" class="form-control" id="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" class="form-control" id="password" required>
-                </div>
-                <button class="btn btn-secondary" id="prev-2">Anterior</button>
-                <button class="btn btn-primary" id="next-2">Siguiente</button>
-            </div>
-
-            <!-- Sección 3: Elegir Turnos -->
-            <div id="appointment" class="content" role="tabpanel" aria-labelledby="step-3-trigger">
-                <div id="alert-3" class="alert alert-warning d-none" role="alert">
-                    Por favor, completa todos los campos requeridos.
-                </div>
-                <div id="alert-danger" class="alert alert-danger d-none" role="alert">
-                    ¡Error al completar el registro!
-                </div>
-                <div id="alert-success" class="alert alert-success d-none" role="alert">
-                    ¡Registro exitoso!
-                </div>
-                <h5>Selecciona tu turno. Elige días y horarios disponibles</h5>
-                <!-- Selector de concurrencia -->
-                <div class="form-group">
-                    <label for="concurrence">Concurrencia por semana</label>
-                    <select class="form-control" id="concurrence" required>
-                        <option value="1">1 vez por semana</option>
-                        <option value="2">2 veces por semana</option>
-                        <option value="3">3 veces por semana</option>
-                        <option value="4">4 veces por semana</option>
-                        <option value="5">5 veces por semana</option>
-                    </select>
-                </div>
-                <!--Selector de días-->
-                <div class="form-group">
-                    <label for="day">Día</label>
-                    <select class="form-control" id="day">
-                        <option value="monday">Lunes</option>
-                        <option value="tuesday">Martes</option>
-                        <option value="wednesday">Miércoles</option>
-                        <option value="thursday">Jueves</option>
-                        <option value="friday">Viernes</option>
-                        <option value="saturday">Sábado</option>
-                    </select>
-                </div>
-                <div id="day-alert" class="alert alert-warning d-none" role="alert"></div>
-                <!--Ingreso de horario-->
-                <div class="form-group">
-                    <label for="time">Horario</label>
-                    <input type="time" class="form-control" id="time" required>
+            <form id="registerForm" method="POST">
+                <div id="alert-container"></div>
+                <!-- Sección 1: Datos Personales -->
+                <div id="personal-details" class="content" role="tabpanel" aria-labelledby="step-1-trigger">
+                    <div class="form-group">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dni" class="form-label">DNI</label>
+                        <input type="text" class="form-control" id="dni" name="dni" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cuil" class="form-label">CUIL</label>
+                        <input type="text" class="form-control" id="cuil" name="cuil" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="municipio_id" class="form-label">ID Municipio</label>
+                        <input type="number" class="form-control" id="municipio_id" name="municipio_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo_persona_id" class="form-label">Tipo de Persona</label>
+                        <input type="number" class="form-control" id="tipo_persona_id" name="tipo_persona_id" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="next-1">Siguiente</button>
                 </div>
 
-                <!-- Campo para ingresar el monto -->
-                <div class="form-group">
-                    <label for="payment">Monto a pagar</label>
-                    <input type="number" class="form-control" id="payment" placeholder="Ingrese el monto" required>
+                <!-- Sección 2: Datos de Usuario -->
+                <div id="user-details" class="content" role="tabpanel" aria-labelledby="step-2-trigger">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Nombre de Usuario</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="created_at" class="form-label">Fecha de creación</label>
+                        <input type="date" class="form-control" id="created_at" name="created_at" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updated_at" class="form-label">Fecha de modificación</label>
+                        <input type="date" class="form-control" id="updated_at" name="updated_at" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rol_id" class="form-label">ID Rol</label>
+                        <input type="number" class="form-control" id="rol_id" name="rol_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo_estado_id" class="form-label">Tipo de Estado</label>
+                        <input type="number" class="form-control" id="tipo_estado_id" name="tipo_estado_id" required>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="prev-2">Anterior</button>
+                    <button type="button" class="btn btn-primary" id="next-2">Siguiente</button>
                 </div>
-                <!-- Aquí puedes implementar un calendario o selector de turnos -->
-                <button class="btn btn-secondary" id="prev-3">Volver</button>
-                <button class="btn btn-success" id="finish">Finalizar</button>
-            </div>
+                <!-- Sección 3: Turnos y Facturación -->
+                <div id="appointment" class="content" role="tabpanel" aria-labelledby="step-3-trigger">
+                    <h5>Elegir Turnos</h5>
+                    <div class="form-group">
+                        <label for="fecha_turno" class="form-label">Fecha del Turno</label>
+                        <input type="date" class="form-control" id="fecha_turno" name="fecha_turno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora" class="form-label">Hora</label>
+                        <input type="time" class="form-control" id="hora" name="hora" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo_pilates_id" class="form-label">ID Tipo de Pilates</label>
+                        <input type="number" class="form-control" id="tipo_pilates_id" name="tipo_pilates_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dias_turno_id" class="form-label">Cantidad de días (ID)</label>
+                        <input type="number" class="form-control" id="dias_turno_id" name="dias_turno_id" required>
+                    </div>
+                    <h5>Facturación</h5>
+                    <div class="form-group">
+                        <label for="numero_factura" class="form-label">Número de Factura</label>
+                        <input type="text" class="form-control" id="numero_factura" name="numero_factura" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sub_total" class="form-label">Subtotal</label>
+                        <input type="number" class="form-control" id="sub_total" name="sub_total" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descuento" class="form-label">Descuento</label>
+                        <input type="number" class="form-control" id="descuento" name="descuento">
+                    </div>
+                    <div class="form-group">
+                        <label for="cantidad" class="form-label">Cantidad</label>
+                        <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="precio" class="form-label">Precio</label>
+                        <input type="number" class="form-control" id="precio" name="precio" required>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="prev-3">Anterior</button>
+                    <button type="submit" class="btn btn-success" id="finish">Finalizar</button>
+                </div>
+            </form>
         </div>
     </div>
 
