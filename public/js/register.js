@@ -102,4 +102,57 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Inicializa el contenido activo para la primera sección
     updateActiveContent(0);
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) =>{
+        e.preventDefault()
+
+        const data = {
+            nombre : document.getElementById('nombre').value,
+            apellido : document.getElementById('apellido').value,
+            dni : document.getElementById('dni').value,
+            cuil : document.getElementById('cuil').value,
+            direccion : document.getElementById('descripcion').value,
+            municipio_id : document.getElementById('municipio_id').value,
+            tipo_persona_id : document.getElementById('tipo_persona_id').value,
+            username : document.getElementById('username').value,
+            password : document.getElementById('password').value,
+            created_at : document.getElementById('created_at').value,
+            updated_at : document.getElementById('updated_at').value,
+            rol_id : document.getElementById('rol_id').value,
+            tipo_estado_id : document.getElementById('tipo_estado_id').value,
+            fecha_turno : document.getElementById('fecha_turno').value,
+            hora : document.getElementById('hora').value,
+            tipo_pilates_id : document.getElementById('tipo_pilates_id').value,
+            dias_turno_id : document.getElementById('dias_turno_id').value,
+            numero_factura : document.getElementById('numero_factura').value,
+            sub_total : document.getElementById('sub_total').value,
+            descuento : document.getElementById('descuento').value,
+            cantidad : document.getElementById('cantidad').value,
+            precio : document.getElementById('precio').value
+        }
+
+
+        try {
+            const response = await fetch('/api/users/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (response.ok) {
+                const result = await response.json();
+                alert('Registro exitoso');
+                console.log(result);
+            } else {
+                alert('Hubo un error en el registro');
+            }
+        } catch (error) {
+            console.error('Error al enviar los datos:', error);
+        }
+
+
+
+    })
 });
