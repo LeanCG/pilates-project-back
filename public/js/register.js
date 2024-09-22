@@ -1,191 +1,158 @@
-
-// Inicialización del stepper
-const stepper = new Stepper(document.querySelector('#stepper'));
-
-// Función para actualizar el contenido activo
-function updateActiveContent(step) {
-    document.querySelectorAll('.content').forEach((content, index) => {
-        content.classList.remove('active');
-        if (index === step) content.classList.add('active');
-    });
-}
-
-// Función para mostrar alertas
-function showAlert(id, message, type = 'warning') {
-    const alert = document.getElementById(id);
-    alert.classList.remove('d-none', 'alert-warning', 'alert-success', 'alert-danger');
-    alert.classList.add(`alert-${type}`);
-    alert.textContent = message;
-}
-
-// Función para ocultar todas las alertas
-function hideAllAlerts() {
-    const alerts = document.querySelectorAll('.alert');
-    alerts.forEach(alert => alert.classList.add('d-none'));
-}
-
-
-// Manejo de eventos para los botones de navegación
-document.getElementById('next-1').addEventListener('click', () => {
-    // Verifica que los datos de la primera sección sean válidos
-    if (validatePersonalDetails()) {
-        hideAllAlerts(); // Oculta cualquier alerta activa
-        stepper.next(); // Siguiente sección
-        updateActiveContent(1); // Muestra la segunda sección
-    } else {
-        showAlert('alert-1', 'Por favor, completa todos los campos requeridos.', 'warning');
+document.addEventListener('DOMContentLoaded', function () {
+    const stepper = new Stepper(document.querySelector('#stepper'));
+    // Función para actualizar el contenido activo
+    function updateActiveContent(step) {
+        document.querySelectorAll('.content').forEach((content, index) => {
+            content.classList.remove('active');
+            if (index === step) content.classList.add('active');
+        });
     }
-});
 
-document.getElementById('prev-2').addEventListener('click', () => {
-    stepper.previous(); // Sección anterior
-    updateActiveContent(0); // Muestra la primera sección
-});
+    // Se muestran las alertas si ingresó mal o faltó datos
+    function showAlert(message, type = 'danger') {
+        const alertContainer = document.getElementById('alert-container');
+        alertContainer.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+            ${message}
+        </div>
+    `;
 
-document.getElementById('next-2').addEventListener('click', () => {
-    // Verifica que los datos de la segunda sección sean válidos
-    if (validateUserDetails()) {
-        hideAllAlerts(); // Oculta cualquier alerta activa
-        stepper.next(); // Siguiente sección
-        updateActiveContent(2); // Muestra la tercera sección
-    } else {
-        showAlert('alert-2', 'Por favor, completa todos los campos requeridos.', 'warning');
+        setTimeout(() => {
+            alertContainer.innerHTML = '';
+        }, 3000);
     }
-});
 
-document.getElementById('prev-3').addEventListener('click', () => {
-    stepper.previous(); // Sección anterior
-    updateActiveContent(1); // Muestra la segunda sección
-});
-
-
-document.getElementById('finish').addEventListener('click',async () => {
-    if (validateAppointmentDetails()) {
-        hideAllAlerts();
-
-        if (validateAppointmentDetails()) {
-            hideAllAlerts();  // Oculta las alertas
-            // Recopila los datos del formulario
-            const userData = {
-                nombre: document.getElementById('nombre').value,
-                apellido: document.getElementById('apellido').value,
-                dni: document.getElementById('dni').value,
-                cuil: document.getElementById('cuil').value,
-                direccion: document.getElementById('direccion').value,
-                municipio_id: document.getElementById('municipio').value,
-                tipo_persona_id: document.getElementById('tipo_persona_id').value,
-                username: document.getElementById('username').value,
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-                created_at: document.getElementById('created_at').value,
-                updated_at: document.getElementById('updated_at').value,
-                rol: document.getElementById('rol').value,
-                tipo_estado_id: document.getElementById('tipo_estado_id').value,
-                dias_turno_id: document.getElementById('dias').value,
-                hora: document.getElementById('time').value,
-                tipo_pilates_id: document.getElementById('tipo_pilates_id').value,
-                numero_factura: document.getElementById('numero_factura').value,
-                descuento: document.getElementById('descuento').value,
-                sub_total: document.getElementById('sub_total'),
-            };
-    
-            try {
-                // Enviar datos al servidor con fetch
-                const response = await fetch('/api/users/create', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(userData) // Convierte el objeto a JSON
-                });
-    
-                const result = await response.json();
-                console.log("response: ",result)
-    
-                if (response.ok) {
-                    showAlert('alert-success', '¡Registro exitoso!', 'success');
-                } else {
-                    showAlert('alert-danger', `¡Error: ${result.message}!`, 'danger');
-                }
-            } catch (error) {
-                showAlert('alert-danger', '¡Error en el servidor!', 'danger');
-            }
+    // Manejo de eventos para los botones de navegación
+    document.getElementById('next-1').addEventListener('click', () => {
+        // Verifica que los datos de la primera sección sean válidos
+        if (validatePersonalDetails()) {
+            stepper.next(); // Siguiente sección
+            updateActiveContent(1); // Muestra la segunda sección
         } else {
-            showAlert('alert-3', 'Por favor, completa todos los campos requeridos.', 'warning');
+            showAlert('Por favor, completa todos los campos requeridos.');
         }
+    });
+
+    document.getElementById('prev-2').addEventListener('click', () => {
+        stepper.previous(); // Sección anterior
+        updateActiveContent(0); // Muestra la primera sección
+    });
+
+    document.getElementById('next-2').addEventListener('click', () => {
+        // Verifica que los datos de la segunda sección sean válidos
+        if (validateUserDetails()) {
+            stepper.next(); // Siguiente sección
+            updateActiveContent(2); // Muestra la tercera sección
+        } else {
+            showAlert('Por favor, completa todos los campos requeridos.');
+        }
+    });
+
+    document.getElementById('prev-3').addEventListener('click', () => {
+        stepper.previous(); // Sección anterior
+        updateActiveContent(1); // Muestra la segunda sección
+    });
+
+
+    document.getElementById('finish').addEventListener('click', () => {
+        if (validateAppointmentDetails()) {
+            showAlert('¡Registro exitoso!');
+        } else {
+            showAlert('Por favor, completa todos los campos requeridos.');
+        }
+    });
+
+    // Funciones de validación:
+    function validatePersonalDetails() {
+        const nombre = document.getElementById('nombre').value;
+        const apellido = document.getElementById('apellido').value;
+        const dni = document.getElementById('dni').value;
+        const cuil = document.getElementById('cuil').value;
+        const direccion = document.getElementById('descripcion').value;
+        const municipio_id = document.getElementById('municipio_id').value;
+        const tipo_persona_id = document.getElementById('tipo_persona_id').value;
+
+        return nombre && apellido && dni && cuil && direccion && municipio_id && tipo_persona_id; // Verifica que los campos no estén vacíos
     }
-});
 
-// Control de selección de días y horarios basado en la concurrencia
-let selectedDays = [];
-const maxDays = {
-    '1': 1,
-    '2': 2,
-    '3': 3,
-    '4': 4,
-    '5': 5
-};
+    function validateUserDetails() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const created_at = document.getElementById('created_at').value;
+        const updated_at = document.getElementById('updated_at').value;
+        const rol_id = document.getElementById('rol_id').value;
+        const tipo_estado_id = document.getElementById('tipo_estado_id').value;
 
-document.getElementById('concurrence').addEventListener('change', (event) => {
-    const concurrence = event.target.value;
-    selectedDays = [];
-    document.getElementById('day').disabled = false;
-    document.getElementById('time').disabled = false;
-});
-
-document.getElementById('day').addEventListener('change', (event) => {
-    const selectedDay = event.target.value;
-
-    if (!selectedDays.includes(selectedDay) && selectedDays.length < maxDays[document.getElementById('concurrence').value]) {
-        selectedDays.push(selectedDay);
-    } else if (selectedDays.includes(selectedDay)) {
-        showAlert('day-alert', '¡Ya has seleccionado este día!', 'warning');
-    } else {
-        showAlert('day-alert', 'Has alcanzado el máximo de días seleccionados.', 'danger');
+        return username && password && created_at && updated_at && rol_id && tipo_estado_id; // Verifica que los campos no estén vacíos
     }
 
-    // Verifica si falta seleccionar días
-    const requiredDays = maxDays[document.getElementById('concurrence').value];
-    if (selectedDays.length < requiredDays) {
-        showAlert('day-alert', `Por favor, selecciona ${requiredDays - selectedDays.length} día(s) más.`, 'warning');
-    } else {
-        hideAlert('day-alert'); // Oculta la alerta si se han seleccionado suficientes días
+    function validateAppointmentDetails() {
+        const fecha_turno = document.getElementById('fecha_turno').value;
+        const hora = document.getElementById('hora').value;
+        const tipo_pilates_id = document.getElementById('tipo_pilates_id').value;
+        const dias_turno_id = document.getElementById('dias_turno_id').value;
+        const numero_factura = document.getElementById('numero_factura').value;
+        const sub_total = document.getElementById('sub_total').value;
+        const descuento = document.getElementById('descuento').value;
+        const cantidad = document.getElementById('cantidad').value;
+        const precio = document.getElementById('precio').value;
+
+        return fecha_turno && hora && tipo_pilates_id && dias_turno_id && numero_factura && sub_total && descuento && cantidad && precio;
     }
 
-    if (selectedDays.length >= maxDays[document.getElementById('concurrence').value]) {
-        document.getElementById('day').disabled = true;
-    }
+    // Inicializa el contenido activo para la primera sección
+    updateActiveContent(0);
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) =>{
+        e.preventDefault()
+
+        const data = {
+            nombre : document.getElementById('nombre').value,
+            apellido : document.getElementById('apellido').value,
+            dni : document.getElementById('dni').value,
+            cuil : document.getElementById('cuil').value,
+            direccion : document.getElementById('descripcion').value,
+            municipio_id : document.getElementById('municipio_id').value,
+            tipo_persona_id : document.getElementById('tipo_persona_id').value,
+            username : document.getElementById('username').value,
+            password : document.getElementById('password').value,
+            created_at : document.getElementById('created_at').value,
+            updated_at : document.getElementById('updated_at').value,
+            rol_id : document.getElementById('rol_id').value,
+            tipo_estado_id : document.getElementById('tipo_estado_id').value,
+            fecha_turno : document.getElementById('fecha_turno').value,
+            hora : document.getElementById('hora').value,
+            tipo_pilates_id : document.getElementById('tipo_pilates_id').value,
+            dias_turno_id : document.getElementById('dias_turno_id').value,
+            numero_factura : document.getElementById('numero_factura').value,
+            sub_total : document.getElementById('sub_total').value,
+            descuento : document.getElementById('descuento').value,
+            cantidad : document.getElementById('cantidad').value,
+            precio : document.getElementById('precio').value
+        }
+
+
+        try {
+            const response = await fetch('/api/users/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            
+            if (response.ok) {
+                const result = await response.json();
+                alert('Registro exitoso');
+                console.log(result);
+            } else {
+                alert('Hubo un error en el registro');
+            }
+        } catch (error) {
+            console.error('Error al enviar los datos:', error);
+        }
+
+
+
+    })
 });
-
-
-// Funciones de validación:
-function validatePersonalDetails() {
-    const name = document.getElementById('name').value;
-    const surname = document.getElementById('surname').value;
-    const dni = document.getElementById('dni').value;
-    const cuil = document.getElementById('cuil').value;
-    const address = document.getElementById('address').value;
-    const phone = document.getElementById('phone').value;
-
-    return name && surname && dni && cuil && address && phone; // Verifica que los campos no estén vacíos
-}
-
-function validateUserDetails() {
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    return username && email && password; // Verifica que los campos no estén vacíos
-}
-
-function validateAppointmentDetails() {
-    return selectedDays.length > 0 && document.getElementById('time').value;
-}
-
-document.getElementById('time').addEventListener('change', (event) => {
-    const selectedTime = event.target.value;
-    // Lógica para verificar la hora seleccionada
-});
-
-// Inicializa el contenido activo para la primera sección
-updateActiveContent(0);
