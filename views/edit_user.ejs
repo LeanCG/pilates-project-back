@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Usuario</title>
 
-    <link rel="shortcut icon" href="/public/images/add_user_icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/public/images/edit_icon.png" type="image/x-icon">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -45,51 +45,52 @@
         </div>
 
         <div class="bs-stepper-content">
-            <form id="registerForm" action="/create" method="POST">
+            <form id="updatedForm" method="POST">
                 <div id="alert-container"></div>
                 <!-- Sección 1: Datos Personales -->
                 <div id="personal-details" class="content" role="tabpanel" aria-labelledby="step-1-trigger">
+                    <input id="id" name="id" value="<%= user.id %>" hidden>
                     <div class="form-group">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="<%= user.nombre %>" required>
                     </div>
                     <div class="form-group">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="apellido" name="apellido" required>
+                        <input type="text" class="form-control" id="apellido" name="apellido" value="<%= user.apellido %>" required>
                     </div>
                     <div class="form-group">
                         <label for="dni" class="form-label">DNI</label>
-                        <input type="text" class="form-control" id="dni" name="dni" required>
+                        <input type="text" class="form-control" id="dni" name="dni" value="<%= user.dni %>" required>
                     </div>
                     <div class="form-group">
                         <label for="cuil" class="form-label">CUIL</label>
-                        <input type="text" class="form-control" id="cuil" name="cuil" required>
+                        <input type="text" class="form-control" id="cuil" name="cuil" value="<%= user.cuil %>" required>
                     </div>
                     <div class="form-group">
                         <label for="descripcion" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" value="<%= user.direccion %>" required>
                     </div>
                     <div class="form-group">
                         <label for="municipio_id" class="form-label">ID Municipio</label>
-                        <input type="number" class="form-control" id="municipio_id" name="municipio_id" required>
+                        <input type="number" class="form-control" id="municipio_id" name="municipio_id" value="<%= user.municipio_id %>" required>
                     </div>
                     <div class="form-group">
                         <label for="tipo_persona_id" class="form-label">Tipo de Persona</label>
-                        <input type="number" class="form-control" id="tipo_persona_id" name="tipo_persona_id" required>
+                        <input type="number" class="form-control" id="tipo_persona_id" name="tipo_persona_id" value="<%= user.tipo_persona_id %>" required>
                     </div>
                     <button type="button" class="btn btn-primary" id="next-1">Siguiente</button>
-                    <a href="/home/users" type="button" class="btn btn-primary">Cancelar</a>
+                    <!-- <a href="/home/users" type="button" class="btn btn-primary">Cancelar</a> -->
                 </div>
 
                 <!-- Sección 2: Datos de Usuario -->
                 <div id="user-details" class="content" role="tabpanel" aria-labelledby="step-2-trigger">
                     <div class="form-group">
                         <label for="username" class="form-label">Nombre de Usuario</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                        <input type="text" class="form-control" id="username" name="username" value="<%= user.username %>" required>
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <input type="password" class="form-control" id="password" name="password" value="<%= user.password %>" required>
                     </div>
                     <div class="form-group">
                         <label for="created_at" class="form-label">Fecha de creación</label>
@@ -101,11 +102,11 @@
                     </div>
                     <div class="form-group">
                         <label for="rol_id" class="form-label">ID Rol</label>
-                        <input type="number" class="form-control" id="rol_id" name="rol_id" required>
+                        <input type="number" class="form-control" id="rol_id" name="rol_id" value="<%= user.rol_id %>" required>
                     </div>
                     <div class="form-group">
                         <label for="tipo_estado_id" class="form-label">Tipo de Estado</label>
-                        <input type="number" class="form-control" id="tipo_estado_id" name="tipo_estado_id" required>
+                        <input type="number" class="form-control" id="tipo_estado_id" name="tipo_estado_id" value="<%= user.tipo_estado_id %>" required>
                     </div>
                     <button type="button" class="btn btn-secondary" id="prev-2">Anterior</button>
                     <button type="button" class="btn btn-primary" id="next-2">Siguiente</button>
@@ -115,7 +116,7 @@
                     <h5>Elegir Turnos</h5>
                     <div class="form-group">
                         <label for="fecha_turno" class="form-label">Fecha del Turno</label>
-                        <input type="date" class="form-control" id="fecha_turno" name="fecha_turno" required>
+                        <input type="date" class="form-control" id="fecha_turno" name="fecha_turno" value="<%= user.fecha_turno %>" required>
                     </div>
                     <div class="form-group">
                         <label for="hora" class="form-label">Hora</label>
@@ -123,32 +124,32 @@
                     </div>
                     <div class="form-group">
                         <label for="tipo_pilates_id" class="form-label">ID Tipo de Pilates</label>
-                        <input type="number" class="form-control" id="tipo_pilates_id" name="tipo_pilates_id" required>
+                        <input type="number" class="form-control" id="tipo_pilates_id" name="tipo_pilates_id" value="<%= user.tipo_estado_id %>" required>
                     </div>
                     <div class="form-group">
                         <label for="dias_turno_id" class="form-label">Cantidad de días (ID)</label>
-                        <input type="number" class="form-control" id="dias_turno_id" name="dias_turno_id" required>
+                        <input type="number" class="form-control" id="dias_turno_id" name="dias_turno_id" value="<%= user.dias_turno_id %>" required>
                     </div>
                     <h5>Facturación</h5>
                     <div class="form-group">
                         <label for="numero_factura" class="form-label">Número de Factura</label>
-                        <input type="text" class="form-control" id="numero_factura" name="numero_factura" required>
+                        <input type="text" class="form-control" id="numero_factura" name="numero_factura" value="<%= user.numero_factura %>" required>
                     </div>
                     <div class="form-group">
                         <label for="sub_total" class="form-label">Subtotal</label>
-                        <input type="number" class="form-control" id="sub_total" name="sub_total" required>
+                        <input type="number" class="form-control" id="sub_total" name="sub_total" value="<%= user.sub_total %>" required>
                     </div>
                     <div class="form-group">
                         <label for="descuento" class="form-label">Descuento</label>
-                        <input type="number" class="form-control" id="descuento" name="descuento">
+                        <input type="number" class="form-control" id="descuento" name="descuento" value="<%= user.descuento %>">
                     </div>
                     <div class="form-group">
                         <label for="cantidad" class="form-label">Cantidad</label>
-                        <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+                        <input type="number" class="form-control" id="cantidad" name="cantidad" value="<%= user.cantidad %>" required>
                     </div>
                     <div class="form-group">
                         <label for="precio" class="form-label">Precio</label>
-                        <input type="number" class="form-control" id="precio" name="precio" required>
+                        <input type="number" class="form-control" id="precio" name="precio" value="<%= user.precio %>" required>
                     </div>
                     <button type="button" class="btn btn-secondary" id="prev-3">Anterior</button>
                     <button type="submit" class="btn btn-success" id="finish">Finalizar</button>
@@ -169,7 +170,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom JS -->
-    <script src="/js/register.js"></script>
+    <script src="/js/edit_user.js"></script>
 </body>
 
 </html>

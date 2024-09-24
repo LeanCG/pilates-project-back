@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const userId = document.getElementById('user-id').value;
+
+    // Cargar datos del usuario desde el backend
+    fetch(`/api/users/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('nombre').value = data.nombre;
+            document.getElementById('apellido').value = data.apellido;
+            document.getElementById('dni').value = data.dni;
+            document.getElementById('cuil').value = data.cuil;
+            document.getElementById('descripcion').value = data.direccion;
+            document.getElementById('municipio_id').value = data.municipio_id;
+            document.getElementById('tipo_persona_id').value = data.tipo_persona_id;
+            // Completar con los otros campos
+        })
+        .catch(error => console.log("Error al cargar los datos del usuario:", error));
+
+    // Aquí ya tienes la lógica de validación y navegación del stepper
     const stepper = new Stepper(document.querySelector('#stepper'));
     // Función para actualizar el contenido activo
     function updateActiveContent(step) {
@@ -12,10 +30,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function showAlert(message, type = 'danger') {
         const alertContainer = document.getElementById('alert-container');
         alertContainer.innerHTML = `
-        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-            ${message}
-        </div>
-    `;
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+            </div>
+        `;
 
         setTimeout(() => {
             alertContainer.innerHTML = '';
@@ -57,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('finish').addEventListener('click', () => {
         if (validateAppointmentDetails()) {
             swal.fire({
-                title: '¡Usuario creado exitosamente!',
+                title: '¡Usuario modificado exitosamente!',
                 icon: 'success',
                 timer: 3000,
                 timerProgressBar: true,
@@ -109,3 +127,4 @@ document.addEventListener('DOMContentLoaded', function () {
     // Inicializa el contenido activo para la primera sección
     updateActiveContent(0);
 });
+
