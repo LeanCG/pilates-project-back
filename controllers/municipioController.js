@@ -13,6 +13,7 @@ export const getMunicipio = async (req, res) =>{
         res.json(localidades)
     }
     }catch(error){
-        throw new Error("error en la query")
+        console.error("error en la query",error.message);
+        return res.status(500).json({message: "error en la base de datos"})
     }
 }
