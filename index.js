@@ -3,6 +3,7 @@ import exerciseRoutes from './routes/exerciseRoutes.js'
 import routineRoutes from "./routes/routineRoutes.js"; 
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import municipioRoutes from './routes/municipioRoutes.js'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
@@ -42,7 +43,7 @@ next();
 app.use('/api/users', userRoutes);
 app.use('/api/exercise',exerciseRoutes)
 app.use('/api/routine', routineRoutes); 
-
+app.use('/api', municipioRoutes)
 app.use('/api/auth', authRoutes);
 app.use('/', loginRoutes);
 
