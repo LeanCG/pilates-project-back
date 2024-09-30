@@ -1,22 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const userId = document.getElementById('user-id').value;
-
-    // Cargar datos del usuario desde el backend
-    fetch(`/api/users/${userId}`)
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('nombre').value = data.nombre;
-            document.getElementById('apellido').value = data.apellido;
-            document.getElementById('dni').value = data.dni;
-            document.getElementById('cuil').value = data.cuil;
-            document.getElementById('descripcion').value = data.direccion;
-            document.getElementById('municipio_id').value = data.municipio_id;
-            document.getElementById('tipo_persona_id').value = data.tipo_persona_id;
-            // Completar con los otros campos
-        })
-        .catch(error => console.log("Error al cargar los datos del usuario:", error));
-
-    // Aquí ya tienes la lógica de validación y navegación del stepper
     const stepper = new Stepper(document.querySelector('#stepper'));
     // Función para actualizar el contenido activo
     function updateActiveContent(step) {
@@ -102,12 +84,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateUserDetails() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        const created_at = document.getElementById('created_at').value;
-        const updated_at = document.getElementById('updated_at').value;
         const rol_id = document.getElementById('rol_id').value;
         const tipo_estado_id = document.getElementById('tipo_estado_id').value;
 
-        return username && password && created_at && updated_at && rol_id && tipo_estado_id; // Verifica que los campos no estén vacíos
+        return username && password && rol_id && tipo_estado_id; // Verifica que los campos no estén vacíos
     }
 
     function validateAppointmentDetails() {
@@ -115,13 +95,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const hora = document.getElementById('hora').value;
         const tipo_pilates_id = document.getElementById('tipo_pilates_id').value;
         const dias_turno_id = document.getElementById('dias_turno_id').value;
-        const numero_factura = document.getElementById('numero_factura').value;
-        const sub_total = document.getElementById('sub_total').value;
-        const descuento = document.getElementById('descuento').value;
-        const cantidad = document.getElementById('cantidad').value;
-        const precio = document.getElementById('precio').value;
 
-        return fecha_turno && hora && tipo_pilates_id && dias_turno_id && numero_factura && sub_total && descuento && cantidad && precio;
+        return fecha_turno && hora && tipo_pilates_id && dias_turno_id;
     }
 
     // Inicializa el contenido activo para la primera sección

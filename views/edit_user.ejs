@@ -71,12 +71,13 @@
                         <input type="text" class="form-control" id="descripcion" name="descripcion" value="<%= user.direccion %>" required>
                     </div>
                     <div class="form-group">
-                        <label for="municipio_id" class="form-label">ID Municipio</label>
+                        <label for="municipio_id" class="form-label">Municipio</label>
+                        <select name="municipio_id" id="municipio_id"></select>
                         <input type="number" class="form-control" id="municipio_id" name="municipio_id" value="<%= user.municipio_id %>" required>
                     </div>
                     <div class="form-group">
                         <label for="tipo_persona_id" class="form-label">Tipo de Persona</label>
-                        <input type="number" class="form-control" id="tipo_persona_id" name="tipo_persona_id" value="<%= user.tipo_persona_id %>" required>
+                        <select name="tipo_persona_id" id="tipo_persona_id"></select>
                     </div>
                     <button type="button" class="btn btn-primary" id="next-1">Siguiente</button>
                     <!-- <a href="/home/users" type="button" class="btn btn-primary">Cancelar</a> -->
@@ -93,20 +94,8 @@
                         <input type="password" class="form-control" id="password" name="password" value="<%= user.password %>" required>
                     </div>
                     <div class="form-group">
-                        <label for="created_at" class="form-label">Fecha de creación</label>
-                        <input type="date" class="form-control" id="created_at" name="created_at" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="updated_at" class="form-label">Fecha de modificación</label>
-                        <input type="date" class="form-control" id="updated_at" name="updated_at" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="rol_id" class="form-label">ID Rol</label>
-                        <input type="number" class="form-control" id="rol_id" name="rol_id" value="<%= user.rol_id %>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="tipo_estado_id" class="form-label">Tipo de Estado</label>
-                        <input type="number" class="form-control" id="tipo_estado_id" name="tipo_estado_id" value="<%= user.tipo_estado_id %>" required>
+                        <label for="rol_id" class="form-label">Rol</label>
+                        <select name="rol_id" id="rol_id"></select>
                     </div>
                     <button type="button" class="btn btn-secondary" id="prev-2">Anterior</button>
                     <button type="button" class="btn btn-primary" id="next-2">Siguiente</button>
@@ -123,33 +112,12 @@
                         <input type="time" class="form-control" id="hora" name="hora" required>
                     </div>
                     <div class="form-group">
-                        <label for="tipo_pilates_id" class="form-label">ID Tipo de Pilates</label>
-                        <input type="number" class="form-control" id="tipo_pilates_id" name="tipo_pilates_id" value="<%= user.tipo_estado_id %>" required>
+                        <label for="tipo_pilates_id" class="form-label">Tipo de Pilates</label>
+                        <select name="tipo_pilates_id" id="tipo_pilates_id"></select>
                     </div>
                     <div class="form-group">
-                        <label for="dias_turno_id" class="form-label">Cantidad de días (ID)</label>
-                        <input type="number" class="form-control" id="dias_turno_id" name="dias_turno_id" value="<%= user.dias_turno_id %>" required>
-                    </div>
-                    <h5>Facturación</h5>
-                    <div class="form-group">
-                        <label for="numero_factura" class="form-label">Número de Factura</label>
-                        <input type="text" class="form-control" id="numero_factura" name="numero_factura" value="<%= user.numero_factura %>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="sub_total" class="form-label">Subtotal</label>
-                        <input type="number" class="form-control" id="sub_total" name="sub_total" value="<%= user.sub_total %>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="descuento" class="form-label">Descuento</label>
-                        <input type="number" class="form-control" id="descuento" name="descuento" value="<%= user.descuento %>">
-                    </div>
-                    <div class="form-group">
-                        <label for="cantidad" class="form-label">Cantidad</label>
-                        <input type="number" class="form-control" id="cantidad" name="cantidad" value="<%= user.cantidad %>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="precio" class="form-label">Precio</label>
-                        <input type="number" class="form-control" id="precio" name="precio" value="<%= user.precio %>" required>
+                        <label for="dias_turno_id" class="form-label">Cantidad de días</label>
+                        <select name="dias_turno_id" id="dias_turno_id"></select>
                     </div>
                     <button type="button" class="btn btn-secondary" id="prev-3">Anterior</button>
                     <button type="submit" class="btn btn-success" id="finish">Finalizar</button>
