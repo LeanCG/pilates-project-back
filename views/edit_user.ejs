@@ -49,49 +49,48 @@
                 <div id="alert-container"></div>
                 <!-- Sección 1: Datos Personales -->
                 <div id="personal-details" class="content" role="tabpanel" aria-labelledby="step-1-trigger">
-                    <input id="id" name="id" value="<%= user.id %>" hidden>
+                    <input id="id" name="id" hidden>
                     <div class="form-group">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" value="<%= user.nombre %>" required>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
                     </div>
                     <div class="form-group">
                         <label for="apellido" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="apellido" name="apellido" value="<%= user.apellido %>" required>
+                        <input type="text" class="form-control" id="apellido" name="apellido" required>
                     </div>
                     <div class="form-group">
                         <label for="dni" class="form-label">DNI</label>
-                        <input type="text" class="form-control" id="dni" name="dni" value="<%= user.dni %>" required>
+                        <input type="text" class="form-control" id="dni" name="dni" required>
                     </div>
                     <div class="form-group">
                         <label for="cuil" class="form-label">CUIL</label>
-                        <input type="text" class="form-control" id="cuil" name="cuil" value="<%= user.cuil %>" required>
+                        <input type="text" class="form-control" id="cuil" name="cuil" required>
                     </div>
                     <div class="form-group">
                         <label for="descripcion" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" id="descripcion" name="descripcion" value="<%= user.direccion %>" required>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" required>
                     </div>
                     <div class="form-group">
                         <label for="municipio_id" class="form-label">Municipio</label>
                         <select name="municipio_id" id="municipio_id"></select>
-                        <input type="number" class="form-control" id="municipio_id" name="municipio_id" value="<%= user.municipio_id %>" required>
+                        <input type="number" class="form-control" id="municipio_id" name="municipio_id" required>
                     </div>
                     <div class="form-group">
                         <label for="tipo_persona_id" class="form-label">Tipo de Persona</label>
                         <select name="tipo_persona_id" id="tipo_persona_id"></select>
                     </div>
                     <button type="button" class="btn btn-primary" id="next-1">Siguiente</button>
-                    <!-- <a href="/home/users" type="button" class="btn btn-primary">Cancelar</a> -->
                 </div>
 
                 <!-- Sección 2: Datos de Usuario -->
                 <div id="user-details" class="content" role="tabpanel" aria-labelledby="step-2-trigger">
                     <div class="form-group">
                         <label for="username" class="form-label">Nombre de Usuario</label>
-                        <input type="text" class="form-control" id="username" name="username" value="<%= user.username %>" required>
+                        <input type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password" value="<%= user.password %>" required>
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                     <div class="form-group">
                         <label for="rol_id" class="form-label">Rol</label>
@@ -105,7 +104,7 @@
                     <h5>Elegir Turnos</h5>
                     <div class="form-group">
                         <label for="fecha_turno" class="form-label">Fecha del Turno</label>
-                        <input type="date" class="form-control" id="fecha_turno" name="fecha_turno" value="<%= user.fecha_turno %>" required>
+                        <input type="date" class="form-control" id="fecha_turno" name="fecha_turno" required>
                     </div>
                     <div class="form-group">
                         <label for="hora" class="form-label">Hora</label>
