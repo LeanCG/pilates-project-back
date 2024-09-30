@@ -144,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (response.ok) {
                 const result = await response.json();
                 alert('Registro exitoso');
+                window.location.href = '/home';
                 console.log(result);
             } else {
                 alert('Hubo un error en el registro');

@@ -123,3 +123,21 @@ function renderUsersTable(data) {
     // Inserta las filas generadas en el cuerpo de la tabla
     document.querySelector('#table_users tbody').innerHTML = rows;
 }
+
+document.getElementById('logout-btn').addEventListener('click', (event) => {
+    event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+
+    // Aquí haces la petición para cerrar la sesión
+    fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include', // Para enviar las cookies en la solicitud
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = '/'; // Redirigir a la página de login
+        } else {
+            console.error('Error al cerrar sesión');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});

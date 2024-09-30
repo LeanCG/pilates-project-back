@@ -26,12 +26,20 @@ export const login = async (req, res) => {
                 return res.status(400).json("Contraseña o usuario incorrecto")
             }
 
-            const token = jwt.sign({id : data[0].id}, "secretkey")
+            const token = jwt.sign({id : data[0].id,
+                rol_id: data[0].rol_id,
+                username: data[0].username
+            }, "secretkey",
+            {expiresIn: '1h'}
+            )
 
             const {password, ...others} = data[0]
 
             res.cookie("accessToken", token, {
-                httpOnly : true,
+                // httpOnly : true,
+                secure: true, // solo se envía la cookie en conexiones HTTPS
+                sameSite: "none", //permite cookies "cross-site"
+                maxAge: 60 * 60 * 1000 //Tiempo de vida de la cookie
             }).status(200).json(others)
             
         }
@@ -40,9 +48,13 @@ export const login = async (req, res) => {
         }
 }
 
+
+//Detalle importante: el clearCookie debe coincidir con los datos de la creacion, en este caso el maxAge y el path no cuentan.
 export const logout = (req, res) => {
-    res.clearCookie("acessToken", {
+    res.clearCookie("accessToken", {
+        // httpOnly: true,
         secure: true,
-        sameSite:"none"
-    }).status(200).json("User has been log out")
+        sameSite: "none",
+        path: "/", 
+    }).status(200).json("User has been logged out");
 }
