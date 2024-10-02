@@ -1,0 +1,97 @@
+.highcharts-background {
+    fill: #ffffff !important;
+}
+.highcharts-color-0 {
+    fill: #28a745 !important;
+    stroke: #28a745 !important;
+}
+.highcharts-color-1 {
+    fill: #dc3545 !important;
+    stroke: #dc3545 !important;
+}
+
+
+table.dataTable th {
+    background: linear-gradient(180deg, #0c0c0cc5 0%, #000000fd 100%) !important;
+    color: #ffffff !important;
+}
+
+table>tbody>tr>td {
+    vertical-align: middle !important;
+}
+td .btn-group {
+    align-items: center;
+    justify-content: center;
+}
+
+.verde {
+    background-color: rgba(62, 145, 46, 0.548) !important;
+    font-weight: bold !important;
+}
+.rojo {
+    background-color: rgba(223, 53, 53, 0.397) !important;
+    font-weight: bold !important;
+}
+
+tfoot>tr>td {
+    background-color: rgba(199, 193, 193, 0.767) !important;
+    font-weight: bold !important;
+}
+
+.dt-search input {
+    border: 1px solid #cdcdce !important;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}
+
+.card-header {
+    padding: 1rem; /* Ajusta el padding según sea necesario */
+}
+
+.card-title {
+    margin-right: 1rem; /* Agrega un margen derecho al título */
+}
+.card-header .btn {
+    background-color: #47ad7ea8;
+    color: #161616;
+    font-weight: bold;
+}
+
+.btn {
+    border: 1px solid #cdcdce !important;
+    border-radius: 0.55rem !important;
+}
+.btn-group {
+    margin-left: 30px;
+}
+.btn-group .icon {
+    width: 25px;
+    height: 25px;
+}
+@media (max-width: 768px) {
+    .dataTables_wrapper .dt-search,
+    .dataTables_wrapper .dt-buttons {
+        width: 100%; /* Ambos elementos ocupan el ancho completo */
+        margin-bottom: 10px; /* Añade espacio entre ellos */
+    }
+}
+
+.page-item.active .page-link {
+    background: linear-gradient(180deg, #0c0c0cc5 0%, #000000fd 100%);
+    border: none;
+    color: #ffffff !important;
+}
+.page-link {
+    color: black !important;
+}
+.page-item:hover {
+    background: none !important;
+    border: none !important;
+}
+.page-item {
+    margin: 0 !important;
+    padding: 0 !important;
+}
