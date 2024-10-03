@@ -9,7 +9,9 @@
     fill: #dc3545 !important;
     stroke: #dc3545 !important;
 }
-
+.highcharts-tooltip-box {
+    fill: #fff !important;
+}
 
 table.dataTable th {
     background: linear-gradient(180deg, #0c0c0cc5 0%, #000000fd 100%) !important;
