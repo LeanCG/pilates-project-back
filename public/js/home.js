@@ -7,7 +7,7 @@ sidebarToggle.addEventListener('click', () => {
 
 // Para mostrar la tabla de usuarios cuando se hace clic en 'Usuarios':
 document.getElementById('users').addEventListener('click', function () {
-    fetch('table_users.html')
+    fetch('/users')
         .then(response => response.text())
         .then(data => {
             document.getElementById('main-content').innerHTML = data;
@@ -16,6 +16,14 @@ document.getElementById('users').addEventListener('click', function () {
             setupRegisterUserEvent();
         })
         .catch(error => console.log(error));
+    
+        fetch('/api/users/list')
+        .then(response => response.json())
+        .then(data => {
+            // Renderizar los datos en la tabla
+            renderUsersTable(data);
+        })
+        .catch(error => console.log("Error al obtener los datos de usuarios:", error));
 });
 
 // Inicialización de DataTables y sus funcionalidades
@@ -56,13 +64,13 @@ function initializeDataTable() {
         buttons: [
             {
                 extend: 'copy',
-                text: '<img src="/public/images/copy_icon.png" class="icon">',
+                text: '<img src="/images/copy_icon.png" class="icon">',
                 titleAttr: 'Copiar al portapapeles',
                 className: "btn btn-light"
             },
             {
                 extend: 'excel',
-                text: '<img src="/public/images/excel_icon.png" class="icon">',
+                text: '<img src="/images/excel_icon.png" class="icon">',
                 titleAttr: 'Exportar a Excel',
                 className: "btn btn-light",
                 excelStyles: {
@@ -71,16 +79,65 @@ function initializeDataTable() {
             },
             {
                 extend: 'pdf',
-                text: '<img src="/public/images/pdf_icon.png" class="icon">',
+                text: '<img src="/images/pdf_icon.png" class="icon">',
                 titleAttr: 'Exportar a PDF',
                 className: "btn btn-light"
             },
             {
                 extend: 'print',
-                text: '<img src="/public/images/print_icon.png" class="icon">',
+                text: '<img src="/images/print_icon.png" class="icon">',
                 titleAttr: 'Imprimir',
                 className: "btn btn-light"
             },
         ]
     });
 }
+
+function renderUsersTable(data) {
+    // Genera las filas de la tabla con los datos obtenidos
+    let rows = data.map(user => `
+        <tr>
+            <td>${user.nombre}</td>
+            <td>${user.dni}</td>
+            <td>${user.direccion}</td>
+            <td>${user.tipo_estado}</td>
+            <td>${user.tipo_persona}</td>
+            <td>
+                <div class="btn-group">
+                    <a title="Ver detalles" href="#" class="btn btn-light" id="viewUserButton">
+                        <img src="/images/info_icon.png" class="icon">
+                    </a>
+                    <a title="Editar" href="#" class="btn btn-light" id="editUserButton">
+                        <img src="/images/edit_icon.png" class="icon">
+                    </a>
+                    <a title="Eliminar" href="#" class="btn btn-light" id="deleteUserButton">
+                        <img src="/images/delete_icon.png" class="icon">
+                    </a>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+
+    // console.log(rows)
+
+    // Inserta las filas generadas en el cuerpo de la tabla
+    document.querySelector('#table_users tbody').innerHTML = rows;
+}
+
+document.getElementById('logout-btn').addEventListener('click', (event) => {
+    event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+
+    // Aquí haces la petición para cerrar la sesión
+    fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include', // Para enviar las cookies en la solicitud
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = '/'; // Redirigir a la página de login
+        } else {
+            console.error('Error al cerrar sesión');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});

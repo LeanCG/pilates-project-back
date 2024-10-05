@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Usuario</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- bs-stepper CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+
+<body>
+    <div class="bs-stepper" id="stepper">
+        <div class="bs-stepper-header" role="tablist">
+            <!-- Paso 1: Datos Personales -->
+            <div class="step" data-target="#personal-details">
+                <button type="button" class="step-trigger" role="tab" aria-controls="personal-details"
+                    id="step-1-trigger">
+                    <span class="bs-stepper-circle">1</span>
+                    <span class="bs-stepper-label">Datos Personales</span>
+                </button>
+            </div>
+            <!-- Paso 2: Datos de Usuario -->
+            <div class="step" data-target="#user-details">
+                <button type="button" class="step-trigger" role="tab" aria-controls="user-details" id="step-2-trigger">
+                    <span class="bs-stepper-circle">2</span>
+                    <span class="bs-stepper-label">Datos de Usuario</span>
+                </button>
+            </div>
+            <!-- Paso 3: Turnos y Facturación -->
+            <div class="step" data-target="#appointment">
+                <button type="button" class="step-trigger" role="tab" aria-controls="appointment" id="step-3-trigger">
+                    <span class="bs-stepper-circle">3</span>
+                    <span class="bs-stepper-label">Turnos y Facturación</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="bs-stepper-content">
+            <form id="registerForm" method="POST">
+                <div id="alert-container"></div>
+                <!-- Sección 1: Datos Personales -->
+                <div id="personal-details" class="content" role="tabpanel" aria-labelledby="step-1-trigger">
+                    <div class="form-group">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dni" class="form-label">DNI</label>
+                        <input type="text" class="form-control" id="dni" name="dni" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cuil" class="form-label">CUIL</label>
+                        <input type="text" class="form-control" id="cuil" name="cuil" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="municipio_id" class="form-label">ID Municipio</label>
+                        <input type="number" class="form-control" id="municipio_id" name="municipio_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo_persona_id" class="form-label">Tipo de Persona</label>
+                        <input type="number" class="form-control" id="tipo_persona_id" name="tipo_persona_id" required>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="next-1">Siguiente</button>
+                </div>
+
+                <!-- Sección 2: Datos de Usuario -->
+                <div id="user-details" class="content" role="tabpanel" aria-labelledby="step-2-trigger">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Nombre de Usuario</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="created_at" class="form-label">Fecha de creación</label>
+                        <input type="date" class="form-control" id="created_at" name="created_at" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="updated_at" class="form-label">Fecha de modificación</label>
+                        <input type="date" class="form-control" id="updated_at" name="updated_at" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rol_id" class="form-label">ID Rol</label>
+                        <input type="number" class="form-control" id="rol_id" name="rol_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo_estado_id" class="form-label">Tipo de Estado</label>
+                        <input type="number" class="form-control" id="tipo_estado_id" name="tipo_estado_id" required>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="prev-2">Anterior</button>
+                    <button type="button" class="btn btn-primary" id="next-2">Siguiente</button>
+                </div>
+                <!-- Sección 3: Turnos y Facturación -->
+                <div id="appointment" class="content" role="tabpanel" aria-labelledby="step-3-trigger">
+                    <h5>Elegir Turnos</h5>
+                    <div class="form-group">
+                        <label for="fecha_turno" class="form-label">Fecha del Turno</label>
+                        <input type="date" class="form-control" id="fecha_turno" name="fecha_turno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora" class="form-label">Hora</label>
+                        <input type="time" class="form-control" id="hora" name="hora" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo_pilates_id" class="form-label">ID Tipo de Pilates</label>
+                        <input type="number" class="form-control" id="tipo_pilates_id" name="tipo_pilates_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dias_turno_id" class="form-label">Cantidad de días (ID)</label>
+                        <input type="number" class="form-control" id="dias_turno_id" name="dias_turno_id" required>
+                    </div>
+                    <h5>Facturación</h5>
+                    <div class="form-group">
+                        <label for="numero_factura" class="form-label">Número de Factura</label>
+                        <input type="text" class="form-control" id="numero_factura" name="numero_factura" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sub_total" class="form-label">Subtotal</label>
+                        <input type="number" class="form-control" id="sub_total" name="sub_total" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descuento" class="form-label">Descuento</label>
+                        <input type="number" class="form-control" id="descuento" name="descuento">
+                    </div>
+                    <div class="form-group">
+                        <label for="cantidad" class="form-label">Cantidad</label>
+                        <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="precio" class="form-label">Precio</label>
+                        <input type="number" class="form-control" id="precio" name="precio" required>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="prev-3">Anterior</button>
+                    <button type="submit" class="btn btn-success" id="finish">Finalizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- bs-stepper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="/js/register.js"></script>
+    <script src="/js/home.js"></script>
+</body>
+
+</html>

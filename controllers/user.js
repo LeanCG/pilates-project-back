@@ -2,6 +2,8 @@ import { db } from "../connect.js"
 import util from 'util'
 import bcrypt from "bcryptjs"
 import { validateRegister } from "../middlewares/validate.js"
+import { calcularDescuento } from "../middlewares/descuento.js"
+import { json } from "express"
 
 const query = util.promisify(db.query).bind(db)
 
@@ -51,17 +53,23 @@ export const createUser = [validateRegister, async (req,res) => {
 
         const {fecha_turno} = req.body
 
-        const values_turn = [fecha_turno, req.body.hora, idNuevoUser, req.body.tipo_pilates_id, 1, req.body.dias_turno_id]
+        const values_turn = [fecha_turno, req.body.hora, idNuevoUser, req.body.tipo_pilates_id, req.body.tipo_estado_id, req.body.dias_turno_id]
 
         await query('INSERT INTO turnos_alta_usuario (`fecha_turno`, `hora`, `user_id`, `tipo_pilates_id`, `tipo_estado_id`, `dias_turno_id`) VALUES (?)', [values_turn])
         
+        let precio = req.body.precio
+
+        if (Number(req.body.descuento) > 0){
+            precio = calcularDescuento(req.body.precio, req.body.descuento)
+        }
+
         const values_factura = [fecha_turno, req.body.numero_factura, req.body.sub_total, req.body.descuento, idNuevaPersona]
 
         resultados = await query('INSERT INTO cabecera_factura (`fecha_factura`, `numero_factura`, `sub_total`, `descuento`, `comprador_id`) VALUES (?)', [values_factura])
 
         const idNuevaFactura = resultados.insertId
 
-        const values_detalle_factura = [req.body.cantidad, req.body.precio, idNuevaFactura]
+        const values_detalle_factura = [req.body.cantidad, precio, idNuevaFactura]
 
         await query('INSERT INTO detalle_factura (`cantidad`, `precio`, `cabecera_factura_id`) VALUES (?)', [values_detalle_factura])
 
@@ -75,7 +83,7 @@ export const createUser = [validateRegister, async (req,res) => {
 export const editUser = [validateRegister, async (req, res) => {
     try {
 
-        const {id} = req.params
+        const {id} = req.params 
 
         console.log(id)
 
@@ -92,7 +100,6 @@ export const editUser = [validateRegister, async (req, res) => {
         if (data.length) {
             return res.status(409).json("Nombre en uso");
         }
-
 
         await query('UPDATE persona SET `apellido` = ?, `nombre` = ?, `dni` = ?, `cuil` = ?, `direccion_id` = ?, `tipo_persona_id` = ? WHERE `id` = ?', [...values_persona, id]);
 
@@ -143,29 +150,26 @@ export const editUsuario = [validateRegister, async (req, res) => {
 export const listUsers = async (req, res) => {
     try{
         const sql = `
-        SELECT 
-            p.id AS id, 
-            p.apellido, 
-            p.nombre, 
-            p.dni, 
-            p.cuil,
-            u.id AS user_id, 
-            u.username, 
-            u.created_at, 
-            u.updated_at, 
-            u.rol_id, 
-            u.tipo_estado_id
-        FROM 
-            persona p
-        JOIN 
-            user u ON p.id = u.persona_id`
-        const consulta = `SELECT * SELECT p.id AS persona_id, p.apellido, p.nombre,
-                            p.dni, u.id AS user_id, u.username,
-                            u.created_at, t.id AS turno_id, t.fecha, t.hora FROM persona p
-                            JOIN user u ON p.id = u.persona_id JOIN turnos t ON u.id = t.user_id`
-
+    SELECT 
+        p.nombre,
+        p.apellido,
+        p.dni,
+        p.cuil,
+        d.descripcion AS direccion,
+        tp.descripcion AS tipo_persona,
+        te.descripcion AS tipo_estado
+    FROM 
+        persona p
+    JOIN 
+        user u ON p.id = u.persona_id
+    JOIN 
+        direccion d ON p.direccion_id = d.id
+    JOIN 
+        tipo_persona tp ON p.tipo_persona_id = tp.id
+    JOIN 
+        tipo_estado te ON u.tipo_estado_id = te.id;
+`
         const data = await query(sql)
-        
         res.status(200).json(data)
     }
     catch(err){
