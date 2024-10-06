@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
     <!-- Bootsrap y dataTables -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" />
@@ -14,17 +15,22 @@
     <link href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.bootstrap5.min.css" rel="stylesheet" />
     <!-- Diseño responsive-->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.dataTables.min.css" />
+    <!-- Select y highCharts-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.1.0/css/select.dataTables.css">
+    <link rel="stylesheet" href="https://code.highcharts.com/css/highcharts.css">
 
-    <!-- Estilo propio -->
-    <link rel="stylesheet" href="/css/table_users.css">
+    <!-- Diseño propio -->
+    <link rel="stylesheet" href="/css/facturacion.css">
 </head>
 
 <body>
+    <div id="contenedor" class="shadow-lg p-3 mb-5"></div>
+
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="card-title">Usuarios</h3>
-            <a title="Agregar" href="/registry" class="btn btn-light" id="addUserButton">
-                <img src="/images/add_user_icon.png" class="icon"> <span>Agregar</span>
+            <h3 class="card-title">Movimientos de caja</h3>
+            <a title="Agregar" href="#" class="btn btn-light" id="addUserButton">
+                <img src="/images/add_moving.svg" class="icon"> <span>Agregar movimiento</span>
             </a>
 
         </div>
@@ -37,47 +43,45 @@
                 <div class="row">
                     <div class="col">
                         <div class="table-responsive">
-                            <table id="table_users" class="table table-hover display nowrap">
+                            <table id="table_invoice" class="table table-hover display nowrap">
                                 <thead>
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>DNI</th>
-                                        <th>Dirección</th>
-                                        <th>Estado</th>
-                                        <th>Persona</th>
-                                        <th>Acciones</th>
+                                        <th>Descripción</th>
+                                        <th>Fecha</th>
+                                        <th>
+                                            <img src="/images/flecha_arriba.png" class="icon">
+                                        </th>
+                                        <th>
+                                            <img src="/images/flecha_abajo.png" class="icon">
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <tr> -->
-                                        <!-- <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011-04-25</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a title="Ver detalles" href="#" class="btn btn-light" id="viewUserButton">
-                                                    <img src="/images/info_icon.png" class="icon">
-                                                </a>
-                                                <a title="Editar" href="#" class="btn btn-light" id="editUserButton">
-                                                    <img src="/images/edit_icon.png" class="icon">
-                                                </a>
-                                                <a title="Eliminar" href="#" class="btn btn-light" id="deleteUserButton">
-                                                    <img src="/images/delete_icon.png" class="icon">
-                                                </a>
-                                            </div>
-                                        </td> -->
-                                    <!-- </tr> -->
+                                    <tr>
+                                        <td>Ingreso Alumno</td>
+                                        <td>2024-09-25</td>
+                                        <td class="verde">10.000</td>
+                                        <td class="rojo"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gasto luz</td>
+                                        <td>2024-09-02</td>
+                                        <td class="verde"></td>
+                                        <td class="rojo">55.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pago cuota</td>
+                                        <td>2024-10-01</td>
+                                        <td class="verde">12.000</td>
+                                        <td class="rojo"></td>
+                                    </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>DNI</th>
-                                        <th>Dirección</th>
-                                        <th>Teléfono</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
+                                        <td>TOTAL</td>
+                                        <td></td>
+                                        <td>22.000</td>
+                                        <td>55.000</td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -88,14 +92,13 @@
 
         </div>
     </div>
-    <!-- Contenedor para los modales -->
-    <div id="modal-container"></div>
+
 
     <!-- scripts-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.5/js/dataTables.bootstrap5.js"></script>
 
     <!-- Scrpts para el manejo de botones y funcionalidades-->
@@ -110,12 +113,15 @@
     <!-- Diseño Responsive-->
     <script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.min.js"></script>
 
-    <!-- SweetAlert js -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+    <script src="https://cdn.datatables.net/select/2.1.0/js/dataTables.select.js"></script>
+    <script src="https://cdn.datatables.net/select/2.1.0/js/select.dataTables.js"></script>
+    <!-- Gráfico de highCharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
     <!-- Archivo JS propio-->
-    <script src="/js/table_users.js"></script>
-    <script src="/js/home.js"></script>
+    <script src="/js/facturacion.js"></script>
+
+
 
 </body>
 
