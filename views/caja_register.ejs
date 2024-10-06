@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Movimiento de Caja</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- bs-stepper CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/caja_register.css">
+
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>Registrar Movimiento de Caja</h2>
+        <form id="registerForm" method="POST">
+            <div id="alert-container"></div>
+            <!-- Sección 1: Datos Personales -->
+            <div class="form-group">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="date" class="form-control" id="fecha" name="fecha" required>
+            </div>
+            <div class="form-group">
+                <label for="dni" class="form-label">DNI</label>
+                <input type="text" class="form-control" id="dni" name="dni" required>
+            </div>
+            <div class="form-group">
+                <label for="detalle" class="form-label">Detalle</label>
+                <input type="text" class="form-control" id="detalle" name="detalle" required>
+            </div>
+            <div class="form-group">
+                <label for="factura" class="form-label">Factura tipo</label>
+                <select class="form-select" id="factura" name="factura" required>
+                    <option value="1">Factura A</option>
+                    <option value="2">Factura B</option>
+                    <option value="3">Factura C</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="monto" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="monto" name="monto" required>
+            </div>
+            <div class="form-group">
+                <label for="descuento" class="form-label">ID Municipio</label>
+                <input type="number" class="form-control" id="descuento" name="descuento" required>
+            </div>
+            <button type="submit" class="btn btn-success" id="finish">Finalizar</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- bs-stepper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="/js/register.js"></script>
+    <script src="/js/home.js"></script>
+</body>
+
+</html>
