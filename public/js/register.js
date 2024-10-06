@@ -56,13 +56,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('finish').addEventListener('click', () => {
         if (validateAppointmentDetails()) {
-            swal.fire({
-                title: '¡Usuario creado exitosamente!',
-                icon: 'success',
-                timer: 3000,
-                timerProgressBar: true,
-                showConfirmButton: false,
-            });
         } else {
             showAlert('Por favor, completa todos los campos requeridos.');
         }
@@ -149,11 +142,25 @@ document.addEventListener('DOMContentLoaded', function () {
             
             if (response.ok) {
                 const result = await response.json();
-                alert('Registro exitoso');
+                swal.fire({
+                    title: '¡Usuario creado exitosamente!',
+                    icon: 'success',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                });
+                //alert('Registro exitoso');
                 window.location.href = '/home';
                 console.log(result);
             } else {
-                alert('Hubo un error en el registro');
+                //alert('Hubo un error en el registro');
+                swal.fire({
+                    title: '¡Hubo un error en el registro!',
+                    icon: 'warning',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                });
             }
         } catch (error) {
             console.error('Error al enviar los datos:', error);
