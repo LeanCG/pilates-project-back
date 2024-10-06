@@ -70,12 +70,18 @@
                         <input type="text" class="form-control" id="descripcion" name="descripcion" required>
                     </div>
                     <div class="form-group">
-                        <label for="municipio_id" class="form-label">ID Municipio</label>
-                        <input type="number" class="form-control" id="municipio_id" name="municipio_id" required>
+                        <label for="municipio_id" class="form-label">Municipio</label>
+                        <select class="form-control" id="municipio_id" name="municipio_id">
+                            <option value="1">Posadas</option>
+                            <!-- TODO Realizar que el enpoin mande el lsitado. -->
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="tipo_persona_id" class="form-label">Tipo de Persona</label>
-                        <input type="number" class="form-control" id="tipo_persona_id" name="tipo_persona_id" required>
+                        <select name="tipo_persona_id" id="tipo_persona_id" class="form-control">
+                            <option value="1">persona Fisica</option>
+                            <option value="2">Persona Juridica</option>
+                        </select>
                     </div>
                     <button type="button" class="btn btn-primary" id="next-1">Siguiente</button>
                     <a href="/home/users" type="button" class="btn btn-primary">Cancelar</a>
@@ -91,22 +97,26 @@
                         <label for="password" class="form-label">Contraseña</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="created_at" class="form-label">Fecha de creación</label>
                         <input type="date" class="form-control" id="created_at" name="created_at" required>
                     </div>
                     <div class="form-group">
                         <label for="updated_at" class="form-label">Fecha de modificación</label>
                         <input type="date" class="form-control" id="updated_at" name="updated_at" required>
-                    </div>
+                    </div> -->
                     <div class="form-group">
-                        <label for="rol_id" class="form-label">ID Rol</label>
-                        <input type="number" class="form-control" id="rol_id" name="rol_id" required>
+                        <label for="rol_id" class="form-label">Rol</label>
+                        <select name="rol_id" id="rol_id" class="form-control" required>
+                            <option value="1">Administrador</option>
+                            <option value="2">Entrenador</option>
+                            <option value="3">Cliente</option>
+                        </select>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="tipo_estado_id" class="form-label">Tipo de Estado</label>
                         <input type="number" class="form-control" id="tipo_estado_id" name="tipo_estado_id" required>
-                    </div>
+                    </div> -->
                     <button type="button" class="btn btn-secondary" id="prev-2">Anterior</button>
                     <button type="button" class="btn btn-primary" id="next-2">Siguiente</button>
                 </div>
@@ -114,7 +124,7 @@
                 <div id="appointment" class="content" role="tabpanel" aria-labelledby="step-3-trigger">
                     <h5>Elegir Turnos</h5>
                     <div class="form-group">
-                        <label for="fecha_turno" class="form-label">Fecha del Turno</label>
+                        <label for="fecha_turno" class="form-label">Fecha de Inicio</label>
                         <input type="date" class="form-control" id="fecha_turno" name="fecha_turno" required>
                     </div>
                     <div class="form-group">
@@ -122,12 +132,17 @@
                         <input type="time" class="form-control" id="hora" name="hora" required>
                     </div>
                     <div class="form-group">
-                        <label for="tipo_pilates_id" class="form-label">ID Tipo de Pilates</label>
-                        <input type="number" class="form-control" id="tipo_pilates_id" name="tipo_pilates_id" required>
+                        <label for="tipo_pilates_id" class="form-label">Tipo de Pilates</label>
+                        <select class="form-control" id="tipo_pilates_id" name="tipo_pilates_id">
+                            <option value="1">Pilates Contemporaneo</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="dias_turno_id" class="form-label">Cantidad de días (ID)</label>
-                        <input type="number" class="form-control" id="dias_turno_id" name="dias_turno_id" required>
+                        <label for="dias_turno_id" class="form-label">Cantidad de días</label>
+                        <select name="dias_turno_id" id="dias_turno_id" class="form-control" required>
+                            <option value="1">Lunes-Miercoles-Viernes</option>
+                            <option value="2">Martes-Jueves</option>
+                        </select>
                     </div>
                     <h5>Facturación</h5>
                     <div class="form-group">

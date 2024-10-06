@@ -84,12 +84,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function validateUserDetails() {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        const created_at = document.getElementById('created_at').value;
-        const updated_at = document.getElementById('updated_at').value;
+        // const created_at = document.getElementById('created_at').value;
+        // const updated_at = document.getElementById('updated_at').value;
         const rol_id = document.getElementById('rol_id').value;
-        const tipo_estado_id = document.getElementById('tipo_estado_id').value;
+        // const tipo_estado_id = document.getElementById('tipo_estado_id').value;
 
-        return username && password && created_at && updated_at && rol_id && tipo_estado_id; // Verifica que los campos no estén vacíos
+        return username && password && rol_id; // Verifica que los campos no estén vacíos
     }
 
     function validateAppointmentDetails() {
@@ -122,10 +122,10 @@ document.addEventListener('DOMContentLoaded', function () {
             tipo_persona_id : document.getElementById('tipo_persona_id').value,
             username : document.getElementById('username').value,
             password : document.getElementById('password').value,
-            created_at : document.getElementById('created_at').value,
-            updated_at : document.getElementById('updated_at').value,
+            // created_at : document.getElementById('created_at').value,
+            // updated_at : document.getElementById('updated_at').value,
             rol_id : document.getElementById('rol_id').value,
-            tipo_estado_id : document.getElementById('tipo_estado_id').value,
+            // tipo_estado_id : document.getElementById('tipo_estado_id').value,
             fecha_turno : document.getElementById('fecha_turno').value,
             hora : document.getElementById('hora').value,
             tipo_pilates_id : document.getElementById('tipo_pilates_id').value,
