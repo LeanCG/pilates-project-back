@@ -16,6 +16,10 @@ router.get('/registry', (req,res)=>{
 });
 router.get('/facturacion', (req,res)=>{
     res.render('facturacion')
-})
+});
+router.get('/caja_registry', (req,res) => {
+    res.render('caja_register')
+});
+
 
 export default router;
