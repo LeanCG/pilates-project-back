@@ -110,10 +110,10 @@
                             <option value="3">Cliente</option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="tipo_estado_id" class="form-label">Tipo de Estado</label>
                         <input type="number" class="form-control" id="tipo_estado_id" name="tipo_estado_id" required>
-                    </div>
+                    </div> -->
                     <button type="button" class="btn btn-secondary" id="prev-2">Anterior</button>
                     <button type="button" class="btn btn-primary" id="next-2">Siguiente</button>
                 </div>
@@ -121,7 +121,7 @@
                 <div id="appointment" class="content" role="tabpanel" aria-labelledby="step-3-trigger">
                     <h5>Elegir Turnos</h5>
                     <div class="form-group">
-                        <label for="fecha_turno" class="form-label">Fecha del Turno</label>
+                        <label for="fecha_turno" class="form-label">Fecha de Inicio</label>
                         <input type="date" class="form-control" id="fecha_turno" name="fecha_turno" required>
                     </div>
                     <div class="form-group">
@@ -132,9 +132,10 @@
                         <label for="tipo_pilates_id" class="form-label">Tipo de Pilates</label>
                         <select class="form-control" id="tipo_pilates_id" name="tipo_pilates_id">
                             <option value="1">Pilates Contemporaneo</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="dias_turno_id" class="form-label">Cantidad de días (ID)</label>
+                        <label for="dias_turno_id" class="form-label">Cantidad de días</label>
                         <select name="dias_turno_id" id="dias_turno_id" class="form-control" required>
                             <option value="1">Lunes-Miercoles-Viernes</option>
                             <option value="2">Martes-Jueves</option>

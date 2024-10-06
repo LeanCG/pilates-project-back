@@ -45,7 +45,7 @@ export const createUser = [validateRegister, async (req,res) => {
 
         const encrypt_password = bcrypt.hashSync(req.body.password, salt)
 
-        const values_user = [req.body.username, encrypt_password, new Date(), new Date(), idNuevaPersona, req.body.rol_id, req.body.tipo_estado_id]
+        const values_user = [req.body.username, encrypt_password, new Date(), new Date(), idNuevaPersona, req.body.rol_id, 1]
 
         resultados = await query('INSERT INTO user (`username`, `password`, `created_at`, `updated_at`, `persona_id`, `rol_id`, `tipo_estado_id`) VALUES (?) ', [values_user])
 
@@ -53,7 +53,7 @@ export const createUser = [validateRegister, async (req,res) => {
 
         const {fecha_turno} = req.body
 
-        const values_turn = [fecha_turno, req.body.hora, idNuevoUser, req.body.tipo_pilates_id, req.body.tipo_estado_id, req.body.dias_turno_id]
+        const values_turn = [fecha_turno, req.body.hora, idNuevoUser, req.body.tipo_pilates_id, 1, req.body.dias_turno_id]
 
         await query('INSERT INTO turnos_alta_usuario (`fecha_turno`, `hora`, `user_id`, `tipo_pilates_id`, `tipo_estado_id`, `dias_turno_id`) VALUES (?)', [values_turn])
         
