@@ -3,7 +3,7 @@ import { getRoutines,createRoutine, deleteRoutine, updateRoutine } from "../cont
 
 const router = express.Router();
 
-router.get("/get", getRoutines);
+router.get("/list", getRoutines);
 router.post("/create", createRoutine);
 router.delete("/delete/:id", deleteRoutine);
 router.put("/update/:id", updateRoutine);

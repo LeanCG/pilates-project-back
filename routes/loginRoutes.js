@@ -15,5 +15,8 @@ router.get('/registry', (req,res)=>{
     res.render('register')
 });
 
+router.get('/routine', (req,res)=>{
+    res.render('table_routine')
+});
 
 export default router;
