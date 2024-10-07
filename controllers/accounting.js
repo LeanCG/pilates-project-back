@@ -43,3 +43,18 @@ export const handleTransaction = async (req, res) => {
     }
 }
 
+export const getFacturas = async (req, res) => {
+    try {
+        const sql = `
+            SELECT cf.fecha_factura, df.detalle, df.precio, cf.tipo_factura
+            FROM cabecera_factura cf
+            INNER JOIN detalle_factura df ON cf.id = df.cabecera_factura_id
+            WHERE cf.tipo_factura IN (1, 2, 3)
+        `;
+        const facturas = await query(sql);
+        res.status(200).json(facturas);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener las facturas' });
+    }
+};
+

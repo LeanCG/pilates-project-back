@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
             fecha: document.getElementById('fecha').value,
             dni: document.getElementById('dni').value,
             detalle: document.getElementById('detalle').value,
-            factura: document.getElementById('factura').value,
+            tipo_factura: document.getElementById('tipo_factura').value,
             nro_factura: document.getElementById('nro_factura').value,
             monto: document.getElementById('monto').value,
             descuento: document.getElementById('descuento').value
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     showConfirmButton: false,
                 });
                 //alert('Registro exitoso');
-                window.location.href = '/home';
+                window.location.href = '/facturacion';
                 console.log(result);
             } else {
                 //alert('Hubo un error en el registro');
