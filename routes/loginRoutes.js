@@ -21,5 +21,8 @@ router.get('/caja_registry', (req,res) => {
     res.render('caja_register')
 });
 
+router.get('/routine', (req,res)=>{
+    res.render('table_routine')
+});
 
 export default router;

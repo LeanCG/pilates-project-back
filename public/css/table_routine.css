@@ -1,0 +1,52 @@
+table.dataTable th {
+    background: #7952b3 !important;
+    color: #ffffff !important;
+}
+
+table>tbody>tr>td {
+    vertical-align: middle !important;
+}
+
+td .btn-group {
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+}
+
+.card-header {
+    padding: 1rem;
+}
+
+.card-title {
+    margin-right: 1rem;
+}
+
+.card-header .btn {
+    background-color: #47ad7ea8;
+    color: #161616;
+    font-weight: bold;
+}
+
+.btn {
+    border: 1px solid #cdcdce !important;
+    border-radius: 0.55rem !important;
+}
+
+.btn-group .icon {
+    width: 25px;
+    height: 25px;
+}
+
+.page-item.active .page-link {
+    background-color: #7952b3;
+    border: none;
+    color: #ffffff !important;
+}
+
+.page-link {
+    color: black !important;
+}
