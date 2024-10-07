@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import municipioRoutes from './routes/municipioRoutes.js'
 import loginRoutes from './routes/loginRoutes.js'
 import rolRoutes from './routes/rolRoutes.js'
+import accountingRoutes from './routes/accountingRoutes.js'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
@@ -41,6 +42,7 @@ app.use((req,res, next)=> {
 next();
 });
 
+app.use('/api/accounting', accountingRoutes)
 app.use('/api/users', userRoutes);
 app.use('/api/users', rolRoutes);
 app.use('/api/exercise',exerciseRoutes)
