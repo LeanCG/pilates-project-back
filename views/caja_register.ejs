@@ -44,8 +44,12 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="nro_factura" class="form-label">Factura N°</label>
+                <input type="number" class="form-control" id="nro_factura" name="nro_factura" required>
+            </div>
+            <div class="form-group">
                 <label for="monto" class="form-label">Monto</label>
-                <input type="text" class="form-control" id="monto" name="monto" required>
+                <input type="number" class="form-control" id="monto" name="monto" required>
             </div>
             <div class="form-group">
                 <label for="descuento" class="form-label">Descuento</label>
@@ -61,9 +65,11 @@
     <!-- bs-stepper JS -->
     <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Custom JS -->
-    <script src="/js/register.js"></script>
-    <script src="/js/home.js"></script>
+    <script src="/js/accounting.js"></script>
+    <!-- <script src="/js/home.js"></script> -->
 </body>
 
 </html>
