@@ -25,4 +25,8 @@ router.get('/routine', (req,res)=>{
     res.render('table_routine')
 });
 
+router.get('/add_exercise', (req,res)=>{
+    res.render('add_exercise')
+});
+
 export default router;

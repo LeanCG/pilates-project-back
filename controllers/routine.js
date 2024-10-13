@@ -30,8 +30,8 @@ export const createRoutine = async (req,res) =>{
         
         const inserts= ejercicios.map(ejercicio => {
             return query(
-                'INSERT INTO rutina_ejercicio (rutina_id,ejercicio_id,series,repeticiones,orden,descanso,numero_dia, tipo_estado_id, dias_semana_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                [rutinaId, ejercicio.ejercicioId, ejercicio.series, ejercicio.repeticiones, ejercicio.orden, ejercicio.descanso, ejercicio.numeroDia, ejercicio.tipoEstadoId, ejercicio.diasSemanaId]
+                'INSERT INTO rutina_ejercicio (rutina_id,ejercicio_id,series,repeticiones,orden,descanso,numero_dia, tipo_estado_id, dias_semana_id) VALUES (?, ?, ?, ?, ?, ?, ?, 1, 1)',
+                [rutinaId, ejercicio.ejercicioId, ejercicio.series, ejercicio.repeticiones, ejercicio.orden, ejercicio.descanso, ejercicio.numeroDia]
             );
         });
 
