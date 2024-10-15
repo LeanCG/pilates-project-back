@@ -16,8 +16,8 @@ document.getElementById('users').addEventListener('click', function () {
             setupRegisterUserEvent();
         })
         .catch(error => console.log(error));
-    
-        fetch('/api/users/list')
+
+    fetch('/api/users/list')
         .then(response => response.json())
         .then(data => {
             // Renderizar los datos en la tabla
@@ -89,7 +89,10 @@ function initializeDataTable() {
                 titleAttr: 'Imprimir',
                 className: "btn btn-light"
             },
-        ]
+        ],
+        drawCallback: () => {
+            addDeleteEventListeners();  // Llamada después de que la tabla se redibuje (por ejemplo, al cambiar de página)
+        }
     });
 }
 
@@ -107,10 +110,10 @@ function renderUsersTable(data) {
                     <a title="Ver detalles" href="#" class="btn btn-light" id="viewUserButton">
                         <img src="/images/info_icon.png" class="icon">
                     </a>
-                    <a title="Editar" href="#" class="btn btn-light" id="editUserButton">
+                    <a title="Editar" href="#" id" data="${user.id}" class="btn btn-light editUserButton" id="editUserButton">
                         <img src="/images/edit_icon.png" class="icon">
                     </a>
-                    <a title="Eliminar" href="#" class="btn btn-light" id="deleteUserButton">
+                    <a title="Eliminar" href="#" data="${user.id}" class="btn btn-light deleteUserButton" id="deleteUserButton">
                         <img src="/images/delete_icon.png" class="icon">
                     </a>
                 </div>
@@ -141,3 +144,37 @@ document.getElementById('logout-btn').addEventListener('click', (event) => {
     })
     .catch(error => console.error('Error:', error));
 });
+
+
+function addDeleteEventListeners() {
+    const deleteButtons = document.querySelectorAll('.deleteUserButton');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', async function () {
+            const userName = this.getAttribute('data-nombre');
+
+            const { value: borrar } = await swal.fire({
+                title: `¿Estás seguro de que deseas eliminar a ${userName}?`,
+                icon: 'warning',
+                confirmButtonText: 'Borrar',
+                confirmButtonAriaLabel: 'Borrar',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                cancelButtonAriaLabel: 'Cancelar'
+            });
+
+            if (borrar) {
+                swal.fire({
+                    title: '¡Usuario eliminado correctamente!',
+                    icon: 'success',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
+
+                // Aquí puedes realizar la solicitud para eliminar el usuario
+                // Ejemplo: eliminarUsuario(user.id);
+            }
+        });
+    });
+}

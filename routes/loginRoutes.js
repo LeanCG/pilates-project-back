@@ -14,6 +14,8 @@ router.get('/users', (req,res)=>{
 router.get('/registry', (req,res)=>{
     res.render('register')
 });
-
+router.get('/facturacion', (req,res)=>{
+    res.render('facturacion')
+})
 
 export default router;
