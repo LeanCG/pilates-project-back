@@ -1,0 +1,23 @@
+body {
+    background-color: #f8f9fa;
+  }
+  
+  .card {
+    max-width: 800px;
+    width: 100%;
+    border-radius: 12px;
+  }
+  
+  .table {
+    margin-bottom: 0;
+  }
+  
+  thead th {
+    background-color: #343a40;
+    color: #ffffff;
+  }
+  
+  button.btn-primary {
+    width: 100%;
+  }
+  
