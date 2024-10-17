@@ -15,9 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const series = document.getElementById('series').value;
         const repeticiones = document.getElementById('repeticiones').value;
 
-        if (!ejercicioId || !series || !repeticiones) {
-            alert("Por favor, complete todos los campos del ejercicio.");
-            return;
+        // Validar que los campos de ejercicio estén completos solo si la lista de ejercicios está vacía
+        if (ejercicios.length === 0) {
+            if (!ejercicioId || !series || !repeticiones) {
+                alert("Por favor, complete todos los campos del ejercicio.");
+                return;
+            }
         }
 
         // Agregar ejercicio al array de ejercicios
@@ -40,15 +43,23 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('ejercicio').value = '';
         document.getElementById('series').value = '';
         document.getElementById('repeticiones').value = '';
+
+        // Si ya hay ejercicios, deshabilitar la validación requerida
+        if (ejercicios.length > 0) {
+            document.getElementById('ejercicio').removeAttribute('required');
+            document.getElementById('series').removeAttribute('required');
+            document.getElementById('repeticiones').removeAttribute('required');
+        }
     });
 
-    // Manejar el envío del formulario completo cuando se presione "Guardar"
+    // Evento que maneja el envío del formulario completo (Guardar)
     document.getElementById('addExerciseForm').addEventListener('submit', function (event) {
         event.preventDefault(); // Evitar el envío normal del formulario
 
         // Obtener valores del formulario de rutina
         const rutinaDescripcion = document.getElementById('rutina').value;
 
+        // Validar que haya al menos un ejercicio agregado
         if (!rutinaDescripcion || ejercicios.length === 0) {
             alert("Por favor, ingrese la descripción de la rutina y al menos un ejercicio.");
             return;
@@ -74,6 +85,11 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('rutina').value = '';
             document.querySelector('#exerciseTable tbody').innerHTML = ''; // Limpiar la tabla de ejercicios
             ejercicios = []; // Limpiar el array de ejercicios
+
+            // Rehabilitar la validación requerida cuando la lista de ejercicios está vacía
+            document.getElementById('ejercicio').setAttribute('required', 'required');
+            document.getElementById('series').setAttribute('required', 'required');
+            document.getElementById('repeticiones').setAttribute('required', 'required');
         })
         .catch(error => {
             console.error('Error al guardar la rutina y ejercicios:', error);
