@@ -35,7 +35,7 @@ async function obtenerTurnos() {
 
             // Generamos el HTML dinámico para cada turno
             const turnoHTML = `
-                <p class="mbr-text mb-3 display-8">${turno.turno}: ${turno.cantidad}/6 usuarios, <b>disponible: ${disponibles}</b></p>
+                <p class="mbr-text mb-3 display-8">${turno.turno}: ${turno.cantidad}/6 usuarios, <b>Plazas disponibles: ${disponibles}</b></p>
             `;
 
             // Clasificamos los turnos en sus respectivas secciones
