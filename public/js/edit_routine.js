@@ -4,25 +4,61 @@ document.addEventListener('DOMContentLoaded', () => {
     const url = window.location.href; // Obtener la URL completa
     const urlParts = url.split('/'); // Dividir la URL en partes usando el '/'
     const routineId = urlParts[urlParts.length - 1]; // Suponiendo que el ID es la última parte de la URL
-    const apiUrl = `http://localhost:3000/api/routine/list/${routineId}`;
+    const apiUrl = `http://localhost:3000/api/routine/list`;
     const exerciseTableBody = document.getElementById('exercise-table-body');
 
-    // Función para obtener y renderizar los ejercicios
-    const fetchExercises = async () => {
+    // Función para obtener y renderizar la rutina y los ejercicios
+    const fetchRoutineAndExercises = async () => {
         try {
+            // Obtener la rutina
             const response = await fetch(apiUrl);
             if (!response.ok) {
-                throw new Error('Error al obtener los datos');
+                throw new Error('Error al obtener los datos de la rutina');
             }
-            const exercises = await response.json();
 
-            // Limpiar el contenido anterior
-            exerciseTableBody.innerHTML = '';
+            const routines = await response.json();
+            console.log("routines:", routines);
 
-            // Obtener los nombres de los ejercicios
-            const exerciseNames = await fetchExerciseNames();
+            // Buscar la rutina con el ID correspondiente
+            const routine = routines.find(r => r.id === parseInt(routineId));
 
-            // Renderizar los ejercicios en la tabla
+            if (routine) {
+                // Mostrar la descripción de la rutina en un input
+                document.getElementById('routineName').value = routine.descripcion; // Mostrar la descripción en un input
+            } else {
+                alert('Rutina no encontrada.');
+            }
+
+            // Mostrar la descripción de la rutina en un input
+            document.getElementById('routineName').value = routine.descripcion; // Mostrar la descripción en un input
+
+            // Obtener los ejercicios relacionados (puedes modificar este endpoint según tus necesidades)
+            const exercises = await fetchExercisesByRoutineId(routineId);
+            console.log("Exercises:", exercises)
+            renderExercises(exercises);
+        } catch (error) {
+            console.error(error);
+            alert('Hubo un problema al cargar la rutina.');
+        }
+    };
+
+    // Función para obtener los ejercicios relacionados con la rutina
+    const fetchExercisesByRoutineId = async (routineId) => {
+        // Asume que tienes un endpoint para obtener ejercicios por ID de rutina
+        const response = await fetch(`http://localhost:3000/api/routine/list/${routineId}`);
+        if (!response.ok) {
+            throw new Error('Error al obtener los ejercicios');
+        }
+        return await response.json();
+    };
+
+    // Función para renderizar los ejercicios en la tabla
+    const renderExercises = (exercises) => {
+        // Limpiar el contenido anterior
+        exerciseTableBody.innerHTML = '';
+
+        // Obtener los nombres de los ejercicios
+        fetchExerciseNames().then(exerciseNames => {
             exercises.forEach(exercise => {
                 const row = document.createElement('tr');
 
@@ -38,10 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 exerciseTableBody.appendChild(row);
             });
-        } catch (error) {
-            console.error(error);
-            alert('Hubo un problema al cargar los ejercicios.');
-        }
+        });
     };
 
     // Función para obtener los nombres de los ejercicios desde la API
@@ -60,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para crear un select con los nombres de los ejercicios
     const createExerciseSelect = (selectedExerciseId, exerciseNames) => {
+        console.log("exeercises names:",exerciseNames)
         const select = document.createElement('select');
         select.classList.add('form-select');
 
@@ -85,6 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`Eliminar ejercicio con ID: ${exerciseId}`);
     };
 
-    // Llamar a la función para obtener y renderizar los ejercicios al cargar la página
-    fetchExercises();
+    // Llamar a la función para obtener y renderizar la rutina y los ejercicios al cargar la página
+    fetchRoutineAndExercises();
 });
