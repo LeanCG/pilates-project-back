@@ -29,4 +29,8 @@ router.get('/add_exercise', (req,res)=>{
     res.render('add_exercise')
 });
 
+router.get('/edit_routine/:id', (req,res)=>{
+    res.render('edit_routine')
+});
+
 export default router;

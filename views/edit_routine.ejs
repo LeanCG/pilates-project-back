@@ -21,8 +21,7 @@
             <div class="card-body">
                 <div class="mb-3">
                     <label for="routineName" class="form-label">Nombre de la Rutina</label>
-                    <input type="text" class="form-control" id="routineName" value="<%= routine.descripcion %>"
-                        disabled>
+                    <input type="text" class="form-control" id="routineName" disabled>
                 </div>
 
                 <table class="table table-hover table-striped">
@@ -34,32 +33,14 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <% routine.ejercicios.forEach(function(ejercicio, index) { %>
-                        <tr>
-                            <td>
-                                <input type="text" class="form-control" id="exercise-<%= index %>"
-                                    value="<%= ejercicio.descripcion %>" disabled>
-                            </td>
-                            <td>
-                                <input type="number" class="form-control" id="series-<%= index %>"
-                                    value="<%= ejercicio.series %>" disabled>
-                            </td>
-                            <td>
-                                <input type="number" class="form-control" id="repeticiones-<%= index %>"
-                                    value="<%= ejercicio.repeticiones %>" disabled>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-primary" id="edit-<%= index %>" onclick="enableEdit(<%= index %>)">Editar</button>
-                                <button class="btn btn-sm btn-success" id="save-<%= index %>" style="display: none;" onclick="saveChanges(<%= index %>)">Guardar</button>
-                            </td>
-                        </tr>
-                        <% }) %>
+                    <tbody id="exercise-table-body">
+                        <!-- Aquí se renderizan los ejercicios -->
                     </tbody>
                 </table>
 
                 <div class="d-flex justify-content-end">
-                    <a href="/routines" class="btn btn-secondary">Volver</a>
+                    <button class="btn btn-primary" id="save-routine">Guardar Cambios</button>
+                    <a href="/routines" class="btn btn-secondary ms-2">Volver</a>
                 </div>
             </div>
         </div>

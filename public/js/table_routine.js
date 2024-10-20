@@ -74,7 +74,8 @@ function viewRoutineDetails(id) {
 function editRoutine(id) {
     console.log('Editar la rutina con ID:', id);
     // Redirigir a la página de edición
-    window.location.href = `/routine/edit/${id}`;
+    window.location.href = `/edit_routine/${id}`;
+
 }
 
 // Función para eliminar una rutina
