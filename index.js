@@ -7,6 +7,7 @@ import municipioRoutes from './routes/municipioRoutes.js'
 import loginRoutes from './routes/loginRoutes.js'
 import rolRoutes from './routes/rolRoutes.js'
 import accountingRoutes from './routes/accountingRoutes.js'
+import dashboard from './routes/dashboardRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
@@ -49,6 +50,7 @@ app.use('/api/exercise',exerciseRoutes)
 app.use('/api/routine', routineRoutes); 
 app.use('/api', municipioRoutes)
 app.use('/api/auth', authRoutes);
+app.use('/api', dashboard)
 app.use('/', loginRoutes);
 
 // Iniciar servidor
