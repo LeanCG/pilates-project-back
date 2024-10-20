@@ -20,9 +20,12 @@ router.get('/facturacion', (req,res)=>{
 router.get('/caja_registry', (req,res) => {
     res.render('caja_register')
 });
-
 router.get('/routine', (req,res)=>{
     res.render('table_routine')
+});
+router.get('/infoUser/:id', (req, res) => {
+    const userId = req.params.id;
+    res.render('user_info', { userId }); 
 });
 
 export default router;
