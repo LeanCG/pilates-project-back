@@ -65,28 +65,39 @@ export const deleteRoutine = async (req, res) => {
     }
 }
 
-// Modificar rutina y sus ejercicios
+
 export const updateRoutine = async (req, res) => {
+    
+
     const { id } = req.params;
-    const { descripcion, ejercicios } = req.body;  // El body ahora incluye la descripción y una lista de ejercicios
+    const { descripcion, ejercicios } = req.body;
 
     if (!id) {
         return res.status(400).json({ error: "El ID de la rutina es requerido" });
     }
 
     try {
-        // Actualiza la descripción de la rutina en la tabla rutina
+        // Log para verificar los datos que llegan
+        console.log(`Actualizando rutina con id ${id} y descripción ${descripcion}`);
+
+        // Actualiza la descripción de la rutina
         const updateRoutineQuery = 'UPDATE rutina SET descripcion = ? WHERE id = ?';
         const resultRoutine = await query(updateRoutineQuery, [descripcion, id]);
+
+        console.log('Result Routine:', resultRoutine); // Verificar el resultado de la actualización
 
         if (resultRoutine.affectedRows === 0) {
             return res.status(404).json({ error: "Rutina no encontrada" });
         }
 
-        // Actualiza cada ejercicio asociado en la tabla rutina_ejercicio
+        // Actualiza cada ejercicio
         for (const ejercicio of ejercicios) {
-            const updateExerciseQuery = 'UPDATE rutina_ejercicio SET series = ?, repeticiones = ? WHERE rutina_id = ? AND ejercicio_id = ?';
-            const resultExercise = await query(updateExerciseQuery, [ejercicio.series, ejercicio.repeticiones, id, ejercicio.id]);
+            console.log(`Actualizando ejercicio con id ${ejercicio.id} para la rutina ${id}`);
+            
+            const updateExerciseQuery = 'UPDATE rutina_ejercicio SET ejercicio_id = ?, series = ?, repeticiones = ? WHERE rutina_id = ? AND id = ?';
+            const resultExercise = await query(updateExerciseQuery, [ejercicio.ejercicio_id, ejercicio.series, ejercicio.repeticiones, id, ejercicio.id]);
+
+            console.log('Result Exercise:', resultExercise); // Verificar el resultado de la actualización
 
             if (resultExercise.affectedRows === 0) {
                 return res.status(404).json({ error: `Ejercicio con id ${ejercicio.id} no encontrado en la rutina` });
@@ -98,6 +109,7 @@ export const updateRoutine = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 };
+
 
 export const getRoutineId = async (req, res) => {
 try {

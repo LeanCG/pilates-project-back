@@ -50,3 +50,28 @@ td .btn-group {
 .page-link {
     color: black !important;
 }
+
+
+
+/* Aumentar o reducir el tamaño del paginador */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.4em 0.70em; /* Ajustar el padding para hacer más pequeño el botón */
+    font-size: 0.70em; /* Ajustar el tamaño de la fuente */
+}
+
+/* Cambiar el tamaño del contenedor del paginador */
+.dataTables_wrapper .dataTables_paginate {
+    font-size: 0.40em; /* Ajustar el tamaño de la fuente del contenedor */
+}
+
+/* Opcional: Cambiar el tamaño de la entrada de búsqueda */
+.dataTables_wrapper .dataTables_filter input {
+    width: 150px; /* Ajustar el ancho del campo de búsqueda */
+    padding: 0.20em; /* Ajustar el padding para hacerlo más pequeño */
+}
+
+/* Cambiar el tamaño del menú desplegable de cantidad de registros */
+.dataTables_wrapper .dataTables_length select {
+    padding: 0.25em; /* Ajustar el padding del select */
+    font-size: 0.85em; /* Ajustar el tamaño de la fuente */
+}
