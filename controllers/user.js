@@ -150,7 +150,8 @@ export const editUsuario = [validateRegister, async (req, res) => {
 export const listUsers = async (req, res) => {
     try{
         const sql = `
-    SELECT 
+    SELECT
+        p.id,
         p.nombre,
         p.apellido,
         p.dni,
@@ -176,4 +177,57 @@ export const listUsers = async (req, res) => {
         res.status(500).json({message: err.message})
     }
 }
+
+export const infoUser = async (req, res) => {
+    try{
+        const userId = req.params.id
+        const sql = `
+        SELECT 
+            p.id AS persona_id,
+            p.apellido,
+            p.nombre,
+            p.dni,
+            p.cuil,
+            d.descripcion AS direccion,
+            m.descripcion AS municipio,
+            depto.descripcion AS departamento,
+            prov.descripcion AS provincia,
+            pais.descripcion AS pais,
+            tp.descripcion AS tipo_persona,
+            u.username,
+            u.created_at,
+            u.updated_at,
+            r.descripcion AS rol,
+            te.descripcion AS tipo_estado
+        FROM 
+            user u
+        INNER JOIN 
+            persona p ON u.persona_id = p.id
+        INNER JOIN 
+            direccion d ON p.direccion_id = d.id
+        INNER JOIN 
+            municipio m ON d.municipio_id = m.id
+        INNER JOIN 
+            departamento depto ON m.departamento_id = depto.id
+        INNER JOIN 
+            provincia prov ON depto.provincia_id = prov.id
+        INNER JOIN 
+            pais pais ON prov.pais_id = pais.id
+        INNER JOIN 
+            tipo_persona tp ON p.tipo_persona_id = tp.id
+        INNER JOIN 
+            rol r ON u.rol_id = r.id
+        INNER JOIN 
+            tipo_estado te ON u.tipo_estado_id = te.id
+        WHERE 
+            u.id = ?
+`
+        const data = await query(sql, [userId])
+        res.status(200).json(data)
+    }
+    catch(err){
+        res.status(500).json({message: err.message})
+    }
+}
+
 

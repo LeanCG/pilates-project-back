@@ -32,8 +32,7 @@
                 <!-- Logo de la empresa-->
                 <div class="sidebar-logo">
                     <div class="image">
-                        <img src="/images/sticker_pilates.png" class="img-circle elevation-2"
-                            alt="Logo de Equilibrio">
+                        <img src="/images/sticker_pilates.png" class="img-circle elevation-2" alt="Logo de Equilibrio">
                     </div>
                     <div class="info">
                         <span>Equilibrio</span>
@@ -60,7 +59,7 @@
                     </li>
                     <!-- Sección RUTINAS-->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link" id="routines">
+                        <a href="/routine" class="sidebar-link" id="routines">
                             <img src="/images/pilates_icon2.png" alt="Rutinas" class="icon">
                             Rutinas
                         </a>
@@ -74,10 +73,10 @@
                     </li>
                     <!-- Movimientos de caja -->
                     <li class="sidebar-item"></li>
-                        <a href="/facturacion" class="sidebar-link">
-                            <img src="/images/wallet_icon.png" alt="Movimientos de caja" class="icon">
-                            Movimientos de caja
-                        </a>
+                    <a href="/facturacion" class="sidebar-link">
+                        <img src="/images/wallet_icon.png" alt="Movimientos de caja" class="icon">
+                        Movimientos de caja
+                    </a>
                     </li>
                 </ul>
             </div>
@@ -112,6 +111,76 @@
 
             <!-- Contenido de la página -->
             <main class="content px-3 py-2" id="main-content">
+                <!-- Video de bienvenida -->
+                <div id="video">
+                    <video muted autoplay loop>
+                        <source src="/videos/pilates_welcome.mp4" type="video/mp4">
+                    </video>
+                    <div class="capa"></div>
+                    <div class="container-fluid">
+                        <div class="row video">
+                            <div class="content-wrap col-12 col-md-12">
+                                <h1 class="section-title mb-4 display-1">
+                                    <span>¡Bienvenida Profe!</span>
+                                </h1>
+                                <p class="mbr-fonts-style mb-4 display-7">
+                                    <span>Tu espacio de pilates donde se encuentran la flexibilidad y la
+                                        diversión.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección donde se muestran las asistencias -->
+                <div class="section-asistences">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center mb-5">
+                            <div class="col-12 content-head">
+                                <div class="section-head">
+                                    <h4 class="section-title align-center mb-0 display-2">
+                                        <span>Asistencias</span>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="item features-image col-12 col-md-6 col-lg-3">
+                                <div class="item-wrapper">
+                                    <div class="item-img mb-3">
+                                        <img src="/images/turno_manana.jpg"
+                                            alt="Turno mañana" title="Turno mañana">
+                                    </div>
+                                    <div class="item-content align-left" id="Mañana">
+                                        <-- Aqui se inserta la cantidad de usuraios por horarios --/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item features-image col-12 col-md-6 col-lg-3">
+                                <div class="item-wrapper">
+                                    <div class="item-img mb-3">
+                                        <img src="/images/turno_tarde.avif"
+                                            alt="Turno tarde" title="Turno tarde">
+                                    </div>
+                                    <div class="item-content align-left" id="tarde">
+                                        <-- Aqui se inserta la cantidad de usuraios por horarios --/>                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item features-image col-12 col-md-6 col-lg-3">
+                                <div class="item-wrapper">
+                                    <div class="item-img mb-3">
+                                        <img src="/images/turno_noche.jpg"
+                                            alt="Turno noche" title="Turno noche">
+                                    </div>
+                                    <div class="item-content align-left" id="noche">
+                                        <-- Aqui se inserta la cantidad de usuraios por horarios --/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </main>
             <!-- /Contenido de la página -->
@@ -165,6 +234,8 @@
 
     <!-- JavaScript propio-->
     <script src="/js/home.js"></script>
+    <script src="/js/asistencias.js"></script>
+
 </body>
 
 </html>
