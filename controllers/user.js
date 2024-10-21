@@ -120,13 +120,10 @@ export const editUsuario = [validateRegister, async (req, res) => {
 
         console.log(id)
 
-        let {apellido, nombre, dni, cuil, direccion_id, tipo_persona_id, username, password, created_at, updated_at, rol_id, tipo_estado_id} = req.body
+        let {apellido, nombre, dni, cuil, direccion_id, tipo_persona_id, username, created_at, updated_at, rol_id, tipo_estado_id} = req.body
         const editPersona = {apellido, nombre, dni, cuil, direccion_id, tipo_persona_id}
 
-        const salt = bcrypt.genSaltSync(10)
-        password = bcrypt.hashSync(password, salt)
-
-        const editUsuario = {username, password, created_at, updated_at,rol_id, tipo_estado_id}
+        const editUsuario = {username, created_at, updated_at,rol_id, tipo_estado_id}
 
         const q = "SELECT id FROM user WHERE username = ? AND persona_id != ?";
         const data = await query(q, [username, id]);

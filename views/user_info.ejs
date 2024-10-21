@@ -12,44 +12,46 @@
     <div class="card">
       <!-- Título con el nombre del usuario -->
       <h1 id="userName">Información de Usuario</h1>
-
-      <!-- Distribución de los datos en dos columnas -->
-      <div class="info-grid">
-        <div class="info-item">
-          <strong>Nombre:</strong> <span id="nombre"></span><br>
-          <strong>Apellido:</strong> <span id="apellido"></span><br>
-          <strong>DNI:</strong> <span id="dni"></span><br>
-          <strong>CUIL:</strong> <span id="cuil"></span><br>
-          <strong>Username:</strong> <span id="username"></span><br>
-          <strong>Tipo de Persona:</strong> <span id="tipoPersona"></span><br>
+      <form id="userForm"></form>
+        <!-- Distribución de los datos en dos columnas -->
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>Nombre:</strong> <span id="nombre"></span><br>
+            <strong>Apellido:</strong> <span id="apellido"></span><br>
+            <strong>DNI:</strong> <span id="dni"></span><br>
+            <strong>CUIL:</strong> <span id="cuil"></span><br>
+            <strong>Username:</strong> <span id="username"></span><br>
+            <strong>Tipo de Persona:</strong> <span id="tipoPersona"></span><br>
+          </div>
+          <div class="info-item">
+            <strong>Dirección:</strong> <span id="direccion"></span><br>
+            <strong>Municipio:</strong> <span id="municipio"></span><br>
+            <strong>Departamento:</strong> <span id="departamento"></span><br>
+            <strong>Provincia:</strong> <span id="provincia"></span><br>
+            <strong>País:</strong> <span id="pais"></span><br>
+            <strong>Rol:</strong> <span id="rol"></span><br>
+          </div>
         </div>
-        <div class="info-item">
-          <strong>Dirección:</strong> <span id="direccion"></span><br>
-          <strong>Municipio:</strong> <span id="municipio"></span><br>
-          <strong>Departamento:</strong> <span id="departamento"></span><br>
-          <strong>Provincia:</strong> <span id="provincia"></span><br>
-          <strong>País:</strong> <span id="pais"></span><br>
-          <strong>Rol:</strong> <span id="rol"></span><br>
+
+        <!-- Información adicional -->
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>Fecha de Creación:</strong> <span id="createdAt"></span><br>
+          </div>
+          <div class="info-item">
+            <strong>Última Actualización:</strong> <span id="updatedAt"></span><br>
+            <strong>Estado:</strong> <span id="estado"></span><br>
+          </div>
+        </div>
+
+        <!-- Botones de interacción -->
+        <div class="text-center mt-4">
+          <button class="btn btn-custom" id="editarInfoUser">Editar Información</button>
+          <button class="btn btn-custom" onclick="volverAlInicio()">Volver al Inicio</button>
+          <button class="btn btn-custom" id="guardarCambios" style="display: none;" type="submit">Guardar</button>
         </div>
       </div>
-
-      <!-- Información adicional -->
-      <div class="info-grid">
-        <div class="info-item">
-          <strong>Fecha de Creación:</strong> <span id="createdAt"></span><br>
-        </div>
-        <div class="info-item">
-          <strong>Última Actualización:</strong> <span id="updatedAt"></span><br>
-          <strong>Estado:</strong> <span id="estado"></span><br>
-        </div>
-      </div>
-
-      <!-- Botones de interacción -->
-      <div class="text-center mt-4">
-        <button class="btn btn-custom">Editar Información</button>
-        <button class="btn btn-custom mt-2" onclick="volverAlInicio()">Volver al Inicio</button>
-      </div>
-    </div>
+    </form>
 
     <!-- El script que insertará los datos (info_user.js) -->
     <script src="/js/user_info.js"></script>
