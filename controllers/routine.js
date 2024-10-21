@@ -30,8 +30,8 @@ export const createRoutine = async (req,res) =>{
         
         const inserts= ejercicios.map(ejercicio => {
             return query(
-                'INSERT INTO rutina_ejercicio (rutina_id,ejercicio_id,series,repeticiones,orden,descanso,numero_dia, tipo_estado_id, dias_semana_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                [rutinaId, ejercicio.ejercicioId, ejercicio.series, ejercicio.repeticiones, ejercicio.orden, ejercicio.descanso, ejercicio.numeroDia, ejercicio.tipoEstadoId, ejercicio.diasSemanaId]
+                'INSERT INTO rutina_ejercicio (rutina_id,ejercicio_id,series,repeticiones,orden,descanso,numero_dia, tipo_estado_id, dias_semana_id) VALUES (?, ?, ?, ?, ?, ?, ?, 1, 1)',
+                [rutinaId, ejercicio.ejercicioId, ejercicio.series, ejercicio.repeticiones, ejercicio.orden, ejercicio.descanso, ejercicio.numeroDia]
             );
         });
 
@@ -65,22 +65,71 @@ export const deleteRoutine = async (req, res) => {
     }
 }
 
-// Modificar rutina
+
 export const updateRoutine = async (req, res) => {
+    
+
     const { id } = req.params;
     const { descripcion, ejercicios } = req.body;
 
     if (!id) {
         return res.status(400).json({ error: "El ID de la rutina es requerido" });
     }
+
     try {
-        const result = await query('UPDATE rutina SET descripcion = ?, tipo_estado_id = ? WHERE id = ?', 
-            [descripcion, 1, id]);
+        // Log para verificar los datos que llegan
+        console.log(`Actualizando rutina con id ${id} y descripción ${descripcion}`);
 
-        await Promise.all(inserts);
+        // Actualiza la descripción de la rutina
+        const updateRoutineQuery = 'UPDATE rutina SET descripcion = ? WHERE id = ?';
+        const resultRoutine = await query(updateRoutineQuery, [descripcion, id]);
 
-        res.status(200).send({ message: 'Rutina actualizada con éxito' });
+        console.log('Result Routine:', resultRoutine); // Verificar el resultado de la actualización
+
+        if (resultRoutine.affectedRows === 0) {
+            return res.status(404).json({ error: "Rutina no encontrada" });
+        }
+
+        // Actualiza cada ejercicio
+        for (const ejercicio of ejercicios) {
+            console.log(`Actualizando ejercicio con id ${ejercicio.id} para la rutina ${id}`);
+            
+            const updateExerciseQuery = 'UPDATE rutina_ejercicio SET ejercicio_id = ?, series = ?, repeticiones = ? WHERE rutina_id = ? AND id = ?';
+            const resultExercise = await query(updateExerciseQuery, [ejercicio.ejercicio_id, ejercicio.series, ejercicio.repeticiones, id, ejercicio.id]);
+
+            console.log('Result Exercise:', resultExercise); // Verificar el resultado de la actualización
+
+            if (resultExercise.affectedRows === 0) {
+                return res.status(404).json({ error: `Ejercicio con id ${ejercicio.id} no encontrado en la rutina` });
+            }
+        }
+
+        res.status(200).send({ message: 'Rutina y ejercicios actualizados con éxito' });
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
+};
+
+
+export const getRoutineId = async (req, res) => {
+try {
+    const { id } = req.params;
+
+    const sql = `
+        SELECT re.id,re.ejercicio_id, re.series, re.repeticiones
+        FROM rutina_ejercicio re
+        JOIN ejercicio e ON re.ejercicio_id = e.id
+        WHERE re.rutina_id = ?
+    `;
+
+    const results = await query(sql, [id])
+    if (results.length === 0) {
+        return res.status(404).json({ error: "No se encontraron rutinas" });
+    }
+
+    res.status(200).json(results);
+} catch (err) {
+    console.error("Error al obtener rutinas:", err.message);
+    res.status(500).json({ error: err.message });
+}
 };
