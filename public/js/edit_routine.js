@@ -62,6 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
             exercises.forEach(exercise => {
                 const row = document.createElement('tr');
 
+                const exerciseName = exerciseNames.find(name => name.id === exercise.ejercicio_id)?.descripcion || "Nombre no encontrado";
+
+                console.log("ejerciio antes del select: ", exercise.ejercicio_id);
+                
                 const exerciseSelect = createExerciseSelect(exercise.ejercicio_id, exerciseNames);
 
                 row.innerHTML = `
@@ -102,12 +106,15 @@ document.addEventListener('DOMContentLoaded', () => {
             option.value = exercise.id; // El ID es el value del select
             option.textContent = exercise.descripcion; // La descripción es el texto del option
 
+            console.log("selectedExerciseId el ingresado: ",selectedExerciseId+" ejercicio id el iterado: ",exercise.id+" descripcion: ", exercise.descripcion);
+            
             // Si el ID del ejercicio coincide con el seleccionado, marcarlo como seleccionado
             if (exercise.id === selectedExerciseId) {
+                console.log("entro en el if valido el id");
                 option.selected = true;
+                return select.appendChild(option);
             }
 
-            select.appendChild(option);
         });
 
         return select; // Devuelve el elemento select
@@ -121,4 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Llamar a la función para obtener y renderizar la rutina y los ejercicios al cargar la página
     fetchRoutineAndExercises();
+
+// -------------------#########################-------------
 });
