@@ -41,6 +41,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         document.querySelector('#table_users tbody').innerHTML = rows;
 
+        // Inicializar DataTables después de renderizar las filas
+        $('#table_users').DataTable({
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "zeroRecords": "No se encontraron resultados",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }
+        });
+
                         // Agregar eventos a botones después de renderizar la tabla
                         document.querySelectorAll('.viewUserButton').forEach(button => {
                             button.addEventListener('click', function () {
