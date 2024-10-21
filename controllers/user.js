@@ -1,9 +1,10 @@
 import { db } from "../connect.js"
 import util from 'util'
 import bcrypt from "bcryptjs"
-import { validateRegister } from "../middlewares/validate.js"
+import { validateRegisterEdit } from "../middlewares/validate_edit.js"
 import { calcularDescuento } from "../middlewares/descuento.js"
 import { json } from "express"
+import { validateRegister } from "../middlewares/validate.js"
 
 const query = util.promisify(db.query).bind(db)
 
@@ -80,7 +81,7 @@ export const createUser = [validateRegister, async (req,res) => {
     }
 }]
 
-export const editUser = [validateRegister, async (req, res) => {
+export const editUser = [validateRegisterEdit, async (req, res) => {
     try {
 
         const {id} = req.params 
@@ -113,17 +114,17 @@ export const editUser = [validateRegister, async (req, res) => {
     }
 }]
 
-export const editUsuario = [validateRegister, async (req, res) => {
+export const editUsuario = [validateRegisterEdit, async (req, res) => {
     try {
 
         const {id} = req.params
 
         console.log(id)
 
-        let {apellido, nombre, dni, cuil, direccion_id, tipo_persona_id, username, created_at, updated_at, rol_id, tipo_estado_id} = req.body
-        const editPersona = {apellido, nombre, dni, cuil, direccion_id, tipo_persona_id}
+        let {apellido, nombre, dni, cuil, username} = req.body
+        const editPersona = {apellido, nombre, dni, cuil}
 
-        const editUsuario = {username, created_at, updated_at,rol_id, tipo_estado_id}
+        const editUsuario = {username}
 
         const q = "SELECT id FROM user WHERE username = ? AND persona_id != ?";
         const data = await query(q, [username, id]);
@@ -217,8 +218,8 @@ export const infoUser = async (req, res) => {
         INNER JOIN 
             tipo_estado te ON u.tipo_estado_id = te.id
         WHERE 
-            u.id = ?
-`
+            p.id = ?  -- Usamos el id de persona en la condición
+        `
         const data = await query(sql, [userId])
         res.status(200).json(data)
     }
