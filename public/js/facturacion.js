@@ -151,7 +151,7 @@ async function initializeTable(facturas) {
 
         // Agregar nuevas filas con los datos obtenidos
         facturas.forEach(factura => {
-            console.log(factura.fecha)
+            console.log(factura.fecha_factura)
             const tipo = factura.tipo_factura;
 
             // Determinar qué icono mostrar basado en el tipo de factura
@@ -161,7 +161,7 @@ async function initializeTable(facturas) {
 
             // Agregar la fila con los datos de la factura
 
-            let formattedDate = new Date(factura.fecha).toLocaleDateString('es-ES', {
+            let formattedDate = new Date(factura.fecha_factura).toLocaleDateString('es-ES', {
                 day: '2-digit',
                 month: '2-digit',
                 year: 'numeric'
