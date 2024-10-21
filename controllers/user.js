@@ -121,10 +121,14 @@ export const editUsuario = [validateRegisterEdit, async (req, res) => {
 
         console.log(id)
 
+        const today = new Date();
+        const updated_at = today.toISOString().split('T')[0]; // YYYY-MM-DD
+
+
         let {apellido, nombre, dni, cuil, username} = req.body
         const editPersona = {apellido, nombre, dni, cuil}
 
-        const editUsuario = {username}
+        const editUsuario = {username, updated_at}
 
         const q = "SELECT id FROM user WHERE username = ? AND persona_id != ?";
         const data = await query(q, [username, id]);

@@ -46,9 +46,23 @@
 
         <!-- Botones de interacción -->
         <div class="text-center mt-4">
-          <button class="btn btn-custom" id="editarInfoUser">Editar Información</button>
-          <button class="btn btn-custom" onclick="volverAlInicio()">Volver al Inicio</button>
-          <button class="btn btn-custom" id="guardarCambios" style="display: none;" type="submit">Guardar</button>
+          <div class="row">
+            <!-- Botón de Guardar a la izquierda -->
+            <div class="col text-left">
+              <button class="btn btn-custom" id="guardarCambios" style="display: none;" type="submit">Guardar</button>
+            </div>
+
+            <!-- Botones de Editar y Volver centrados -->
+            <div class="col text-center">
+              <button class="btn btn-custom" id="editarInfoUser">Editar Información</button>
+              <button class="btn btn-custom my-2" onclick="volverAlInicio()">Volver al Inicio</button>
+            </div>
+
+            <!-- Botón de Cancelar a la derecha -->
+            <div class="col text-right">
+              <button class="btn btn-custom mx-5" id="cancelarEdicion" style="display: none;" type="button">Cancelar</button>
+            </div>
+          </div>
         </div>
       </div>
     </form>

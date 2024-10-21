@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
           document.getElementById('username').innerHTML = `<input type="text" value="${user.username}" id="usernameInput">`;
 
           document.getElementById('guardarCambios').style.display = 'block';
+          document.getElementById('cancelarEdicion').style.display = 'block';
 
           document.getElementById('guardarCambios').addEventListener('click', () => {
             const updatedUser = {
@@ -73,6 +74,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
             .catch(error => console.error('Error al actualizar los datos:', error));
           });
 
+          document.getElementById('cancelarEdicion').addEventListener('click', (e) => {
+
+            window.location.href=`/infoUser/${userId}`
+          })
 
         });
 
