@@ -86,7 +86,7 @@ function addEventListeners() {
 function viewRoutineDetails(id) {
     console.log('Ver detalles de la rutina con ID:', id);
     // Aquí podrías redirigir a otra página o mostrar un modal con detalles
-    // window.location.href = `/routine/details/${id}`;
+    window.location.href = `/details/${id}`;
 }
 
 // Función para editar una rutina

@@ -33,4 +33,8 @@ router.get('/edit_routine/:id', (req,res)=>{
     res.render('edit_routine')
 });
 
+router.get('/details/:id', (req, res)=>{
+    res.render('info_routine')
+});
+
 export default router;
