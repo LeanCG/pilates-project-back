@@ -148,8 +148,10 @@ async function initializeTable(facturas) {
         // Limpiar cualquier dato previo en la tabla
         table.clear();
 
+
         // Agregar nuevas filas con los datos obtenidos
         facturas.forEach(factura => {
+            console.log(factura.fecha_factura)
             const tipo = factura.tipo_factura;
 
             // Determinar qué icono mostrar basado en el tipo de factura
@@ -158,9 +160,16 @@ async function initializeTable(facturas) {
                 : '<img src="/images/flecha_abajo.png" class="icon">';  // Egresos
 
             // Agregar la fila con los datos de la factura
+
+            let formattedDate = new Date(factura.fecha_factura).toLocaleDateString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+
             table.row.add([
                 factura.detalle,               // Columna Descripción
-                factura.fecha,                     // Columna Fecha
+                formattedDate,                     // Columna Fecha
                 tipo === 3 ? factura.precio : '',  // Ingreso (tipo 3)
                 tipo !== 3 ? factura.precio : '',  // Egreso (tipo 1 o 2)
                 icon                               // Icono

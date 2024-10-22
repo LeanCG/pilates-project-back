@@ -28,4 +28,16 @@ router.get('/infoUser/:id', (req, res) => {
     res.render('user_info', { userId }); 
 });
 
+router.get('/add_exercise', (req,res)=>{
+    res.render('add_exercise')
+});
+
+router.get('/edit_routine/:id', (req,res)=>{
+    res.render('edit_routine')
+});
+
+router.get('/details/:id', (req, res)=>{
+    res.render('info_routine')
+});
+
 export default router;
