@@ -28,6 +28,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
         document.getElementById('editarInfoUser').addEventListener('click', () => {
 
+          const inputs = document.querySelectorAll('.custom-input');
+          inputs.forEach(input => {
+            input.classList.toggle('editing');
+          });
+
           document.getElementById('nombre').innerHTML = `<input type="text" value="${user.nombre}" id="nombreInput">`;
           document.getElementById('apellido').innerHTML = `<input type="text" value="${user.apellido}" id="apellidoInput">`;
           document.getElementById('dni').innerHTML = `<input type="text" value="${user.dni}" id="dniInput">`;
