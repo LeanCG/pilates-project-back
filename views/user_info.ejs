@@ -9,38 +9,38 @@
     <link rel="stylesheet" href="/css/user_info.css">
   </head>
   <body>
-    <div class="card">
+    <div class="card p-4">
       <!-- Título con el nombre del usuario -->
-      <h1 id="userName">Información de Usuario</h1>
+      <h1 class="text-center mb-4" id="userName">Información de Usuario</h1>
       <form id="userForm"></form>
         <!-- Distribución de los datos en dos columnas -->
-        <div class="info-grid">
-          <div class="info-item">
-            <strong>Nombre:</strong> <span id="nombre"></span><br>
-            <strong>Apellido:</strong> <span id="apellido"></span><br>
-            <strong>DNI:</strong> <span id="dni"></span><br>
-            <strong>CUIL:</strong> <span id="cuil"></span><br>
-            <strong>Username:</strong> <span id="username"></span><br>
-            <strong>Tipo de Persona:</strong> <span id="tipoPersona"></span><br>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="mb-2"><strong>Nombre:</strong> <div class="ml-2 d-inline-block"><span id="nombre"></span></div></div>
+            <div class="mb-2"><strong>Apellido:</strong> <div class="ml-2 d-inline-block"><span id="apellido"></span></div></div>
+            <div class="mb-2"><strong>DNI:</strong> <div class="ml-2 d-inline-block"><span id="dni"></span></div></div>
+            <div class="mb-2"><strong>CUIL:</strong> <div class="ml-2 d-inline-block"><span id="cuil"></span></div></div>
+            <div class="mb-2"><strong>Username:</strong> <div class="ml-2 d-inline-block"><span id="username"></span></div></div>
+            <div class="mb-2"><strong>Tipo de Persona:</strong> <div class="ml-2 d-inline-block"><span id="tipoPersona"></span></div></div>
           </div>
-          <div class="info-item">
-            <strong>Dirección:</strong> <span id="direccion"></span><br>
-            <strong>Municipio:</strong> <span id="municipio"></span><br>
-            <strong>Departamento:</strong> <span id="departamento"></span><br>
-            <strong>Provincia:</strong> <span id="provincia"></span><br>
-            <strong>País:</strong> <span id="pais"></span><br>
-            <strong>Rol:</strong> <span id="rol"></span><br>
+          <div class="col-md-6 mb-3">
+            <div class="mb-2"><strong>Dirección:</strong> <div class="ml-2 d-inline-block"><span id="direccion"></span></div></div>
+            <div class="mb-2"><strong>Municipio:</strong> <div class="ml-2 d-inline-block"><span id="municipio"></span></div></div>
+            <div class="mb-2"><strong>Departamento:</strong> <div class="ml-2 d-inline-block"><span id="departamento"></span></div></div>
+            <div class="mb-2"><strong>Provincia:</strong> <div class="ml-2 d-inline-block"><span id="provincia"></span></div></div>
+            <div class="mb-2"><strong>País:</strong> <div class="ml-2 d-inline-block"><span id="pais"></span></div></div>
+            <div class="mb-2"><strong>Rol:</strong> <div class="ml-2 d-inline-block"><span id="rol"></span></div></div>
           </div>
         </div>
 
         <!-- Información adicional -->
-        <div class="info-grid">
-          <div class="info-item">
-            <strong>Fecha de Creación:</strong> <span id="createdAt"></span><br>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="mb-2"><strong>Fecha de Creación:</strong> <div class="ml-2 d-inline-block"><span id="createdAt"></span></div></div>
           </div>
-          <div class="info-item">
-            <strong>Última Actualización:</strong> <span id="updatedAt"></span><br>
-            <strong>Estado:</strong> <span id="estado"></span><br>
+          <div class="col-md-6 mb-3">
+            <div class="mb-2"><strong>Última Actualización:</strong> <div class="ml-2 d-inline-block"><span id="updatedAt"></span></div></div>
+            <div class="mb-2"><strong>Estado:</strong> <div class="ml-2 d-inline-block"><span id="estado"></span></div></div>
           </div>
         </div>
 
