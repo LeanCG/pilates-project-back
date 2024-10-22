@@ -11,7 +11,7 @@ const query = util.promisify(db.query).bind(db)
 export const deleteUser = async (req, res) => {
     try {
         const {id} = req.params
-        await query('UPDATE user SET `tipo_estado_id` = ? WHERE persona_id = ?', [3, id]);
+        await query('UPDATE user SET `tipo_estado_id` = ? WHERE persona_id = ?', [2, id]);
         // res.redirect('/list')
         res.status(200).json("Usuario borrado")
     }
