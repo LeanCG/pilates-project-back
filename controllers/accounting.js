@@ -20,9 +20,9 @@ export const handleTransaction = async (req, res) => {
 
         let precio = req.body.monto
 
-        const valores_cabecera = [req.body.fecha, req.body.nro_factura,precio ,req.body.descuento, req.body.tipo_factura, id]
+        const valores_cabecera = [req.body.fecha, req.body.nro_factura,precio ,req.body.descuento, req.body.tipo_factura,req.body.movimiento_caja_id, id]
 
-        const resultados = await query('INSERT INTO cabecera_factura (`fecha_factura`, `numero_factura`, `sub_total`, `descuento`, `tipo_factura`, `comprador_id`) VALUES (?)', [valores_cabecera])
+        const resultados = await query('INSERT INTO cabecera_factura (`fecha_factura`, `numero_factura`, `sub_total`, `descuento`, `tipo_factura`,`movimiento_caja_id`, `comprador_id`) VALUES (?)', [valores_cabecera])
 
         const idNuevaFactura = resultados.insertId
 
@@ -46,10 +46,9 @@ export const handleTransaction = async (req, res) => {
 export const getFacturas = async (req, res) => {
     try {
         const sql = `
-            SELECT cf.fecha_factura, df.detalle, df.precio, cf.tipo_factura
+            SELECT cf.fecha_factura, df.detalle, df.precio, cf.tipo_factura, cf.movimiento_caja_id
             FROM cabecera_factura cf
             INNER JOIN detalle_factura df ON cf.id = df.cabecera_factura_id
-            WHERE cf.tipo_factura IN (1, 2, 3)
         `;
         const facturas = await query(sql);
         res.status(200).json(facturas);

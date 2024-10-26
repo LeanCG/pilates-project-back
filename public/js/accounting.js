@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
             dni: document.getElementById('dni').value,
             detalle: document.getElementById('detalle').value,
             tipo_factura: document.getElementById('tipo_factura').value,
+            movimiento_caja_id:document.getElementById('movimiento_caja').value,
             nro_factura: document.getElementById('nro_factura').value,
             monto: document.getElementById('monto').value,
             descuento: document.getElementById('descuento').value

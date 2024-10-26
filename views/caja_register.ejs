@@ -38,9 +38,17 @@
             <div class="form-group">
                 <label for="tipo_factura" class="form-label">Factura tipo</label>
                 <select class="form-select" id="tipo_factura" name="tipo_factura" required>
-                    <option value="1">Compra</option>
-                    <!-- <option value="2"></option> -->
-                    <option value="3">Venta</option>
+                    <option value="1">Factura A</option>
+                    <option value="2">Factura B</option>
+                    <option value="3">Factura C</option>
+                    <option value="4">Factura D</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="movimiento_caja" class="form-label">Tipo de movimiento</label>
+                <select class="form-select" id="movimiento_caja" name="movimiento_caja" required>
+                    <option value="1">Ingreso</option>
+                    <option value="2">Egreso</option>
                 </select>
             </div>
             <div class="form-group">
@@ -53,7 +61,7 @@
             </div>
             <div class="form-group">
                 <label for="descuento" class="form-label">Descuento</label>
-                <input type="number" class="form-control" id="descuento" name="descuento" required>
+                <input type="number" class="form-control" id="descuento" name="descuento" value="0" min="0" required>
             </div>
             <button type="submit" class="btn btn-success" id="finish">Finalizar</button>
         </form>
