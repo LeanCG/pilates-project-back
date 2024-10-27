@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Información de Usuario</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/user_info.css">
+  </head>
+  <body>
+    <div class="card">
+      <!-- Título con el nombre del usuario -->
+      <h1 id="userName">Información de Usuario</h1>
+      <form id="userForm"></form>
+        <!-- Distribución de los datos en dos columnas -->
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>Nombre:</strong> <span id="nombre"></span><br>
+            <strong>Apellido:</strong> <span id="apellido"></span><br>
+            <strong>DNI:</strong> <span id="dni"></span><br>
+            <strong>CUIL:</strong> <span id="cuil"></span><br>
+            <strong>Username:</strong> <span id="username"></span><br>
+            <strong>Tipo de Persona:</strong> <span id="tipoPersona"></span><br>
+          </div>
+          <div class="info-item">
+            <strong>Dirección:</strong> <span id="direccion"></span><br>
+            <strong>Municipio:</strong> <span id="municipio"></span><br>
+            <strong>Departamento:</strong> <span id="departamento"></span><br>
+            <strong>Provincia:</strong> <span id="provincia"></span><br>
+            <strong>País:</strong> <span id="pais"></span><br>
+            <strong>Rol:</strong> <span id="rol"></span><br>
+          </div>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>Fecha de Creación:</strong> <span id="createdAt"></span><br>
+          </div>
+          <div class="info-item">
+            <strong>Última Actualización:</strong> <span id="updatedAt"></span><br>
+            <strong>Estado:</strong> <span id="estado"></span><br>
+          </div>
+        </div>
+
+        <!-- Botones de interacción -->
+        <div class="text-center mt-4">
+          <div class="row">
+            <!-- Botón de Guardar a la izquierda -->
+            <div class="col text-left">
+              <button class="btn btn-custom" id="guardarCambios" style="display: none;" type="submit">Guardar</button>
+            </div>
+
+            <!-- Botones de Editar y Volver centrados -->
+            <div class="col text-center">
+              <button class="btn btn-custom" id="editarInfoUser">Editar Información</button>
+              <button class="btn btn-custom my-2" onclick="volverAlInicio()">Volver al Inicio</button>
+            </div>
+
+            <!-- Botón de Cancelar a la derecha -->
+            <div class="col text-right">
+              <button class="btn btn-custom mx-5" id="cancelarEdicion" style="display: none;" type="button">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- El script que insertará los datos (info_user.js) -->
+    <script src="/js/user_info.js"></script>
+    <script>
+      function volverAlInicio() {
+        window.location.href = '/home'; // Redirige a la página de inicio
+      }
+    </script>
+  </body>
+</html>

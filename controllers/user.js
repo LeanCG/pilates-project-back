@@ -1,9 +1,10 @@
 import { db } from "../connect.js"
 import util from 'util'
 import bcrypt from "bcryptjs"
-import { validateRegister } from "../middlewares/validate.js"
+import { validateRegisterEdit } from "../middlewares/validate_edit.js"
 import { calcularDescuento } from "../middlewares/descuento.js"
 import { json } from "express"
+import { validateRegister } from "../middlewares/validate.js"
 
 const query = util.promisify(db.query).bind(db)
 
@@ -80,7 +81,7 @@ export const createUser = [validateRegister, async (req,res) => {
     }
 }]
 
-export const editUser = [validateRegister, async (req, res) => {
+export const editUser = [validateRegisterEdit, async (req, res) => {
     try {
 
         const {id} = req.params 
@@ -113,20 +114,21 @@ export const editUser = [validateRegister, async (req, res) => {
     }
 }]
 
-export const editUsuario = [validateRegister, async (req, res) => {
+export const editUsuario = [validateRegisterEdit, async (req, res) => {
     try {
 
         const {id} = req.params
 
         console.log(id)
 
-        let {apellido, nombre, dni, cuil, direccion_id, tipo_persona_id, username, password, created_at, updated_at, rol_id, tipo_estado_id} = req.body
-        const editPersona = {apellido, nombre, dni, cuil, direccion_id, tipo_persona_id}
+        const today = new Date();
+        const updated_at = today.toISOString().split('T')[0]; // YYYY-MM-DD
 
-        const salt = bcrypt.genSaltSync(10)
-        password = bcrypt.hashSync(password, salt)
 
-        const editUsuario = {username, password, created_at, updated_at,rol_id, tipo_estado_id}
+        let {apellido, nombre, dni, cuil, username} = req.body
+        const editPersona = {apellido, nombre, dni, cuil}
+
+        const editUsuario = {username, updated_at}
 
         const q = "SELECT id FROM user WHERE username = ? AND persona_id != ?";
         const data = await query(q, [username, id]);
@@ -150,7 +152,8 @@ export const editUsuario = [validateRegister, async (req, res) => {
 export const listUsers = async (req, res) => {
     try{
         const sql = `
-    SELECT 
+    SELECT
+        p.id,
         p.nombre,
         p.apellido,
         p.dni,
@@ -176,4 +179,57 @@ export const listUsers = async (req, res) => {
         res.status(500).json({message: err.message})
     }
 }
+
+export const infoUser = async (req, res) => {
+    try{
+        const userId = req.params.id
+        const sql = `
+        SELECT 
+            p.id AS persona_id,
+            p.apellido,
+            p.nombre,
+            p.dni,
+            p.cuil,
+            d.descripcion AS direccion,
+            m.descripcion AS municipio,
+            depto.descripcion AS departamento,
+            prov.descripcion AS provincia,
+            pais.descripcion AS pais,
+            tp.descripcion AS tipo_persona,
+            u.username,
+            u.created_at,
+            u.updated_at,
+            r.descripcion AS rol,
+            te.descripcion AS tipo_estado
+        FROM 
+            user u
+        INNER JOIN 
+            persona p ON u.persona_id = p.id
+        INNER JOIN 
+            direccion d ON p.direccion_id = d.id
+        INNER JOIN 
+            municipio m ON d.municipio_id = m.id
+        INNER JOIN 
+            departamento depto ON m.departamento_id = depto.id
+        INNER JOIN 
+            provincia prov ON depto.provincia_id = prov.id
+        INNER JOIN 
+            pais pais ON prov.pais_id = pais.id
+        INNER JOIN 
+            tipo_persona tp ON p.tipo_persona_id = tp.id
+        INNER JOIN 
+            rol r ON u.rol_id = r.id
+        INNER JOIN 
+            tipo_estado te ON u.tipo_estado_id = te.id
+        WHERE 
+            p.id = ?  -- Usamos el id de persona en la condición
+        `
+        const data = await query(sql, [userId])
+        res.status(200).json(data)
+    }
+    catch(err){
+        res.status(500).json({message: err.message})
+    }
+}
+
 

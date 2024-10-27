@@ -97,3 +97,8 @@ tfoot>tr>td {
     margin: 0 !important;
     padding: 0 !important;
 }
+
+#table_invoice tfoot th, 
+#table_invoice tfoot td {
+    text-align: right;
+}

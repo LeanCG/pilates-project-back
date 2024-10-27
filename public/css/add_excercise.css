@@ -1,0 +1,23 @@
+body {
+    background-color: #f8f9fa;
+}
+
+h3 {
+    color: #333;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.btn-success, .btn-primary {
+    width: 150px;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+#addExerciseButton {
+    margin-right: 10px;
+}
