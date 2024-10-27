@@ -3,7 +3,7 @@ import util from 'util'
 import bcrypt from "bcryptjs"
 import { validateRegisterEdit } from "../middlewares/validate_edit.js"
 import { calcularDescuento } from "../middlewares/descuento.js"
-import { json } from "express"
+import { json, response } from "express"
 import { validateRegister } from "../middlewares/validate.js"
 
 const query = util.promisify(db.query).bind(db)
@@ -29,7 +29,13 @@ export const createUser = [validateRegister, async (req,res) => {
         if (data.length) {
             return res.status(409).json("Usuario existente")
         }
-
+        const {fecha_turno} = req.body;
+        const validacion_turno=[req.body.hora,req.body.dias_turno_id];
+        const data_turno= await query("select count(*) as cantidad from turnos_alta_usuario where hora = ? and dias_turno_id = ?", validacion_turno)
+        console.log("data turno: ",data_turno[0].cantidad);
+        if(data_turno[0].cantidad >= 6){
+            return res.status(409).json("No hay turnos disponibles en ese horario")
+        }
         const values_direccion = [req.body.direccion, req.body.municipio_id]
 
         let resultados = await query('INSERT INTO direccion (`descripcion`, `municipio_id`) VALUES (?)', [values_direccion])
@@ -52,7 +58,6 @@ export const createUser = [validateRegister, async (req,res) => {
 
         const idNuevoUser = resultados.insertId
 
-        const {fecha_turno} = req.body
 
         const values_turn = [fecha_turno, req.body.hora, idNuevoUser, req.body.tipo_pilates_id, 1, req.body.dias_turno_id]
 
@@ -64,21 +69,20 @@ export const createUser = [validateRegister, async (req,res) => {
             precio = calcularDescuento(req.body.precio, req.body.descuento)
         }
 
-        const values_factura = [fecha_turno, req.body.numero_factura, req.body.sub_total, req.body.descuento, idNuevaPersona]
+        const values_factura = [new Date(), req.body.numero_factura, req.body.sub_total, req.body.descuento,req.body.tipo_factura,1, idNuevaPersona]
 
-        resultados = await query('INSERT INTO cabecera_factura (`fecha_factura`, `numero_factura`, `sub_total`, `descuento`, `comprador_id`) VALUES (?)', [values_factura])
+        resultados = await query('INSERT INTO cabecera_factura (`fecha_factura`, `numero_factura`, `sub_total`, `descuento`,`tipo_factura`,`movimiento_caja_id`, `comprador_id`) VALUES (?)', [values_factura])
 
         const idNuevaFactura = resultados.insertId
 
-        const values_detalle_factura = [req.body.cantidad, precio, idNuevaFactura]
+        const values_detalle_factura = [req.body.detalle,req.body.cantidad, precio, idNuevaFactura]
 
-        await query('INSERT INTO detalle_factura (`cantidad`, `precio`, `cabecera_factura_id`) VALUES (?)', [values_detalle_factura])
+        await query('INSERT INTO detalle_factura (`detalle`,`cantidad`, `precio`, `cabecera_factura_id`) VALUES (?)', [values_detalle_factura])
 
         res.status(200).json("Usuario creado")
     } 
     catch (err){
-        res.status(500).json({message:err.message})
-    }
+        res.status(500).json({message:err.message})}
 }]
 
 export const editUser = [validateRegisterEdit, async (req, res) => {

@@ -89,22 +89,37 @@
 
                 <!-- Sección 2: Datos de Usuario -->
                 <div id="user-details" class="content" role="tabpanel" aria-labelledby="step-2-trigger">
+                    <h5>Elegir Turnos</h5>
+                    <div class="form-group">
+                        <label for="fecha_turno" class="form-label">Fecha de Inicio</label>
+                        <input type="date" class="form-control" id="fecha_turno" name="fecha_turno" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora" class="form-label">Hora</label>
+                        <input type="time" class="form-control" id="hora" name="hora" min="08:00" max="22:00" value="08:00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo_pilates_id" class="form-label">Tipo de Pilates</label>
+                        <select class="form-control" id="tipo_pilates_id" name="tipo_pilates_id">
+                            <option value="1">Pilates Contemporaneo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dias_turno_id" class="form-label">Cantidad de días</label>
+                        <select name="dias_turno_id" id="dias_turno_id" class="form-control" required>
+                            <option value="1">Lunes-Miercoles-Viernes</option>
+                            <option value="2">Martes-Jueves</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="username" class="form-label">Nombre de Usuario</label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <input type="password" class="form-control" id="password" name="password" value="password" required>
                     </div>
-                    <!-- <div class="form-group">
-                        <label for="created_at" class="form-label">Fecha de creación</label>
-                        <input type="date" class="form-control" id="created_at" name="created_at" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="updated_at" class="form-label">Fecha de modificación</label>
-                        <input type="date" class="form-control" id="updated_at" name="updated_at" required>
-                    </div> -->
+
                     <div class="form-group">
                         <label for="rol_id" class="form-label">Rol</label>
                         <select name="rol_id" id="rol_id" class="form-control" required>
@@ -122,32 +137,23 @@
                 </div>
                 <!-- Sección 3: Turnos y Facturación -->
                 <div id="appointment" class="content" role="tabpanel" aria-labelledby="step-3-trigger">
-                    <h5>Elegir Turnos</h5>
-                    <div class="form-group">
-                        <label for="fecha_turno" class="form-label">Fecha de Inicio</label>
-                        <input type="date" class="form-control" id="fecha_turno" name="fecha_turno" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="hora" class="form-label">Hora</label>
-                        <input type="time" class="form-control" id="hora" name="hora" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="tipo_pilates_id" class="form-label">Tipo de Pilates</label>
-                        <select class="form-control" id="tipo_pilates_id" name="tipo_pilates_id">
-                            <option value="1">Pilates Contemporaneo</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="dias_turno_id" class="form-label">Cantidad de días</label>
-                        <select name="dias_turno_id" id="dias_turno_id" class="form-control" required>
-                            <option value="1">Lunes-Miercoles-Viernes</option>
-                            <option value="2">Martes-Jueves</option>
-                        </select>
-                    </div>
                     <h5>Facturación</h5>
+                    <div class="form-group">
+                        <label for="tipo_factura" class="form-label">Factura tipo</label>
+                        <select class="form-select" id="tipo_factura" name="tipo_factura" required>
+                            <option value="1">Factura A</option>
+                            <option value="2">Factura B</option>
+                            <option value="3">Factura C</option>
+                            <option value="4">Factura D</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="numero_factura" class="form-label">Número de Factura</label>
                         <input type="text" class="form-control" id="numero_factura" name="numero_factura" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="detalle_factura" class="form-label">Detalle de Factura</label>
+                        <input type="text" class="form-control" id="detalle_factura" name="detalle_factura" value="Pago de inscripcion" required>
                     </div>
                     <div class="form-group">
                         <label for="sub_total" class="form-label">Subtotal</label>
@@ -155,11 +161,11 @@
                     </div>
                     <div class="form-group">
                         <label for="descuento" class="form-label">Descuento</label>
-                        <input type="number" class="form-control" id="descuento" name="descuento">
+                        <input type="number" class="form-control" id="descuento" name="descuento" value="0" min="0">
                     </div>
                     <div class="form-group">
                         <label for="cantidad" class="form-label">Cantidad</label>
-                        <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+                        <input type="number" class="form-control" id="cantidad" name="cantidad" value="1" min="1" required>
                     </div>
                     <div class="form-group">
                         <label for="precio" class="form-label">Precio</label>

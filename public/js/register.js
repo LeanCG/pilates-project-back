@@ -124,6 +124,8 @@ document.addEventListener('DOMContentLoaded', function () {
             tipo_pilates_id : document.getElementById('tipo_pilates_id').value,
             dias_turno_id : document.getElementById('dias_turno_id').value,
             numero_factura : document.getElementById('numero_factura').value,
+            tipo_factura: document.getElementById('tipo_factura').value,
+            detalle:document.getElementById('detalle_factura').value,
             sub_total : document.getElementById('sub_total').value,
             descuento : document.getElementById('descuento').value,
             cantidad : document.getElementById('cantidad').value,
@@ -141,25 +143,28 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             
             if (response.ok) {
-                const result = await response.json();
                 swal.fire({
                     title: '¡Usuario creado exitosamente!',
                     icon: 'success',
-                    timer: 3000,
-                    timerProgressBar: true,
-                    showConfirmButton: false,
+                    timer: 6000,
+                    timerProgressBar: false,
+                    showConfirmButton: true,
                 });
+                //const result = await response.json();
+                
                 //alert('Registro exitoso');
                 window.location.href = '/home';
-                console.log(result);
+                //console.log(result);
             } else {
+                const errorMessage = await response.json(); // Captura el mensaje de error del servidor
                 //alert('Hubo un error en el registro');
                 swal.fire({
                     title: '¡Hubo un error en el registro!',
+                    text: errorMessage,
                     icon: 'warning',
-                    timer: 3000,
-                    timerProgressBar: true,
-                    showConfirmButton: false,
+                    timer: 6000,
+                    timerProgressBar: false,
+                    showConfirmButton: true,
                 });
             }
         } catch (error) {
