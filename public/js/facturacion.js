@@ -53,6 +53,27 @@ let table = new DataTable('#table_invoice', {
     ],
 });
 
+const minEl = document.querySelector('#min');
+const maxEl = document.querySelector('#max');
+
+
+// Función para filtrar facturas por fecha
+function filterByDate(facturas) {
+    let minDate = minEl.value ? new Date(`${minEl.value}T00:00:00`) : null;
+    let maxDate = maxEl.value ? new Date(`${maxEl.value}T23:59:59`) : null;
+
+    return facturas.filter(factura => {
+        const facturaDate = new Date(factura.fecha_factura);
+        return (
+            (!minDate || facturaDate >= minDate) &&
+            (!maxDate || facturaDate <= maxDate)
+        );
+    });
+}
+
+
+
+
 // Función para calcular los ingresos y egresos desde la tabla (datos obtenidos del fetch)
 async function chartData(facturas) {
     let ingresos = 0;
@@ -142,46 +163,102 @@ async function calculateTotals(facturas) {
     document.getElementById('balance_total').innerText = balance.toFixed(2);
 }
 
-// Función para inicializar DataTable y renderizar las facturas en la tabla
-async function initializeTable(facturas) {
-    if (facturas.length > 0) {
-        // Limpiar cualquier dato previo en la tabla
-        table.clear();
 
+async function updateTable(filteredData) {
+    table.clear();
 
-        // Agregar nuevas filas con los datos obtenidos
-        facturas.forEach(factura => {
-            console.log(factura.fecha_factura)
-            const tipo = factura.tipo_factura;
+    filteredData.forEach(factura => {
+        const tipo = factura.tipo_factura;
+        const icon = tipo === 3 
+            ? '<img src="/images/flecha_arriba.png" class="icon">'  // Ingresos
+            : '<img src="/images/flecha_abajo.png" class="icon">';  // Egresos
 
-            // Determinar qué icono mostrar basado en el tipo de factura
-            const icon = tipo === 3 
-                ? '<img src="/images/flecha_arriba.png" class="icon">'  // Ingresos
-                : '<img src="/images/flecha_abajo.png" class="icon">';  // Egresos
-
-            // Agregar la fila con los datos de la factura
-
-            let formattedDate = new Date(factura.fecha_factura).toLocaleDateString('es-ES', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric'
-            });
-
-            table.row.add([
-                factura.detalle,               // Columna Descripción
-                formattedDate,                     // Columna Fecha
-                tipo === 3 ? factura.precio : '',  // Ingreso (tipo 3)
-                tipo !== 3 ? factura.precio : '',  // Egreso (tipo 1 o 2)
-                icon                               // Icono
-            ]);
+        let formattedDate = new Date(factura.fecha_factura).toLocaleDateString('es-ES', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
         });
 
-        // Dibujar la tabla con los datos nuevos
-        table.draw();
+        table.row.add([
+            factura.detalle,               // Columna Descripción
+            formattedDate,                 // Columna Fecha
+            tipo === 3 ? factura.precio : '',  // Ingreso (tipo 3)
+            tipo !== 3 ? factura.precio : '',  // Egreso (tipo 1 o 2)
+            icon                               // Icono
+        ]);
+    });
 
-        // Calcular los totales y actualizar el footer
-        calculateTotals(facturas);
-    }
+    table.draw();
+}
+
+// Función para inicializar DataTable y renderizar las facturas en la tabla
+// async function initializeTable(facturas) {
+//     if (facturas.length > 0) {
+//         // Limpiar cualquier dato previo en la tabla
+//         table.clear();
+
+//         const filteredData = filterByDate(facturas); // Filtrar facturas por fecha
+//         console.log(filteredData)
+//         // Agregar nuevas filas con los datos obtenidos
+//         facturas.forEach(factura => {
+//             console.log(factura.fecha_factura)
+//             const tipo = factura.tipo_factura;
+
+//             // Determinar qué icono mostrar basado en el tipo de factura
+//             const icon = tipo === 3 
+//                 ? '<img src="/images/flecha_arriba.png" class="icon">'  // Ingresos
+//                 : '<img src="/images/flecha_abajo.png" class="icon">';  // Egresos
+
+//             // Agregar la fila con los datos de la factura
+
+//             let formattedDate = new Date(factura.fecha_factura).toLocaleDateString('es-ES', {
+//                 day: '2-digit',
+//                 month: '2-digit',
+//                 year: 'numeric'
+//             });
+
+//             table.row.add([
+//                 factura.detalle,               // Columna Descripción
+//                 formattedDate,                     // Columna Fecha
+//                 tipo === 3 ? factura.precio : '',  // Ingreso (tipo 3)
+//                 tipo !== 3 ? factura.precio : '',  // Egreso (tipo 1 o 2)
+//                 icon                               // Icono
+//             ]);
+//         });
+
+//         // Dibujar la tabla con los datos nuevos
+//         table.draw();
+
+//         // Calcular los totales y actualizar el footer
+//         calculateTotals(filteredData); // Calcular totales con datos filtrados
+//         initializeChart(filteredData); // Actualizar gráfico con datos filtrados
+
+//          // Recalcular en cada cambio de input
+//         minEl.addEventListener('input', () => {
+//             const filteredData = filterByDate(facturas);
+//             calculateTotals(filteredData);
+//             initializeChart(filteredData);
+//             table.draw();
+//         });
+
+//         maxEl.addEventListener('input', () => {
+//             const filteredData = filterByDate(facturas);
+//             calculateTotals(filteredData);
+//             initializeChart(filteredData);
+//             table.draw();
+//         });
+
+//     }
+// }
+
+// Función para cargar datos y actualizar tabla, gráfico y totales
+function refreshData(facturas) {
+    const filteredData = filterByDate(facturas); // Filtrar facturas por fecha
+    console.log("Fechas",filteredData);
+    
+    updateTable(filteredData);                  // Actualizar tabla
+    calculateTotals(filteredData);              // Calcular totales
+    initializeChart(filteredData);              // Actualizar gráfico
 }
 
 // Función principal que carga tanto la tabla como el gráfico
@@ -191,10 +268,18 @@ async function loadData() {
         const facturas = await response.json(); // Datos obtenidos de la consulta SQL
 
         // Inicializar DataTable con los datos
-        initializeTable(facturas);
+        //initializeTable(facturas);
 
         // Inicializar gráfico con los mismos datos
-        initializeChart(facturas);
+        //initializeChart(facturas);
+        // Inicializar tabla, totales y gráfico con los datos filtrados por fecha
+        refreshData(facturas);
+
+        // Recalcular en cada cambio de input
+        minEl.addEventListener('input', () => refreshData(facturas));
+        maxEl.addEventListener('input', () => refreshData(facturas));
+
+
     } catch (error) {
         console.error('Error al cargar los datos:', error);
     }

@@ -52,18 +52,42 @@ export const deleteRoutine = async (req, res) => {
     }
 
     try {
-        const sql = 'DELETE FROM rutina WHERE id = ?';
-        const result = await query(sql, [id]);
+        // Iniciar una transacción
+        await query('START TRANSACTION');
 
-        if (result.affectedRows === 0) {
+        // Eliminar las filas relacionadas de la tabla intermedia rutina_ejercicio
+        const deleteIntermediaSQL = 'DELETE FROM rutina_ejercicio WHERE rutina_id = ?';
+        const resultIntermedia = await query(deleteIntermediaSQL, [id]);
+
+        // Verificar si alguna fila de la tabla intermedia fue eliminada (esto es opcional)
+        if (resultIntermedia.affectedRows === 0) {
+            // Si no se encuentran registros relacionados en la tabla intermedia, se puede lanzar una advertencia o simplemente continuar
+            console.warn(`No se encontraron ejercicios relacionados para la rutina con ID ${id}`);
+        }
+
+        // Ahora eliminar la rutina de la tabla rutina
+        const deleteRoutineSQL = 'DELETE FROM rutina WHERE id = ?';
+        const resultRoutine = await query(deleteRoutineSQL, [id]);
+
+        // Verificar si la rutina fue eliminada
+        if (resultRoutine.affectedRows === 0) {
+            // Si no se encontró la rutina, deshacer la transacción y devolver error
+            await query('ROLLBACK');
             return res.status(404).json({ error: "Rutina no encontrada" });
         }
 
-        res.status(200).json({ message: " La Rutina a sido eliminada correctamente" });
+        // Confirmar la transacción
+        await query('COMMIT');
+
+        // Responder éxito
+        res.status(200).json({ message: "La Rutina ha sido eliminada correctamente" });
     } catch (err) {
+        // En caso de error, deshacer la transacción
+        await query('ROLLBACK');
         res.status(500).json({ error: err.message });
     }
 }
+
 
 
 export const updateRoutine = async (req, res) => {
