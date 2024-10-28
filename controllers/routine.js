@@ -104,7 +104,6 @@ export const updateRoutine = async (req, res) => {
         // Log para verificar los datos que llegan
         console.log(`Actualizando rutina con id ${id} y descripción ${descripcion}`);
 
-        // Actualiza la descripción de la rutina
         const updateRoutineQuery = 'UPDATE rutina SET descripcion = ? WHERE id = ?';
         const resultRoutine = await query(updateRoutineQuery, [descripcion, id]);
 
