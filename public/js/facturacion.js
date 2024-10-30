@@ -124,7 +124,7 @@ async function initializeChart(facturas) {
                 }
             ],
             tooltip: {
-                backgroundColor: '#fff', 
+                backgroundColor: '#fff',
                 borderColor: '#000',
                 borderRadius: 10,
                 style: {
@@ -169,7 +169,7 @@ async function updateTable(filteredData) {
 
     filteredData.forEach(factura => {
         const tipo = factura.movimiento_caja_id;
-        const icon = tipo === 1 
+        const icon = tipo === 1
             ? '<img src="/images/flecha_arriba.png" class="icon">'  // Ingresos
             : '<img src="/images/flecha_abajo.png" class="icon">';  // Egresos
 
@@ -196,7 +196,7 @@ async function updateTable(filteredData) {
 function refreshData(facturas) {
     const filteredData = filterByDate(facturas); // Filtrar facturas por fecha
     console.log("Fechas",filteredData);
-    
+
     updateTable(filteredData);                  // Actualizar tabla
     calculateTotals(filteredData);              // Calcular totales
     initializeChart(filteredData);              // Actualizar gráfico
@@ -220,6 +220,16 @@ async function loadData() {
         minEl.addEventListener('input', () => refreshData(facturas));
         maxEl.addEventListener('input', () => refreshData(facturas));
 
+        $('#table_invoice tbody').on('click', 'tr', function() {
+            // Obtén los datos de la fila seleccionada
+            const data = table.row(this).data();
+            
+            // Verifica si hay datos en la fila seleccionada
+            if (data) {
+                console.log("Fila seleccionada:", data);
+                mostrarDetallesFactura(data); // Llama a la función para mostrar detalles
+            }});
+
 
     } catch (error) {
         console.error('Error al cargar los datos:', error);
@@ -228,3 +238,7 @@ async function loadData() {
 
 // Llamada a la función principal para cargar los datos
 loadData();
+function mostrarDetallesFactura(data) {
+    $('#modalDetalles .modal-body').text(JSON.stringify(data)); // Mostrar datos en el modal
+    $('#modalDetalles').modal('show'); // Mostrar modal (usando Bootstrap en este caso)
+}
