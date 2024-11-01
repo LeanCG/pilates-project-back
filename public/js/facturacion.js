@@ -140,10 +140,11 @@ async function initializeChart(facturas) {
 }
 
 // Función para inicializar DataTable y renderizar las facturas en la tabla
-async function calculateTotals(facturas) {
+async function calculateTotals(facturas, previousBalance) {
     let totalIngresos = 0;
     let totalEgresos = 0;
-
+    const previousbalance = previousBalance;
+    console.log("previus balance:", previousBalance)
     // Iterar sobre los datos y sumar los ingresos y egresos
     facturas.forEach(factura => {
         let monto = parseFloat(factura.precio) || 0;
@@ -154,18 +155,39 @@ async function calculateTotals(facturas) {
         }
     });
 
+    if(previousBalance >= 0){
+        totalIngresos = totalIngresos+previousbalance;
+    }else {
+        totalEgresos = previousbalance + previousbalance;
+    }
+
+
     // Actualizar el footer con los totales
     document.getElementById('total_ingresos').innerText = totalIngresos.toFixed(2);
     document.getElementById('total_egresos').innerText = totalEgresos.toFixed(2);
-
-    // Calcular el balance
     const balance = totalIngresos - totalEgresos;
+
+    console.log(balance)
     document.getElementById('balance_total').innerText = balance.toFixed(2);
 }
 
 
-async function updateTable(filteredData) {
+async function updateTable(filteredData, previousBalance) {
     table.clear();
+
+    // Agregar fila de balance anterior
+    const balanceType = previousBalance >= 0 ? 'Positivo' : 'Negativo';
+    const balanceRow = [
+        'Debito anterior', // Descripción
+        '', // Fecha
+        previousBalance >= 0 ? previousBalance.toFixed(2) : '', // Ingreso
+        previousBalance < 0 ? Math.abs(previousBalance).toFixed(2) : '', // Egreso
+        '', // Icono
+        '' // ID (puedes dejarlo vacío)
+    ];
+    
+    table.row.add(balanceRow); // Agregar fila del balance
+
 
     filteredData.forEach(factura => {
         const tipo = factura.movimiento_caja_id;
@@ -198,11 +220,34 @@ async function updateTable(filteredData) {
 function refreshData(facturas) {
     const filteredData = filterByDate(facturas); // Filtrar facturas por fecha
     console.log("Fechas",filteredData);
+    const previousBalance = calculatePreviousBalance(facturas, minEl.value);
 
-    updateTable(filteredData);                  // Actualizar tabla
-    calculateTotals(filteredData);              // Calcular totales
+    updateTable(filteredData, previousBalance);                  // Actualizar tabla
+    calculateTotals(filteredData,previousBalance);              // Calcular totales
     initializeChart(filteredData);              // Actualizar gráfico
 }
+
+// Nueva función para calcular el balance anterior
+function calculatePreviousBalance(facturas, minDateValue) {
+    const minDate = new Date(`${minDateValue}T00:00:00`);
+    let totalIngresos = 0;
+    let totalEgresos = 0;
+
+    facturas.forEach(factura => {
+        const facturaDate = new Date(factura.fecha_factura);
+        if (facturaDate < minDate) {
+            let monto = parseFloat(factura.precio) || 0;
+            if (factura.movimiento_caja_id === 1) { // Ingresos
+                totalIngresos += monto;
+            } else if (factura.movimiento_caja_id !== 1) { // Egresos
+                totalEgresos += monto;
+            }
+        }
+    });
+
+    return totalIngresos - totalEgresos; // Devuelve el balance
+}
+
 
 // Función principal que carga tanto la tabla como el gráfico
 async function loadData() {
