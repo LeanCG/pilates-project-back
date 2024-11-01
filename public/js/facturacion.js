@@ -84,7 +84,7 @@ async function chartData(facturas) {
         let monto = parseFloat(factura.precio) || 0;
         if (factura.movimiento_caja_id === 1) { // Ingresos
             ingresos += monto;
-        } else if (factura.tipo_factura !=1) { // Egresos
+        } else if (factura.movimiento_caja_id !=1) { // Egresos
             egresos += monto;
         }
     });
@@ -180,11 +180,13 @@ async function updateTable(filteredData) {
         });
 
         table.row.add([
+                
             factura.detalle,               // Columna Descripción
             formattedDate,                 // Columna Fecha
             tipo === 1 ? factura.precio : '',  // Ingreso (tipo 3)
             tipo !== 1 ? factura.precio : '',  // Egreso (tipo 1 o 2)
-            icon                               // Icono
+            icon , // Icono
+            factura.id,
         ]);
     });
 
@@ -208,11 +210,6 @@ async function loadData() {
         const response = await fetch('/api/accounting/balance'); // Endpoint para obtener datos
         const facturas = await response.json(); // Datos obtenidos de la consulta SQL
 
-        // Inicializar DataTable con los datos
-        //initializeTable(facturas);
-
-        // Inicializar gráfico con los mismos datos
-        //initializeChart(facturas);
         // Inicializar tabla, totales y gráfico con los datos filtrados por fecha
         refreshData(facturas);
 
@@ -226,8 +223,9 @@ async function loadData() {
             
             // Verifica si hay datos en la fila seleccionada
             if (data) {
-                console.log("Fila seleccionada:", data);
-                mostrarDetallesFactura(data); // Llama a la función para mostrar detalles
+                const facturaId = data[5];
+                console.log("Fila seleccionada:", data,"id: ",facturaId);
+                mostrarDetallesFactura(facturaId); // Llama a la función para mostrar detalles
             }});
 
 
@@ -238,7 +236,85 @@ async function loadData() {
 
 // Llamada a la función principal para cargar los datos
 loadData();
-function mostrarDetallesFactura(data) {
-    $('#modalDetalles .modal-body').text(JSON.stringify(data)); // Mostrar datos en el modal
+async function mostrarDetallesFactura(id) {
+
+try {
+        // Llamada al endpoint para obtener los datos de la factura
+        const response = await fetch(`http://localhost:3000/api/accounting/factura/${id}`);
+        const data = await response.json()
+
+        const formattedFechaEmision = new Date(data[0].fecha_factura).toLocaleDateString('es-ES', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+
+        console.log("fecha formateada :", formattedFechaEmision);
+        
+        const detalleFacturaHtml = `
+        <div class="container border p-4">
+            <div class="text-center mb-4">
+                <h2>${data[0].descripcion_tipo_factura}</h2>
+                <p>Proyecto pilates</p>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <p><strong>Razón Social:</strong> Proyecto Pilates</p>
+                    <p><strong>CUIT:</strong> 2780905973</p>
+                    <p><strong>Domicilio Comercial:</strong> Pedro Moreno 3844, Posadas, Misiones</p>
+                    <p><strong>Condición frente al IVA:</strong> Responsable Monotributo</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Cliente:</strong> ${data[0].cliente_nya}</p>
+                    <p><strong>CUIT Cliente:</strong> ${data[0].cuil}</p>
+                    <p><strong>Domicilio Cliente:</strong> ${data[0].direccion}</p>
+                </div>
+            </div>
+            <div class="mb-4">
+                <p><strong>Fecha de Emisión:</strong> ${formattedFechaEmision}</p>
+            </div>
+            <div class="table-responsive mb-4">
+                <table class="table table-bordered text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Código</th>
+                            <th>Producto/Servicio</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${Object.values(data[0].detalle_factura).map(detalle => `
+                            <tr>
+                                <td>${detalle.detalle_id}</td>
+                                <td>${detalle.descripcion}</td>
+                                <td>${detalle.cantidad}</td>
+                                <td>$${detalle.precio.toFixed(2)}</td>
+                                <td>$${data[0].sub_total.toFixed(2)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-end mb-4">
+                <p><strong>Subtotal:</strong> $${data[0].sub_total.toFixed(2)}</p>
+                <p><strong>Total:</strong> $${data[0].sub_total.toFixed(2)}</p>
+            </div>
+            <div class="text-center">
+                <p>CAE N°: 73053493791087</p>
+
+            </div>
+        </div>
+    `;
+
+    // Insertar el contenido en el modal
+    document.getElementById('detalleFacturaBody').innerHTML = detalleFacturaHtml;
+
+    // Mostrar el modal
+    //$('#modalDetalles .modal-body').text(JSON.stringify(data)); // Mostrar datos en el modal
     $('#modalDetalles').modal('show'); // Mostrar modal (usando Bootstrap en este caso)
+} catch (error) {
+    console.error('Error al obtener los detalles de la factura:', error);
+}
 }
