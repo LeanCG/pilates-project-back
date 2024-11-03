@@ -285,7 +285,7 @@ async function mostrarDetallesFactura(id) {
 
 try {
         // Llamada al endpoint para obtener los datos de la factura
-        const response = await fetch(`http://localhost:3000/api/accounting/factura/${id}`);
+        const response = await fetch(`/api/accounting/factura/${id}`);
         const data = await response.json()
 
         const formattedFechaEmision = new Date(data[0].fecha_factura).toLocaleDateString('es-ES', {
