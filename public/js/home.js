@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                         <button class="btn btn-light editUserButton" data-id="${user.id}">
                                             <img src="/images/edit_icon.png" class="icon">
                                         </button>
-                                        <button class="btn btn-light deleteUserButton" data-id="${user.id}">
+                                        <button class="btn btn-light deleteUserButton" data-nombre="${user.nombre}" data-id="${user.id}">
                                             <img src="/images/delete_icon.png" class="icon">
                                         </button>
                                     </div>
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             button.addEventListener('click', async function () {
                                 console.log('click')
                                 const userName = this.getAttribute('data-nombre');
-                                const { value: borrar } = await swal.fire({
+                                const { value: borrar } = await Swal.fire({
                                     title: `¿Eliminar a ${userName}?`,
                                     icon: 'warning',
                                     confirmButtonText: 'Borrar',

@@ -71,3 +71,19 @@ body {
 .btn-group .btn:active {
   transform: scale(1.1);
 }
+
+.custom-input {
+  transition: background-color 0.3s ease;
+}
+.custom-input.editing {
+  background-color: #ffcccb; /* Fondo rosado claro */
+}
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px; /* Espacio entre columnas */
+  margin-top: 20px;
+}
+.info-item {
+  margin-bottom: 15px; /* Espacio entre elementos */
+}

@@ -22,9 +22,15 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h3 class="card-title">Rutina</h3>
-            <a title="Agregar ejercicio" href="/add_exercise" class="btn btn-light">
-                <span>Agregar rutina</span>
-            </a>
+            <div class="d-flex">
+                <a title="Agregar rutina" href="/add_exercise" class="btn btn-success me-2">
+                    <span>Agregar rutina</span>
+                </a>
+                <a href="/home" class="btn btn-primary">Home</a>
+            </div>
+        </div>
+    </div>
+       
         </div>
         <div class="card-body">
             <div id="wrapper_users" class="dataTables_wrapper dt-bootstrap5">
@@ -51,6 +57,7 @@
 
     <!-- Contenedor para los modales -->
     <div id="modal-container"></div>
+   
 
     <!-- Botón para ir a la página de agregar ejercicios -->
     <!-- <div class="d-flex justify-content-end me-5">

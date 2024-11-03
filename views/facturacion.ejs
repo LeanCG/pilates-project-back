@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Flujo de caja</title>
 
     <!-- Bootsrap y dataTables -->
     <link rel="stylesheet"
@@ -32,9 +32,23 @@
             <a title="Agregar" href="/caja_registry" class="btn btn-light" id="addUserButton">
                 <img src="/images/add_moving.svg" class="icon"> <span>Agregar movimiento</span>
             </a>
+            </a>
+            <a href="/home" class="btn btn-success">
+                <i class="fas fa-home"></i> Home
+            </a>
 
         </div>
         <div class="card-body">
+            <table class="inputs">
+                <tbody><tr>
+                    <td>Filtrar fecha desde:</td>
+                    <td><input type="date" id="min" name="min"></td>
+                </tr>
+                <tr>
+                    <td>Filtrar fecha hasta:</td>
+                    <td><input type="date" id="max" name="max"></td>
+                </tr>
+            </tbody></table>
             <div id="wrapper_users" class="dataTables_wrapper dt-bootstrap5">
                 <!-- Sección Botones y Buscador-->
 

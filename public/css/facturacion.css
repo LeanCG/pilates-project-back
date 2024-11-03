@@ -102,3 +102,7 @@ tfoot>tr>td {
 #table_invoice tfoot td {
     text-align: right;
 }
+
+table.inputs td {
+    padding: 5px;
+}
