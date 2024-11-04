@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 210mm;
+            height: 297mm;
+            padding: 20mm;
+            border: 1px solid #000;
+        }
+        .header, .footer {
+            text-align: center;
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            margin: 0;
+        }
+        .info-section {
+            display: flex;
+            justify-content: space-between;
+        }
+        .info-section div {
+            width: 45%;
+        }
+        .invoice-details {
+            margin-top: 20px;
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .details-table th, .details-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+        }
+        .total-section {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .total-section p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>NOTA DE CRÉDITO</h2>
+            <p>Corvo Alicia Raquel</p>
+        </div>
+        <div class="info-section">
+            <div>
+                <p><strong>Razón Social:</strong> CORVO ALICIA RAQUEL</p>
+                <p><strong>CUIT:</strong> 2780905973</p>
+                <p><strong>Domicilio Comercial:</strong> Pedro Moreno 3844, Posadas, Misiones</p>
+                <p><strong>Condición frente al IVA:</strong> Responsable Monotributo</p>
+            </div>
+            <div>
+                <p><strong>Cliente:</strong> Trasladarte Salud S.R.L</p>
+                <p><strong>CUIT Cliente:</strong> 33712489799</p>
+                <p><strong>Condición de Venta:</strong> Contado</p>
+            </div>
+        </div>
+
+        <div class="invoice-details">
+            <p><strong>Período Facturado Desde:</strong> 18/01/2023 Hasta: 18/01/2023</p>
+            <p><strong>Fecha de Emisión:</strong> 24/01/2023</p>
+        </div>
+
+        <table class="details-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Producto/Servicio</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>COD 013</td>
+                    <td>Servicios de Odontología</td>
+                    <td>1</td>
+                    <td>$3840,00</td>
+                    <td>$3840,00</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="total-section">
+            <p><strong>Subtotal:</strong> $3840,00</p>
+            <p><strong>Total:</strong> $3840,00</p>
+        </div>
+
+        <div class="footer">
+            <p>CAE N°: 73053493791087</p>
+            <p>Fecha de Vto. de CAE: 03/02/2023</p>
+        </div>
+    </div>
+</body>
+<script>
+    
+</script>
+</html>

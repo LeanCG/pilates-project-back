@@ -47,6 +47,7 @@ app.use('/api/accounting', accountingRoutes)
 app.use('/api/users', userRoutes);
 app.use('/api/users', rolRoutes);
 app.use('/api/exercise',exerciseRoutes)
+app.use('/manual_sistema', express.static(path.join(__dirname, 'manual_sistema')));
 app.use('/api/routine', routineRoutes); 
 app.use('/api', municipioRoutes)
 app.use('/api/auth', authRoutes);

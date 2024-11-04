@@ -38,6 +38,24 @@ h4 {
 
 }
 
+/* Estilos para el botón de Manual del Sistema */
+.btn-manual {
+    background-color: #2f0841; /* Cambia el color de fondo según el estilo de tu sitio */
+    color: #fff; /* Color del texto */
+    padding: 10px 20px; /* Tamaño del botón */
+    font-size: 1.5em; /* Tamaño de la fuente */
+    border-radius: 5px; /* Bordes redondeados */
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Animación para el efecto hover */
+}
+
+/* Efecto hover */
+.btn-manual:hover {
+    background-color: #5c4dbe; /* Color de fondo al pasar el mouse */
+}
+
 #sidebar {
     max-width: 264px;
     min-width: 264px;
