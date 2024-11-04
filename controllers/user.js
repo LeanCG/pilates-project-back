@@ -236,4 +236,28 @@ export const infoUser = async (req, res) => {
     }
 }
 
-
+export const appinventor = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const sql = `
+        SELECT 
+            turnos_alta_usuario.fecha_turno,
+            turnos_alta_usuario.hora,
+            dias_turno.descripcion AS dia_turno,
+            user.username AS nombre_usuario
+        FROM 
+            turnos_alta_usuario
+        JOIN 
+            dias_turno ON turnos_alta_usuario.dias_turno_id = dias_turno.id
+        JOIN 
+            user ON turnos_alta_usuario.user_id = user.id
+        WHERE 
+            turnos_alta_usuario.user_id = ?;
+    `;
+    
+        const data = await query(sql, [userId]);
+        res.status(200).json(data);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
