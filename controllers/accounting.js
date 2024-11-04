@@ -76,14 +76,11 @@ export const GetFacturaById = async (req, res) => {
                 detalle.cantidad AS detalle_cantidad,
                 detalle.precio AS detalle_precio
             FROM 
-                pilates.cabecera_factura AS cabecera
-			INNER JOIN pilates.tipo_factura ON cabecera.tipo_factura = tipo_factura.id
-            INNER JOIN 
-                pilates.persona AS cliente ON cliente.id = cabecera.comprador_id
-            INNER JOIN 
-                pilates.direccion ON cliente.direccion_id = direccion.id
-            INNER JOIN 
-                pilates.detalle_factura AS detalle ON detalle.cabecera_factura_id = cabecera.id
+                cabecera_factura AS cabecera
+			INNER JOIN tipo_factura ON cabecera.tipo_factura = tipo_factura.id
+            INNER JOIN persona AS cliente ON cliente.id = cabecera.comprador_id
+            INNER JOIN direccion ON cliente.direccion_id = direccion.id
+            INNER JOIN detalle_factura AS detalle ON detalle.cabecera_factura_id = cabecera.id
             WHERE 
                 cabecera.id = ?
         `;
