@@ -144,6 +144,10 @@ a.sidebar-link {
     height: 40px;
     width: 40px;
 }
+.help {
+    height: 40px;
+    width: 40px;
+}
 .navbar-expand .navbar-nav {
     margin-left: auto;
 }
