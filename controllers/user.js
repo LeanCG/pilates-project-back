@@ -261,3 +261,24 @@ export const appinventor = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 }
+
+export const guardarComentario = async (req, res) => {
+    try {
+        const userId = req.body.user_id;          // Toma el id desde los parámetros de la URL
+        const comentario = req.body.descripcion;    // Toma el comentario desde los parámetros de la URL
+
+        console.log("User ID:", userId);         // Para depuración
+        console.log("Comentario:", comentario); 
+
+        
+        const sql = `
+            INSERT INTO comentarios (descripcion, user_id) 
+            VALUES (?, ?);
+        `;
+        
+        await query(sql, [comentario, userId]);
+        res.status(201).json({ message: "Comentario guardado exitosamente" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};

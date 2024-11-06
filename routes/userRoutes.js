@@ -1,5 +1,5 @@
 import express from "express"
-import { createUser, deleteUser, editUser, editUsuario, infoUser, listUsers, appinventor } from "../controllers/user.js"
+import { createUser, deleteUser, editUser, editUsuario, infoUser, listUsers, appinventor, guardarComentario } from "../controllers/user.js"
 
 const router = express.Router()
 
@@ -10,5 +10,6 @@ router.post("/editUser/:id", editUsuario)
 router.get("/list", (listUsers))
 router.get("/infoUser/:id", infoUser)
 router.get("/appinventor/:id", appinventor)
+router.post("/savecomment", guardarComentario)
 
 export default router
