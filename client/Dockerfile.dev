@@ -1,0 +1,18 @@
+# Dockerfile for Frontend development
+FROM node:20-slim
+
+WORKDIR /app
+
+# Install dependencies first
+COPY package*.json ./
+RUN npm install
+
+# Copy the rest of the frontend code
+COPY . .
+
+# Expose Vite dev port
+EXPOSE 5173
+
+# Run Vite dev server
+# Using --host to ensure it's accessible outside the container
+CMD ["npm", "run", "dev", "--", "--host"]
