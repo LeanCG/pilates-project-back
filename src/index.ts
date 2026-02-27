@@ -11,6 +11,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './swagger.js';
 // Crear una instancia de Express
 const app = express();
 
@@ -48,6 +50,9 @@ app.use('/api/routine', routineRoutes);
 app.use('/api', municipioRoutes)
 app.use('/api/auth', authRoutes);
 app.use('/api', dashboard)
+
+// Swagger UI – documentación interactiva de la API
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Fallback para React Router: servir index.html en cualquier otra ruta no API
 app.get('*', (req, res) => {

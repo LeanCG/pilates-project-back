@@ -95,6 +95,13 @@ If you prefer using Docker, you can start the entire stack (Database, Backend, F
 > [!TIP]
 > Use `docker-compose down` to stop and remove the containers. Database data is persisted in a Docker volume named `mysql_data`.
 
+## API Documentation (Swagger)
+The API is documented using **Swagger/OpenAPI 3.0**. Once the backend is running, access the interactive documentation at:
+
+> **<http://localhost:3000/api-docs>**
+
+From there you can explore all endpoints, see request/response schemas, and test the API directly from the browser.
+
 ## Testing
 - **Unit tests** (Vitest):
   ```bash
