@@ -35,6 +35,14 @@ interface ClientFormProps {
     onSubmit: (data: ClientFormData) => Promise<void>;
 }
 
+/**
+ * ClientForm component.
+ * A comprehensive form for creating or editing studio clients.
+ * Uses react-hook-form and zod for validation.
+ * Includes sections for personal data, credentials, and subscription/billing totals.
+ * 
+ * @param props - Component props including the onSubmit handler.
+ */
 export const ClientForm: React.FC<ClientFormProps> = ({ onSubmit }) => {
     const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<ClientFormData>({
         resolver: zodResolver(clientSchema),

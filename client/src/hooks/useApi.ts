@@ -1,7 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { api } from '../api/axios';
 
-// client-swr-dedup: generic hook to fetch data & deduplicate loading state
+/**
+ * Custom hook to fetch data from an API endpoint with loading and error states.
+ * Implements deduplication and uses functional updates for state stability.
+ * 
+ * @template T - The type of data expected from the API.
+ * @param endpoint - The API endpoint to fetch from.
+ * @param deps - Dependency array for the effect (refetches when these change).
+ * @returns An object containing the data, loading state, error message, and a refetch function.
+ */
 export function useApi<T>(endpoint: string, deps: unknown[] = []) {
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState(true);

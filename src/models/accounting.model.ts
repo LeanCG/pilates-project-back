@@ -11,6 +11,10 @@ const query = (sql: string, values?: any): Promise<any> => {
 };
 
 export class AccountingModel {
+    /**
+     * Retrieves all invoices for accounting (purchases, payments, etc.).
+     * @returns A promise that resolves to an array of invoices.
+     */
     static async getFacturas() {
         const sql = `
         SELECT cf.fecha_factura, df.detalle, df.precio, cf.tipo_factura
@@ -21,11 +25,22 @@ export class AccountingModel {
         return query(sql);
     }
 
+    /**
+     * Finds a persona by their DNI.
+     * @param dni - The DNI to search for.
+     * @returns A promise that resolves to the persona result.
+     */
     static async findPersonaByDni(dni: string) {
         const q = 'SELECT id, nombre FROM persona WHERE dni = ?';
         return query(q, [dni]);
     }
 
+    /**
+     * Creates a complete accounting transaction with a header and detailed record.
+     * @param data - The transaction data.
+     * @returns A promise that resolves when the transaction is complete.
+     * @throws Error if the transaction fails.
+     */
     static async createTransaction(data: {
         fecha: string;
         nro_factura: string;

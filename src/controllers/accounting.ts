@@ -2,6 +2,12 @@ import express from "express";
 import { AccountingModel } from "../models/accounting.model.js";
 import { calcularDescuento } from "../middlewares/descuento.js";
 
+/**
+ * Handles a new accounting transaction (e.g., payment from a client).
+ * Calculates final price with discount and creates the record.
+ * @param req - Express request object with transaction data in body.
+ * @param res - Express response object.
+ */
 export const handleTransaction = async (req: express.Request, res: express.Response) => {
     try {
         const { dni, monto, fecha, nro_factura, descuento, tipo_factura, detalle } = req.body;
@@ -37,6 +43,11 @@ export const handleTransaction = async (req: express.Request, res: express.Respo
     }
 };
 
+/**
+ * Retrieves all registered invoices for the accounting table.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 export const getFacturas = async (req: express.Request, res: express.Response) => {
     try {
         const facturas = await AccountingModel.getFacturas();

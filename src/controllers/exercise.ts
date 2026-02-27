@@ -2,6 +2,11 @@ import express from "express";
 import { ExerciseModel } from "../models/exercise.model.js";
 
 // Listar ejercicios
+/**
+ * Retrieves all exercises from the database.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 export const getExcercises = async (req: express.Request, res: express.Response) => {
     try {
         const exercises: any = await ExerciseModel.getExercises();
@@ -16,6 +21,11 @@ export const getExcercises = async (req: express.Request, res: express.Response)
 }
 
 // Crear ejercicios
+/**
+ * Creates a new exercise in the system.
+ * @param req - Express request object with exercise details in body.
+ * @param res - Express response object.
+ */
 export const createExcercise = async (req: express.Request, res: express.Response) => {
     const { descripcion, observacion = null, grupo_muscular = null, url_video = null, calorias_promedio = null, nivel_dificultad = null } = req.body;
 
@@ -34,6 +44,11 @@ export const createExcercise = async (req: express.Request, res: express.Respons
 }
 
 // Eliminar un ejercicio
+/**
+ * Deletes an exercise by its ID.
+ * @param req - Express request object with exercise ID in params.
+ * @param res - Express response object.
+ */
 export const deleteExcercise = async (req: express.Request, res: express.Response) => {
     const { id } = req.params;
 
@@ -55,6 +70,11 @@ export const deleteExcercise = async (req: express.Request, res: express.Respons
 }
 
 // Modificar Ejercicio
+/**
+ * Updates an existing exercise's details.
+ * @param req - Express request object with exercise ID in params and updated data in body.
+ * @param res - Express response object.
+ */
 export const updateExcercise = async (req: express.Request, res: express.Response) => {
     const { id } = req.params;
     const { descripcion, observacion, grupo_muscular, url_video, calorias_promedio, nivel_dificultad } = req.body;

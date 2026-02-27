@@ -10,6 +10,11 @@ import { UserModel } from "../models/user.model.js";
 
 const query = util.promisify(db.query).bind(db)
 
+/**
+ * Logically deletes a user by setting their state to 2 (inactive).
+ * @param req - Express request object with user ID in params.
+ * @param res - Express response object.
+ */
 export const deleteUser = async (req: express.Request, res: express.Response) => {
     try {
         const { id } = req.params;
@@ -21,6 +26,12 @@ export const deleteUser = async (req: express.Request, res: express.Response) =>
     }
 }
 
+/**
+ * Creates a new user with full details (address, persona, auth, turn, invoice).
+ * Validates existence of DNI and encrypts the password.
+ * @param req - Express request object with user creation data.
+ * @param res - Express response object.
+ */
 export const createUser = [validateRegister, async (req: express.Request, res: express.Response) => {
     try {
         const dniExists = await UserModel.findByDni(req.body.dni);
@@ -45,6 +56,11 @@ export const createUser = [validateRegister, async (req: express.Request, res: e
     }
 }]
 
+/**
+ * Updates an existing user's persona and account details.
+ * @param req - Express request object with persona ID in params and update data in body.
+ * @param res - Express response object.
+ */
 export const editUser = [validateRegisterEdit, async (req: express.Request, res: express.Response) => {
     try {
         const { id } = req.params;
@@ -77,6 +93,11 @@ export const editUser = [validateRegisterEdit, async (req: express.Request, res:
     }
 }]
 
+/**
+ * Partially updates an existing user (e.g., from a profile settings page).
+ * @param req - Express request object with persona ID in params and partial update data in body.
+ * @param res - Express response object.
+ */
 export const editUsuario = [validateRegisterEdit, async (req: express.Request, res: express.Response) => {
     try {
         const { id } = req.params;
@@ -100,6 +121,11 @@ export const editUsuario = [validateRegisterEdit, async (req: express.Request, r
     }
 }]
 
+/**
+ * Retrieves a list of all users with simplified data (for listing tables).
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 export const listUsers = async (req: express.Request, res: express.Response) => {
     try {
         const data = await UserModel.listUsers();
@@ -110,6 +136,11 @@ export const listUsers = async (req: express.Request, res: express.Response) => 
     }
 }
 
+/**
+ * Retrieves full information for a specific user persona.
+ * @param req - Express request object with persona ID in params.
+ * @param res - Express response object.
+ */
 export const infoUser = async (req: express.Request, res: express.Response) => {
     try {
         const userId = req.params.id;

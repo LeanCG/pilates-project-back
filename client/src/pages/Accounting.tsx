@@ -12,6 +12,11 @@ interface Movement {
     egreso: number;
 }
 
+/**
+ * Accounting page component.
+ * Displays studio cash flow, including income and expenses.
+ * Allows filtering by date range and description search.
+ */
 export const Accounting: React.FC = () => {
     const [search, setSearch] = useState('');
     const [dateFrom, setDateFrom] = useState('');

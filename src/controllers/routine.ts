@@ -1,6 +1,11 @@
 import express from "express";
 import { RoutineModel } from "../models/routine.model.js";
 
+/**
+ * Retrieves all routines from the database.
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 export const getRoutines = async (req: express.Request, res: express.Response) => {
     try {
         const routines: any = await RoutineModel.getRoutines();
@@ -15,6 +20,11 @@ export const getRoutines = async (req: express.Request, res: express.Response) =
     }
 };
 
+/**
+ * Creates a new routine with its associated exercises.
+ * @param req - Express request object with routine description and exercises array in body.
+ * @param res - Express response object.
+ */
 export const createRoutine = async (req: express.Request, res: express.Response) => {
     const { descripcion, ejercicios } = req.body;
 
@@ -30,6 +40,11 @@ export const createRoutine = async (req: express.Request, res: express.Response)
     }
 }
 
+/**
+ * Deletes a routine by its ID.
+ * @param req - Express request object with routine ID in params.
+ * @param res - Express response object.
+ */
 export const deleteRoutine = async (req: express.Request, res: express.Response) => {
     const { id } = req.params;
 
@@ -48,6 +63,11 @@ export const deleteRoutine = async (req: express.Request, res: express.Response)
     }
 }
 
+/**
+ * Updates an existing routine and its associated exercises.
+ * @param req - Express request object with routine ID in params and updated data in body.
+ * @param res - Express response object.
+ */
 export const updateRoutine = async (req: express.Request, res: express.Response) => {
     const { id } = req.params;
     const { descripcion, ejercicios } = req.body;
@@ -67,6 +87,11 @@ export const updateRoutine = async (req: express.Request, res: express.Response)
     }
 };
 
+/**
+ * Retrieves a specific routine and its exercises by ID.
+ * @param req - Express request object with routine ID in params.
+ * @param res - Express response object.
+ */
 export const getRoutineId = async (req: express.Request, res: express.Response) => {
     try {
         const { id } = req.params;

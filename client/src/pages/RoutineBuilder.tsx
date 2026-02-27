@@ -27,6 +27,13 @@ interface Props {
     mode: 'create' | 'edit';
 }
 
+/**
+ * RoutineBuilder page component.
+ * Provides an interface to create or edit workout routines.
+ * Allows adding multiple exercises from the catalog, specifying series and repetitions.
+ * 
+ * @param props - Component props including the mode ('create' or 'edit').
+ */
 export const RoutineBuilder: React.FC<Props> = ({ mode }) => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();

@@ -10,22 +10,47 @@ const query = (sql: string, values?: any): Promise<any> => {
 };
 
 export class UserModel {
+    /**
+     * Updates the state of a user.
+     * @param personaId - ID of the persona.
+     * @param stateId - ID of the new state.
+     * @returns A promise that resolves when the update is complete.
+     */
     static async updateState(personaId: number, stateId: number) {
         return query('UPDATE user SET `tipo_estado_id` = ? WHERE persona_id = ?', [stateId, personaId]);
     }
 
+    /**
+     * Finds a persona by DNI.
+     * @param dni - The DNI to search for.
+     * @returns A promise that resolves to the persona data.
+     */
     static async findByDni(dni: string) {
         const q = "SELECT dni FROM persona WHERE dni = ?";
         const result: any = await query(q, [dni]);
         return result;
     }
 
+    /**
+     * Finds a username excluding a specific persona ID.
+     * @param username - The username to search for.
+     * @param excludePersonaId - The persona ID to exclude from the search.
+     * @returns A promise that resolves to the result of the search.
+     */
     static async findByUsernameExcludingId(username: string, excludePersonaId: number) {
         const q = "SELECT id FROM user WHERE username = ? AND persona_id != ?";
         const result: any = await query(q, [username, excludePersonaId]);
         return result;
     }
 
+    /**
+     * Creates a complete user including dynamic data such as address, persona, auth user, turn, and invoice.
+     * @param clientData - The data of the client to create.
+     * @param encryptedPassword - The encrypted password for the user.
+     * @param finalPrice - The final price for the invoice.
+     * @returns A promise that resolves when the creation is complete.
+     * @throws Error if any part of the transaction fails.
+     */
     static async createCompleteUser(clientData: any, encryptedPassword: string, finalPrice: number) {
         // Transaction helper
         const beginTransaction = util.promisify(db.beginTransaction).bind(db);
@@ -69,6 +94,14 @@ export class UserModel {
             throw err;
         }
     }
+    /**
+     * Updates an existing user.
+     * @param personaId - The persona ID of the user to update.
+     * @param editPersona - The persona data to update.
+     * @param editUsuario - The user data to update.
+     * @returns A promise that resolves when the update is complete.
+     * @throws Error if the transaction fails.
+     */
     static async updateUser(personaId: number, editPersona: any, editUsuario: any) {
         // Simple transaction
         const beginTransaction = util.promisify(db.beginTransaction).bind(db);
@@ -95,6 +128,13 @@ export class UserModel {
         }
     }
 
+    /**
+     * Updates an existing user with partial data.
+     * @param personaId - The persona ID of the user to update.
+     * @param editPersona - Partial persona data.
+     * @param editUsuario - Partial user data.
+     * @returns A promise that resolves when the update is complete.
+     */
     static async updateUsuarioPartial(personaId: number, editPersona: any, editUsuario: any) {
         const beginTransaction = util.promisify(db.beginTransaction).bind(db);
         const commit = util.promisify(db.commit).bind(db);
@@ -111,6 +151,10 @@ export class UserModel {
         }
     }
 
+    /**
+     * Lists all users with their associated persona and address information.
+     * @returns A promise that resolves to a list of users.
+     */
     static async listUsers() {
         const sql = `
         SELECT
@@ -127,6 +171,11 @@ export class UserModel {
         return query(sql);
     }
 
+    /**
+     * Gets detailed information for a specific user.
+     * @param userId - ID of the user persona to fetch.
+     * @returns A promise that resolves to the detailed user information.
+     */
     static async infoUser(userId: number) {
         const sql = `
         SELECT 

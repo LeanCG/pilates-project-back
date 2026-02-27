@@ -9,10 +9,19 @@ const query = (sql: string, values?: any): Promise<any> => {
 };
 
 export class ExerciseModel {
+    /**
+     * Retrieves all exercises from the database.
+     * @returns A promise that resolves to an array of exercises.
+     */
     static async getExercises() {
         return query("SELECT * FROM ejercicio");
     }
 
+    /**
+     * Creates a new exercise in the database.
+     * @param data - The exercise data.
+     * @returns A promise that resolves when the exercise is created.
+     */
     static async createExercise(data: {
         descripcion: string;
         observacion?: string;
@@ -28,6 +37,12 @@ export class ExerciseModel {
         ]);
     }
 
+    /**
+     * Updates an existing exercise in the database.
+     * @param id - The ID of the exercise to update.
+     * @param data - The new data for the exercise.
+     * @returns A promise that resolves when the update is complete.
+     */
     static async updateExercise(id: number, data: {
         descripcion: string;
         observacion?: string;
@@ -47,6 +62,11 @@ export class ExerciseModel {
         ]);
     }
 
+    /**
+     * Deletes an exercise from the database.
+     * @param id - The ID of the exercise to delete.
+     * @returns A promise that resolves when the exercise is deleted.
+     */
     static async deleteExercise(id: number) {
         const sql = 'DELETE FROM ejercicio WHERE id = ?';
         return query(sql, [id]);

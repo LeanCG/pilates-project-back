@@ -1,6 +1,10 @@
 import express from "express";
 import { createUser, deleteUser, editUser, editUsuario, infoUser, listUsers } from "../controllers/user.js";
 
+/**
+ * User data management routes.
+ * Includes user creation, logical deletion, editing, listing, and detailed info.
+ */
 const router = express.Router();
 
 router.post("/create", ...createUser);

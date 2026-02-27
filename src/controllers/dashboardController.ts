@@ -1,6 +1,11 @@
 import express from "express";
 import { DashboardModel } from "../models/dashboard.model.js";
 
+/**
+ * Retrieves essential dashboard metrics (user counts, active routines, etc.).
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 export const getDashboard = async (req: express.Request, res: express.Response) => {
     try {
         const dashboard: any = await DashboardModel.getMetrics();

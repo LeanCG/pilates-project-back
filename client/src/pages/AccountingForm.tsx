@@ -4,6 +4,11 @@ import { Save, ArrowLeft } from 'lucide-react';
 import { GlassCard } from '../components/GlassCard';
 import { api } from '../api/axios';
 
+/**
+ * AccountingForm page component.
+ * Provides a form to register new cash flow movements (income/expense).
+ * Includes fields for DNI, invoice number, amount, and discount.
+ */
 export const AccountingForm: React.FC = () => {
     const navigate = useNavigate();
     const [saving, setSaving] = useState(false);

@@ -10,10 +10,19 @@ const query = (sql: string, values?: any): Promise<any> => {
 };
 
 export class RoutineModel {
+    /**
+     * Gets all routines from the database.
+     * @returns A promise that resolves to an array of routines.
+     */
     static async getRoutines() {
         return query('SELECT * FROM rutina');
     }
 
+    /**
+     * Gets a routine by its ID.
+     * @param id - The ID of the routine to fetch.
+     * @returns A promise that resolves to the routine details with its associated exercises.
+     */
     static async getRoutineById(id: number) {
         const sql = `
         SELECT re.id, re.ejercicio_id, re.series, re.repeticiones
@@ -24,6 +33,13 @@ export class RoutineModel {
         return query(sql, [id]);
     }
 
+    /**
+     * Creates a new routine along with its exercises.
+     * @param descripcion - The description of the routine.
+     * @param ejercicios - An array of exercises associated with the routine.
+     * @returns A promise that resolves to the ID of the newly created routine.
+     * @throws Error if the transaction fails.
+     */
     static async createRoutine(descripcion: string, ejercicios: any[]) {
         const beginTransaction = util.promisify(db.beginTransaction).bind(db);
         const commit = util.promisify(db.commit).bind(db);
@@ -50,6 +66,12 @@ export class RoutineModel {
         }
     }
 
+    /**
+     * Deletes a routine and its associated exercises.
+     * @param id - The ID of the routine to delete.
+     * @returns A promise that resolves when the routine is deleted.
+     * @throws Error if the routine is not found.
+     */
     static async deleteRoutine(id: number) {
         const beginTransaction = util.promisify(db.beginTransaction).bind(db);
         const commit = util.promisify(db.commit).bind(db);
@@ -71,6 +93,14 @@ export class RoutineModel {
         }
     }
 
+    /**
+     * Updates an existing routine and its associated exercises.
+     * @param id - The ID of the routine to update.
+     * @param descripcion - The new description of the routine.
+     * @param ejercicios - An array of exercises to update.
+     * @returns A promise that resolves when the update is complete.
+     * @throws Error if the routine or any exercise is not found.
+     */
     static async updateRoutine(id: number, descripcion: string, ejercicios: any[]) {
         const beginTransaction = util.promisify(db.beginTransaction).bind(db);
         const commit = util.promisify(db.commit).bind(db);

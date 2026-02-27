@@ -7,6 +7,12 @@ interface GlassCardProps {
     onClick?: () => void;
 }
 
+/**
+ * A reusable glassmorphism card component.
+ * Provides a semi-transparent blurred background and standardized padding.
+ * 
+ * @param props - Component props including children, className, and optional style/onClick.
+ */
 export const GlassCard: React.FC<GlassCardProps> = ({ children, className = '', style, onClick }) => {
     return (
         <div

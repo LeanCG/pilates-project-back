@@ -2,6 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ClientForm } from '../components/ClientForm';
 
+/**
+ * NewClient page component.
+ * Provides a high-level wrapper for the ClientForm.
+ * Handles the integrated creation of personal data, user credentials, and initial turn.
+ */
 export const NewClient: React.FC = () => {
     const navigate = useNavigate();
 

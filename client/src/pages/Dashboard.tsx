@@ -3,6 +3,11 @@ import { GlassCard } from '../components/GlassCard';
 import { Users, DollarSign, Calendar, Dumbbell, TrendingUp, Sun, Sunset, Moon } from 'lucide-react';
 import { useApi } from '../hooks/useApi';
 
+/**
+ * Dashboard page component.
+ * Displays a video hero, key studio metrics (user counts, income),
+ * and dynamic attendance cards by shift.
+ */
 export const Dashboard: React.FC = () => {
     // async-parallel: all three fetches kick off simultaneously
     const { data: dashData } = useApi<any>('/api/dashboard');

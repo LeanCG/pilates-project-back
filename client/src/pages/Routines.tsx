@@ -57,6 +57,11 @@ const RoutineRow = React.memo(({ routine, onDelete }: { routine: Routine; onDele
 });
 RoutineRow.displayName = 'RoutineRow';
 
+/**
+ * Routines page component.
+ * Displays a filterable list of all workout routines available in the studio.
+ * Supports searching routines by name and provides actions to view, edit, or delete them.
+ */
 export const Routines: React.FC = () => {
     const [search, setSearch] = useState('');
     const { data, loading, error, refetch } = useApi<Routine[]>('/api/routine');

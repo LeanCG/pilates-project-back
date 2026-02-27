@@ -35,6 +35,11 @@ const ClientRow = React.memo(({ client, onDelete }: { client: Client; onDelete: 
 });
 ClientRow.displayName = 'ClientRow';
 
+/**
+ * Clients page component.
+ * Displays a filterable table of all studio clients with actions to view, edit, or delete.
+ * Uses memoized rows for optimized rendering of the table list.
+ */
 export const Clients: React.FC = () => {
     const [search, setSearch] = useState('');
     const { data, loading, error, refetch } = useApi<Client[]>('/api/users');
