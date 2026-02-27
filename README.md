@@ -79,6 +79,22 @@ pilates-project-back/
    The Vite dev server proxies `/api/*` to `http://localhost:3000`.
 6. Open <http://localhost:5173> in a browser.
 
+## Docker Development Setup
+If you prefer using Docker, you can start the entire stack (Database, Backend, Frontend) with a single command:
+
+1. **Ensure Docker and Docker Compose are installed.**
+2. **Start the containers** from the root directory:
+   ```bash
+   docker-compose up --build
+   ```
+   - **Database (db)**: MySQL 8.0 running on port 3306.
+   - **Backend (backend)**: Node.js API running on port 3000 (hot-reload enabled).
+   - **Frontend (frontend)**: Vite dev server running on port 5173 (hot-reload enabled).
+3. Open <http://localhost:5173> in your browser.
+
+> [!TIP]
+> Use `docker-compose down` to stop and remove the containers. Database data is persisted in a Docker volume named `mysql_data`.
+
 ## Testing
 - **Unit tests** (Vitest):
   ```bash
@@ -97,25 +113,36 @@ pilates-project-back/
   ```
 
 ## Production Build & Deployment
+
+### Standard Build
 1. **Build the frontend**
    ```bash
    cd client && npm run build
    ```
-   This creates a `dist/` folder with static assets.
-2. **Serve the built assets**
-   - **Option A – via Express** (recommended for a single‑server deployment):
-     ```typescript
-     // In client/src/index.ts (already present)
-     app.use(express.static(path.join(__dirname, '../client/dist')));
-     app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../client/dist/index.html')));
-     ```
-     Then run the backend in production mode:
-     ```bash
-     npm run start   # from project root
-     ```
-   - **Option B – static host** (Vercel, Netlify, Cloudflare Pages):
-     Deploy the `client/dist` folder as a static site and configure the backend URL as an environment variable (`VITE_API_URL`).
-3. **Environment variables** for production should be set on the host (DB credentials, JWT secret, etc.).
+2. **Build the backend**
+   ```bash
+   npm run build
+   ```
+3. **Run the application**
+   ```bash
+   npm run start
+   ```
+
+### Production Docker Build
+For a lightweight and isolated production environment, use the multi-stage Dockerfile:
+
+1. **Build the production image**:
+   ```bash
+   docker build -f Dockerfile.prod -t pilates-studio:prod .
+   ```
+2. **Run the production container**:
+   ```bash
+   docker run -d -p 3000:3000 --name pilates_prod --env-file .env pilates-studio:prod
+   ```
+   *Ensure your `.env` has the correct production database credentials.*
+
+> [!NOTE]
+> The multi-stage build automatically runs tests (if configured in build hooks) and compiles both frontend and backend, keeping the final image size minimal.
 
 ## Scripts Overview
 | Script | Description |
