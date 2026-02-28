@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Rutina</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/edit_routine.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header text-white bg-lavender">
+                <h3 class="card-title">Detalle Rutina</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="routineName" class="form-label">Nombre de la Rutina</label>
+                    <p id="routine-name" class="form-text"></p>
+                </div>
+
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Ejercicio</th>
+                            <th>Series</th>
+                            <th>Repeticiones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="exercise-table-body">
+                        <!-- Aquí se renderizan los ejercicios -->
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" id="edit-rutine">editar</button>
+                    <a href="/routine" class="btn btn-secondary ms-2">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS y tu archivo JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/info_routine.js"></script>
+</body>
+
+</html>

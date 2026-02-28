@@ -1,0 +1,36 @@
+# --- Stage 1: Frontend Build ---
+FROM node:20-slim AS frontend-build
+WORKDIR /app/Front-End
+COPY Front-End/package*.json ./
+RUN npm install
+COPY Front-End/ .
+RUN npm run build
+
+# --- Stage 2: Backend Build ---
+FROM node:20-slim AS backend-build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# --- Stage 3: Production Image ---
+FROM node:20-slim
+WORKDIR /app
+
+# Install only production dependencies
+COPY package*.json ./
+RUN npm install --omit=dev
+
+# Copy compiled backend
+COPY --from=backend-build /app/dist ./dist
+
+# Copy compiled frontend to the directory expected by the backend
+# backend/dist/index.js expects it at ../Front-End/dist
+COPY --from=frontend-build /app/Front-End/dist ./Front-End/dist
+
+# Expose production port
+EXPOSE 3000
+
+# Start the application
+CMD ["npm", "run", "start"]
