@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ClientForm } from '../components/ClientForm';
+import { api } from '../api/axios';
 
 /**
  * NewClient page component.
@@ -12,18 +13,12 @@ export const NewClient: React.FC = () => {
 
     const handleSubmit = async (data: any) => {
         try {
-            // API integration point
-            console.log("Submit data to API:", data);
-
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            // Success redirection
+            await api.post('/users/create', data);
             alert("Cliente registrado y turno asignado");
             navigate('/clients');
         } catch (err: any) {
             console.error(err);
-            alert("Hubo un error al registrar al cliente: " + err.message);
+            alert("Hubo un error al registrar al cliente: " + err.response?.data?.message || err.message);
         }
     };
 

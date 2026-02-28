@@ -64,7 +64,7 @@ RoutineRow.displayName = 'RoutineRow';
  */
 export const Routines: React.FC = () => {
     const [search, setSearch] = useState('');
-    const { data, loading, error, refetch } = useApi<Routine[]>('/routine');
+    const { data, loading, error, refetch } = useApi<Routine[]>('/routine/list');
 
     // rerender-derived-state-no-effect: filter during render, not in an effect
     const filtered = useMemo(() => {
@@ -76,7 +76,7 @@ export const Routines: React.FC = () => {
     const handleDelete = useCallback(async (id: number) => {
         if (!confirm('¿Eliminar esta rutina?')) return;
         try {
-            await api.delete(`/routine/${id}`);
+            await api.delete(`/routine/delete/${id}`);
             refetch();
         } catch {
             alert('Error al eliminar la rutina');

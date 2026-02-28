@@ -35,7 +35,7 @@ const InfoRow = ({ icon, label, value }: { icon: React.ReactNode; label: string;
 export const ClientDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { data: user, loading, error } = useApi<ClientInfo>(`/users/${id}`);
+    const { data: user, loading, error } = useApi<ClientInfo>(`/users/infoUser/${id}`);
 
     if (loading) return <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-secondary)' }}>Cargando información del cliente...</div>;
     if (error) return <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--error)' }}>{error}</div>;

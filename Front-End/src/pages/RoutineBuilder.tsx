@@ -39,9 +39,9 @@ export const RoutineBuilder: React.FC<Props> = ({ mode }) => {
     const navigate = useNavigate();
 
     // async-parallel: fetch exercises catalog in parallel with routine data
-    const { data: exercisesCatalog } = useApi<Exercise[]>('/exercise');
+    const { data: exercisesCatalog } = useApi<Exercise[]>('/exercise/exercise');
     const { data: existingRoutine, loading } = useApi<RoutineDetail>(
-        mode === 'edit' && id ? `/routine/${id}` : '__skip__'
+        mode === 'edit' && id ? `/routine/list/${id}` : '__skip__'
     );
 
     const [routineName, setRoutineName] = useState('');
@@ -83,9 +83,9 @@ export const RoutineBuilder: React.FC<Props> = ({ mode }) => {
         try {
             const payload = { rutina: routineName, exercises: rows };
             if (mode === 'edit' && id) {
-                await api.put(`/routine/${id}`, payload);
+                await api.put(`/routine/update/${id}`, payload);
             } else {
-                await api.post('/routine', payload);
+                await api.post('/routine/create', payload);
             }
             navigate('/routines');
         } catch (err: any) {

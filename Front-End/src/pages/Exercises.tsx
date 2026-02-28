@@ -43,7 +43,7 @@ ExerciseRow.displayName = 'ExerciseRow';
 
 export const Exercises: React.FC = () => {
     const [search, setSearch] = useState('');
-    const { data, loading, error, refetch } = useApi<Exercise[]>('/exercise');
+    const { data, loading, error, refetch } = useApi<Exercise[]>('/exercise/exercise');
 
     // rerender-derived-state-no-effect: computed during render, not in effect
     const filtered = useMemo(() => {
@@ -55,7 +55,7 @@ export const Exercises: React.FC = () => {
     const handleDelete = useCallback(async (id: number) => {
         if (!confirm('¿Eliminar este ejercicio?')) return;
         try {
-            await api.delete(`/exercise/${id}`);
+            await api.delete(`/exercise/delete/${id}`);
             refetch();
         } catch {
             alert('Error al eliminar el ejercicio');

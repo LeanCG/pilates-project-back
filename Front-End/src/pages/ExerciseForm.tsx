@@ -21,7 +21,7 @@ export const ExerciseForm: React.FC<Props> = ({ mode }) => {
     const [saving, setSaving] = useState(false);
 
     const { data } = useApi<Exercise>(
-        mode === 'edit' && id ? `/exercise/${id}` : '__skip__'
+        mode === 'edit' && id ? `/exercise/exercise` : '__skip__'
     );
 
     useEffect(() => {
@@ -33,9 +33,9 @@ export const ExerciseForm: React.FC<Props> = ({ mode }) => {
         setSaving(true);
         try {
             if (mode === 'edit' && id) {
-                await api.put(`/exercise/${id}`, { descripcion });
+                await api.put(`/exercise/update/${id}`, { descripcion });
             } else {
-                await api.post('/exercise', { descripcion });
+                await api.post('/exercise/create', { descripcion });
             }
             navigate('/exercises');
         } catch (err: any) {

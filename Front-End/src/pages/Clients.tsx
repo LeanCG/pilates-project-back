@@ -42,7 +42,7 @@ ClientRow.displayName = 'ClientRow';
  */
 export const Clients: React.FC = () => {
     const [search, setSearch] = useState('');
-    const { data, loading, error, refetch } = useApi<Client[]>('/users');
+    const { data, loading, error, refetch } = useApi<Client[]>('/users/list');
 
     const filtered = useMemo(() => {
         if (!data) return [];
@@ -56,7 +56,7 @@ export const Clients: React.FC = () => {
     const handleDelete = useCallback(async (id: number) => {
         if (!confirm('¿Dar de baja este cliente?')) return;
         try {
-            await api.delete(`/users/${id}`);
+            await api.delete(`/users/delete/${id}`);
             refetch();
         } catch {
             alert('Error al eliminar');

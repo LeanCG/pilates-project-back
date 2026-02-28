@@ -21,7 +21,7 @@ export const Accounting: React.FC = () => {
     const [search, setSearch] = useState('');
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
-    const { data, loading, error, refetch } = useApi<Movement[]>('/accounting');
+    const { data, loading, error, refetch } = useApi<Movement[]>('/accounting/balance');
 
     const filtered = useMemo(() => {
         if (!data) return [];

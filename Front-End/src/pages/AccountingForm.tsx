@@ -28,7 +28,7 @@ export const AccountingForm: React.FC = () => {
         e.preventDefault();
         setSaving(true);
         try {
-            await api.post('/api/accounting', {
+            await api.post('/accounting/movement', {
                 ...form,
                 monto: Number(form.monto),
                 descuento: Number(form.descuento),

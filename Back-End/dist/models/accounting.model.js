@@ -20,12 +20,12 @@ export class AccountingModel {
             cf.id,
             COALESCE(p.nombre, 'Venta') AS descripcion,
             cf.fecha_factura AS fecha,
-            CASE WHEN cf.tipo_factura IN (1, 3) THEN COALESCE(df.precio, 0) ELSE 0 END AS ingreso,
-            CASE WHEN cf.tipo_factura = 2 THEN COALESCE(df.precio, 0) ELSE 0 END AS egreso
+            COALESCE(df.precio, 0) AS ingreso,
+            0 AS egreso
         FROM cabecera_factura cf
         LEFT JOIN detalle_factura df ON cf.id = df.cabecera_factura_id
         LEFT JOIN persona p ON cf.comprador_id = p.id
-        WHERE cf.tipo_factura IN (1, 2, 3) OR cf.tipo_factura IS NULL
+        ORDER BY cf.fecha_factura DESC
         `;
         return query(sql);
     }

@@ -19,7 +19,7 @@ interface RoutineData {
 export const RoutineDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { data, loading, error } = useApi<RoutineData>(`/routine/${id}`);
+    const { data, loading, error } = useApi<RoutineData>(`/routine/list/${id}`);
 
     if (loading) return <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--text-secondary)' }}>Cargando rutina...</div>;
     if (error) return <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--error)' }}>{error}</div>;
