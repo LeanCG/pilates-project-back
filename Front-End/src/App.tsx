@@ -14,6 +14,12 @@ import { Exercises } from './pages/Exercises';
 import { ExerciseForm } from './pages/ExerciseForm';
 import { Accounting } from './pages/Accounting';
 import { AccountingForm } from './pages/AccountingForm';
+import { Employees } from './pages/Employees';
+import { EmployeeForm } from './pages/EmployeeForm';
+import { Shifts } from './pages/Shifts';
+import { ShiftForm } from './pages/ShiftForm';
+import { Reservations } from './pages/Reservations';
+import { MyProgress } from './pages/MyProgress';
 
 function App() {
   return (
@@ -46,6 +52,20 @@ function App() {
             {/* Accounting */}
             <Route path="/accounting" element={<Accounting />} />
             <Route path="/accounting/new" element={<AccountingForm />} />
+
+            {/* Employees */}
+            <Route path="/employees" element={<Employees />} />
+            <Route path="/employees/new" element={<EmployeeForm />} />
+            <Route path="/employees/:id/edit" element={<EmployeeForm />} />
+
+            {/* Shifts */}
+            <Route path="/shifts" element={<Shifts />} />
+            <Route path="/shifts/new" element={<ShiftForm />} />
+            <Route path="/shifts/:id/edit" element={<ShiftForm />} />
+
+            {/* Self service */}
+            <Route path="/my-reservations" element={<Reservations />} />
+            <Route path="/my-progress" element={<MyProgress />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

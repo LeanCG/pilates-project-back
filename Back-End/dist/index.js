@@ -7,6 +7,12 @@ import municipioRoutes from './routes/municipioRoutes.js';
 import rolRoutes from './routes/rolRoutes.js';
 import accountingRoutes from './routes/accountingRoutes.js';
 import dashboard from './routes/dashboardRoutes.js';
+import employeeRoutes from './routes/employeeRoutes.js';
+import shiftRoutes from './routes/shiftRoutes.js';
+import reservationRoutes from './routes/reservationRoutes.js';
+import planRoutes from './routes/planRoutes.js';
+import progressRoutes from './routes/progressRoutes.js';
+import debtRoutes from './routes/debtRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
@@ -14,6 +20,7 @@ import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './swagger.js';
 import fs from 'fs';
+import { RecargoService } from './services/recargo.service.js';
 // Crear una instancia de Express
 const app = express();
 // Obtener el directorio actual
@@ -41,6 +48,12 @@ app.use((req, res, next) => {
 app.use('/api/accounting', accountingRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/users', rolRoutes);
+app.use('/api/employees', employeeRoutes);
+app.use('/api/shifts', shiftRoutes);
+app.use('/api/reservations', reservationRoutes);
+app.use('/api/plans', planRoutes);
+app.use('/api', progressRoutes);
+app.use('/api', debtRoutes);
 app.use('/api/exercise', exerciseRoutes);
 app.use('/api/routine', routineRoutes);
 app.use('/api', municipioRoutes);
@@ -70,4 +83,5 @@ app.get('*', (req, res) => {
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    RecargoService.startScheduler();
 });

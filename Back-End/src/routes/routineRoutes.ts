@@ -1,5 +1,7 @@
 import express from "express";
 import { getRoutines, createRoutine, deleteRoutine, updateRoutine, getRoutineId } from "../controllers/routine.js";
+import { RoutineAssignController } from "../controllers/routineAssignController.js";
+import { authenticate, authorize } from "../middlewares/auth.js";
 
 const router = express.Router();
 
@@ -21,7 +23,7 @@ const router = express.Router();
  *       500:
  *         description: Error interno del servidor
  */
-router.get("/list", getRoutines);
+router.get("/list", authenticate, getRoutines);
 
 /**
  * @swagger
@@ -41,7 +43,7 @@ router.get("/list", getRoutines);
  *       500:
  *         description: Error interno del servidor
  */
-router.post("/create", createRoutine);
+router.post("/create", authenticate, authorize("admin", "instructor"), createRoutine);
 
 /**
  * @swagger
@@ -62,7 +64,7 @@ router.post("/create", createRoutine);
  *       500:
  *         description: Error interno del servidor
  */
-router.delete("/delete/:id", deleteRoutine);
+router.delete("/delete/:id", authenticate, authorize("admin", "instructor"), deleteRoutine);
 
 /**
  * @swagger
@@ -89,7 +91,7 @@ router.delete("/delete/:id", deleteRoutine);
  *       500:
  *         description: Error interno del servidor
  */
-router.put("/update/:id", updateRoutine);
+router.put("/update/:id", authenticate, authorize("admin", "instructor"), updateRoutine);
 
 /**
  * @swagger
@@ -114,6 +116,95 @@ router.put("/update/:id", updateRoutine);
  *       500:
  *         description: Error interno del servidor
  */
-router.get("/list/:id", getRoutineId);
+router.get("/list/:id", authenticate, getRoutineId);
+
+/**
+ * @swagger
+ * /api/routine/assign:
+ *   post:
+ *     summary: Asignar una rutina a un cliente
+ *     tags: [Routines]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               cliente_id:
+ *                 type: integer
+ *               rutina_id:
+ *                 type: integer
+ *               observaciones:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Rutina asignada exitosamente
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.post("/assign", authenticate, authorize("admin", "instructor"), RoutineAssignController.assignRoutine);
+
+/**
+ * @swagger
+ * /api/routine/my-routines:
+ *   get:
+ *     summary: Obtener las rutinas asignadas al cliente actual
+ *     tags: [Routines]
+ *     responses:
+ *       200:
+ *         description: Lista de rutinas asignadas
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.get("/my-routines", authenticate, RoutineAssignController.getMyRoutines);
+
+/**
+ * @swagger
+ * /api/routine/my-routines/active:
+ *   get:
+ *     summary: Obtener la rutina activa del cliente actual
+ *     tags: [Routines]
+ *     responses:
+ *       200:
+ *         description: Rutina activa
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.get("/my-routines/active", authenticate, RoutineAssignController.getMyActiveRoutine);
+
+/**
+ * @swagger
+ * /api/routine/assign/list:
+ *   get:
+ *     summary: Listar todas las asignaciones de rutinas
+ *     tags: [Routines]
+ *     responses:
+ *       200:
+ *         description: Lista de asignaciones
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.get("/assign/list", authenticate, authorize("admin", "instructor"), RoutineAssignController.getAllAssignments);
+
+/**
+ * @swagger
+ * /api/routine/assign/{id}/deactivate:
+ *   put:
+ *     summary: Desactivar una asignación de rutina
+ *     tags: [Routines]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Asignación desactivada
+ *       500:
+ *         description: Error interno del servidor
+ */
+router.put("/assign/:id/deactivate", authenticate, authorize("admin", "instructor"), RoutineAssignController.deactivateAssignment);
 
 export default router;

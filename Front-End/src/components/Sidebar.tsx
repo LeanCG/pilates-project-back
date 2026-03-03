@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, ClipboardList, Dumbbell, Wallet, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, ClipboardList, Dumbbell, Wallet, LogOut, CalendarClock, CalendarCheck, Activity } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
   const navigate = useNavigate();
@@ -14,6 +14,10 @@ export const Sidebar: React.FC = () => {
   const menuItems = [
     { path: '/', icon: <LayoutDashboard size={20} />, label: 'Inicio' },
     { path: '/clients', icon: <Users size={20} />, label: 'Clientes' },
+    { path: '/employees', icon: <Users size={20} />, label: 'Empleados' },
+    { path: '/shifts', icon: <CalendarClock size={20} />, label: 'Turnos' },
+    { path: '/my-reservations', icon: <CalendarCheck size={20} />, label: 'Reservas' },
+    { path: '/my-progress', icon: <Activity size={20} />, label: 'Mi Progreso' },
     { path: '/routines', icon: <ClipboardList size={20} />, label: 'Rutinas' },
     { path: '/exercises', icon: <Dumbbell size={20} />, label: 'Ejercicios' },
     { path: '/accounting', icon: <Wallet size={20} />, label: 'Caja' },
